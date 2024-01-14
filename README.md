@@ -6,5 +6,5 @@ Asks what files should be sourced and whether you want to install tmux/vim confi
 ```bash
     git clone https://github.com/valiantlynx/dotfiles.git
     cd dotfiles
-    ./install.sh
+    sudo ./install.sh
 ```
