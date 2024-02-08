@@ -1,0 +1,48 @@
+---
+- name: "Nala | Detecting Installed Nala"
+  ansible.builtin.command:
+    cmd: which nala
+  changed_when: false
+  register: nala_cmd
+  failed_when: false
+
+- name: "Nala | Register nala status installed"
+  ansible.builtin.set_fact:
+    nala_is_installed: true
+  when: nala_cmd.stdout|length > 0
+
+- name: "Nala | Register nala status not installed"
+  ansible.builtin.set_fact:
+    nala_is_installed: false
+  when: nala_cmd.stdout|length == 0
+
+- name: "Nala | Install Nala APT Repo"
+  block:
+    - name: "Nala | Add nala repo gpg key"
+      apt_key:
+        url: "https://deb.volian.org/volian/scar.key"
+        keyring: /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg
+        state: present
+
+    - name: "Nala | Add nala repository source"
+      apt_repository:
+        repo: "deb [arch=amd64,arm64,armhf] http://deb.volian.org/volian/ scar main"
+        state: present
+
+  become: true
+  when: not nala_is_installed
+
+- name: "Nala | Install Nala"
+  ansible.builtin.apt:
+    name: nala
+    state: present
+  become: true
+  when: ansible_distribution_major_version == "22"
+
+- name: "Nala | Install Nala-legacy"
+  apt:
+    name: nala-legacy
+    state: present
+    update_cache: true
+  become: true
+  when: ansible_distribution_major_version == "20"

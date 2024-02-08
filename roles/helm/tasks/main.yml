@@ -1,0 +1,11 @@
+---
+- name: Run Ubuntu Tasks
+  ansible.builtin.import_tasks: ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Helm | Add Helm Repos
+  kubernetes.core.helm_repository:
+    name: "{{ item.name }}"
+    url: "{{ item.url }}"
+    repo_state: present
+  loop: "{{ helm.repos }}"

@@ -1,0 +1,14 @@
+---
+- name: Detect WSL
+  ansible.builtin.shell: |
+    if [[ $(cat /proc/version | grep microsoft.*WSL) ]]; then
+      echo true
+    fi
+  register: ansible_host_environment_is_wsl
+  args:
+    executable: /bin/bash
+  ignore_errors: true
+  changed_when: false
+- name: Register WSL State fact
+  ansible.builtin.set_fact:
+    ansible_host_environment_is_wsl: "{{ ansible_host_environment_is_wsl.stdout }}"
