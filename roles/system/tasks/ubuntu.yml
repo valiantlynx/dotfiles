@@ -13,6 +13,7 @@
     name:
       - jq
       - open-iscsi
+      - unzip  # Add unzip to the list of packages to install
     state: present
   become: true
 
