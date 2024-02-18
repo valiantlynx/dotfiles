@@ -1,4 +1,15 @@
 ---
+- name: Check if running in Docker
+  stat:
+    path: /.dockerenv
+  register: in_docker
+
+- name: Check if running in WSL
+  shell: grep -qi microsoft /proc/version
+  register: in_wsl
+  ignore_errors: yes
+  changed_when: false
+
 - name: Configure Windows PowerShell ExecutionPolicy
   ansible.builtin.shell: |
     Set-ExecutionPolicy RemoteSigned -Force -Scope CurrentUser
@@ -8,3 +19,8 @@
   changed_when: ps_exec_result.stdout != 'True'
   args:
     executable: powershell.exe
+  when: in_docker.stat.exists == false and in_wsl.stdout == "" # Adjusted condition
+
+- name: Display environment detection result
+  ansible.builtin.debug:
+    msg: "Running in Docker: {{ in_docker.stat.exists }}, Running in WSL: {{ in_wsl.stdout != '' }}"
