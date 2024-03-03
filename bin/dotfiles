@@ -131,7 +131,7 @@ fi
 # Clone repository
 if ! [[ -d "$DOTFILES_DIR" ]]; then
     _task "Cloning repository"
-        _cmd "git clone --quiet https://github.com/TechDufus/dotfiles.git $DOTFILES_DIR"
+        _cmd "git clone --quiet https://github.com/valiantlynx/dotfiles.git $DOTFILES_DIR"
 else
     _task "Updating repository"
         _cmd "git -C $DOTFILES_DIR pull --quiet"
