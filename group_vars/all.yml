@@ -1,7 +1,5 @@
 default_roles:
   - system
-  - 1password
-  # - alacritty
   - asciiquarium
   - bash
   - bat
@@ -29,7 +27,7 @@ default_roles:
   - tmate
   - tmux
   - zellij
-  # - spotify
+  - spotify
   - zoxide
 
 git_user_name: "valiantlynx"
