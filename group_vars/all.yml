@@ -1,27 +1,28 @@
 default_roles:
-  - system
+# bash,docker,git,nala,npm,pwsh,ssh
+  - system 
   - asciiquarium
-  - bash
+  #- bash
   - bat
-  - docker
+  #- docker
   - fonts
   - fzf
-  - git
+ # - git
   - go
   - helm
   - k8s
   - k9s
   - lazygit
   - lua
-  - nala
+ # - nala
   - neovim
-  - npm
+  #- npm
   - nvm
-  - pwsh
+  #- pwsh
   - python
   - ruby
   - rust
-  - ssh
+ # - ssh
   - sshfs
   - terraform
   - tmate
