@@ -8,3 +8,4 @@
   changed_when: ps_exec_result.stdout != 'True'
   args:
     executable: powershell.exe
+  when: ansible_host_environment_is_wsl or ansible_host_environment_is_windows
