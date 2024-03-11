@@ -9,3 +9,4 @@
   args:
     executable: powershell.exe
   when: ansible_host_environment_is_wsl or ansible_host_environment_is_windows
+
