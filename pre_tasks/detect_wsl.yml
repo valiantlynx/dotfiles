@@ -1,8 +1,12 @@
 ---
 - name: Detect WSL
   ansible.builtin.shell: |
-    if [[ $(cat /proc/version | grep -i microsoft.*WSL) ]]; then
-      echo true
+    if [[ $(grep -i microsoft /proc/version) ]] || [[ $(grep -i wsl /proc/version) ]]; then
+      if [ -n "$WSL_DISTRO_NAME" ] || [ -n "$WSLENV" ]; then
+        echo true
+      else
+        echo false
+      fi
     else
       echo false
     fi
@@ -11,6 +15,7 @@
     executable: /bin/bash
   ignore_errors: true
   changed_when: false
+
 
 - name: Register WSL State fact
   ansible.builtin.set_fact:
