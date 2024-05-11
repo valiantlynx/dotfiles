@@ -16,16 +16,16 @@ The `all.yaml` file allows you to personalize your setup to your needs. This fil
 
 Below is a list of all available values. Not all are required but incorrect values will break the playbook if not properly set.
 
-| Name                  | Type                                | Required |
-| --------------------- | ----------------------------------- | -------- |
-| git_user_email        | string                              | yes      |
-| git_user_name         | string                              | yes      |
-| exclude_roles         | array `(see group_vars/all)`        | no       |
-| ssh_key               | dict `(see SSH Keys below)`         | no       |
-| system_host           | dict `(see System Hosts below)`     | no       |
-| bash_public           | dict `(see Environment below)`      | no       |
-| bash_private          | dict `(see Environment below)`      | no       |
 
+| Name           | Type                           | Required |
+| -------------- | ------------------------------ | -------- |
+| git_user_email | string                         | yes      |
+| git_user_name  | string                         | yes      |
+| exclude_roles  | array`(see group_vars/all)`    | no       |
+| ssh_key        | dict`(see SSH Keys below)`     | no       |
+| system_host    | dict`(see System Hosts below)` | no       |
+| bash_public    | dict`(see Environment below)`  | no       |
+| bash_private   | dict`(see Environment below)`  | no       |
 
 #### Environment
 
@@ -166,6 +166,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/mai
 ```
 
 If you want to run only a specific role, you can specify the following bash command:
+
 ```bash
 curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles | bash -s -- --tags bash,docker,git,nala,npm,pwsh,ssh  
 ```
@@ -193,23 +194,31 @@ This `dotfiles` command is available to you after the first use of this repo, as
 Any flags or arguments you pass to the `dotfiles` command are passed as-is to the `ansible-playbook` command.
 
 For Example: Running the tmux tag with verbosity
+
 ```bash
 dotfiles -t tmux -vvv
 ```
 
 ## bonus for myself
+
 for connecting  this project to a monorepo
+
 ### make a brach on the main repo named the same as the monorepo
+
 ### add this as a subtree to the main repo
+
 ```bash
 git subtree add --prefix=packages/scripts/dotfiles https://github.com/valiantlynx/dotfiles.git main --squash
 ```
+
 ### pull the subtree
+
 ```bash
 git subtree pull --prefix=packages/scripts/dotfiles https://github.com/valiantlynx/dotfiles.git main --squash
 ```
 
 ### push the subtree
+
 ```bash
 git subtree push --prefix=packages/scripts/dotfiles https://github.com/valiantlynx/dotfiles.git main
 
