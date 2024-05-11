@@ -7,7 +7,6 @@ default_roles:
   - fzf
   - git
   - go
-  - helm
   - lazygit
   - lua
   - neovim

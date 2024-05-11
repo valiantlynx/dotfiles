@@ -100,7 +100,7 @@ if ! dpkg -s ansible >/dev/null 2>&1; then
         _cmd "sudo apt-get update"
         _cmd "sudo apt-get install -y ansible"
         _cmd "sudo apt-get install python3-argcomplete"
-        _cmd "sudo activate-global-python-argcomplete3"
+        _cmd "sudo activate-global-python-argcomplete"
 fi
 
 # Check if python3 and pip is installed
@@ -143,7 +143,7 @@ _task "Updating Galaxy"
 
 _task "Running playbook"; _task_done
 if [[ -f $VAULT_SECRET ]]; then
-    ansible-playbook --vault-password-file $VAULT_SECRET "$DOTFILES_DIR/main.yml" "$@"
+    ansible-playbook --diff --vault-password-file $VAULT_SECRET "$DOTFILES_DIR/main.yml" "$@"
 else
     ansible-playbook "$DOTFILES_DIR/main.yml" "$@"
 fi
