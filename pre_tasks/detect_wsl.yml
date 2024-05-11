@@ -16,7 +16,6 @@
   ignore_errors: true
   changed_when: false
 
-
 - name: Register WSL State fact
   ansible.builtin.set_fact:
     ansible_host_environment_is_wsl: "{{ wsl_detection_result.stdout == 'true' }}"
@@ -37,3 +36,20 @@
 - name: Register Native Windows State fact
   ansible.builtin.set_fact:
     ansible_host_environment_is_windows: "{{ windows_detection_result.stdout == 'true' }}"
+
+- name: Detect Ubuntu OS
+  ansible.builtin.shell: |
+    if [[ $(grep -i ubuntu /etc/os-release) ]]; then
+      echo true
+    else
+      echo false
+    fi
+  register: ubuntu_detection_result
+  changed_when: false
+  failed_when: false
+  args:
+    executable: /bin/bash
+
+- name: Register Ubuntu State fact
+  ansible.builtin.set_fact:
+    ansible_host_environment_is_ubuntu: "{{ ubuntu_detection_result.stdout == 'true' }}"
