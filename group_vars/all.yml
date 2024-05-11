@@ -12,7 +12,6 @@ default_roles:
   - neovim
   - npm
   - nvm
-  - pwsh
   - python
   - ssh
   - sshfs
