@@ -18,7 +18,6 @@ default_roles:
   - tmate
   - tmux
   - zellij
-  - spotify
 
 git_user_name: "valiantlynx"
 git_user_email: !vault |
