@@ -67,7 +67,7 @@
     dest: "{{ ansible_user_dir }}/.config/bash/.bash_private"
     src: ".bash_private.j2"
     mode: "0644"
-  no_log: true
+  no_log: false
 
 - name: "Bash | Copy Private Files"
   ansible.builtin.lineinfile:
