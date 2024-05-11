@@ -99,8 +99,6 @@ if ! dpkg -s ansible >/dev/null 2>&1; then
         _cmd "sudo apt-add-repository -y ppa:ansible/ansible"
         _cmd "sudo apt-get update"
         _cmd "sudo apt-get install -y ansible"
-        _cmd "sudo apt-get install python3-argcomplete"
-        _cmd "sudo activate-global-python-argcomplete"
 fi
 
 # Check if python3 and pip is installed
@@ -112,12 +110,6 @@ if ! dpkg -s python3-pip >/dev/null 2>&1; then
     _task "Installing Python3 Pip"
         _cmd "sudo apt-get install -y python3-pip"
 fi
-# Check if pip module watchdog is installed
-if ! pip3 list | grep watchdog >/dev/null 2>&1; then
-    _task "Installing Python3 Watchdog"
-        _cmd "pip3 install watchdog"
-fi
-
 
 # Generate SSH keys
 if ! [[ -f "$SSH_DIR/authorized_keys" ]]; then
