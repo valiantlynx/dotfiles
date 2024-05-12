@@ -70,6 +70,7 @@
   no_log: false
 
 - name: "Bash | Copy Private Files"
+  when: bash_private
   ansible.builtin.lineinfile:
     name: "~/.openai.apikey"
     line: "{{ bash_private.OPENAI_KEY }}"
