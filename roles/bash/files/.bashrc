@@ -107,7 +107,6 @@ plugins=(
   git
   goenv
   golang
-  kubectl
   progress
   xterm
   zoxide
