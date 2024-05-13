@@ -8,6 +8,11 @@
   ansible.builtin.apt_repository:
     repo: "deb https://apt.kubernetes.io/ kubernetes-xenial main"
   become: true
+  register: repo_result
+
+- name: Debug repo addition
+  ansible.builtin.debug:
+    var: repo_result
 
 - name: K8s | Installing Kubernetes
   ansible.builtin.apt:
