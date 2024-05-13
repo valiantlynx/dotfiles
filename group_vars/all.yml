@@ -1,5 +1,5 @@
 default_roles:
-    - system
+  - system
   - 1password
   # - alacritty
   - asciiquarium
