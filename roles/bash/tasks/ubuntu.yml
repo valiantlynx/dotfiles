@@ -16,6 +16,7 @@
   when: not ohmybash_is_installed
   block:
     - name: "Bash | Download oh-my-bash Install Script"
+      become: true
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh
         dest: /{{ ansible_user_dir }}/oh-my-bash.install.sh
