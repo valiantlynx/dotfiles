@@ -1,1 +1,5 @@
----
+# ---
+# - name: "Neovim | Arch | Install Neovim Nightly"
+#   kewlfft.aur.aur:
+#     name: neovim-git
+#     state: present
