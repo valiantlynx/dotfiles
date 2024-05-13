@@ -15,4 +15,4 @@
 
 - name: DEBUG
   ansible.builtin.debug:
-    msg: "host_user: {{ wsl_host_user }}"
+    msg: "host_user: {{ host_user }}"
