@@ -5,7 +5,7 @@
 
 - name: Run Arch Tasks
   ansible.builtin.import_tasks: Archlinux.yml
-  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Arch'
+  when: ansible_os_family == 'Archlinux'
 
 - name: "System | Set sudo"
   ansible.builtin.template:
