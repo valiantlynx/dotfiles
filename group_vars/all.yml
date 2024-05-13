@@ -12,7 +12,6 @@ default_roles:
   - git
   - go
   - helm
-  - k8s
   - k9s
   - lazygit
   - lsd
