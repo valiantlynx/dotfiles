@@ -21,24 +21,17 @@
     ansible_host_environment_is_wsl: "{{ wsl_detection_result.stdout == 'true' }}"
 
 - name: Detect Native Windows
-  ansible.builtin.shell: |
-    if (Test-Path C:\Windows\System32)
-    {
-      echo "true"
-    }
-    else
-    {
-      echo "false"
-    }
-  register: windows_detection_result
-  args:
+  ansible.builtin.shell:
+    cmd: Test-Path C:\Windows\System32
     executable: powershell.exe
+  register: windows_detection_result
   ignore_errors: true
   changed_when: false
 
 - name: Register Native Windows State fact
   ansible.builtin.set_fact:
-    ansible_host_environment_is_windows: "{{ windows_detection_result.stdout.strip() == 'true' }}"
+    ansible_host_environment_is_windows: "{{ windows_detection_result.rc == 0 and not ansible_host_environment_is_wsl }}"
+
 
 - name: Detect Ubuntu OS
   ansible.builtin.shell: |

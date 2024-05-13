@@ -10,7 +10,7 @@
       tags:
         - always
 
-    - name: Detect wsl
+    - name: Detect wsl variable
       ansible.builtin.debug:
         var: ansible_host_environment_is_wsl
       tags:
@@ -23,21 +23,14 @@
         - always
 
     - name: Detect Host User
-      ansible.builtin.import_tasks: pre_tasks/whoami_wsl.yml
-      when: ansible_host_environment_is_wsl or ansible_host_environment_is_windows
-      tags:
-        - always
-
-    - name: Detect Host User for Linux
       ansible.builtin.import_tasks: pre_tasks/whoami.yml
-      when: not (ansible_host_environment_is_wsl or ansible_host_environment_is_windows)
       tags:
         - always
 
   tasks:
-    - name: Display Detected OS Information
+    - name: Display roles and environment info
       ansible.builtin.debug:
-        msg: "Running on WSL: {{ ansible_host_environment_is_wsl }}, Windows: {{ ansible_host_environment_is_windows }}, Ubuntu: {{ ansible_host_environment_is_ubuntu }}"
+        msg: "Running on WSL: {{ ansible_host_environment_is_wsl }}, Windows: {{ ansible_host_environment_is_windows }}, Ubuntu: {{ ansible_host_environment_is_ubuntu }} | Roles: {{ run_roles }}"
 
     - name: Set roles 
       ansible.builtin.set_fact:

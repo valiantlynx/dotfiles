@@ -1,12 +1,13 @@
----
-- name: Configure Windows PowerShell ExecutionPolicy
-  ansible.builtin.shell: |
-    Set-ExecutionPolicy RemoteSigned -Force -Scope CurrentUser
-    $CurrentPolicy = Get-ExecutionPolicy
-    Write-Host ($CurrentPolicy -eq 'RemoteSigned')
-  register: ps_exec_result
-  changed_when: ps_exec_result.stdout != 'True'
-  args:
+- name: Check Current PowerShell Execution Policy
+  ansible.builtin.shell:
+    cmd: Get-ExecutionPolicy
     executable: powershell.exe
-  when: ansible_host_environment_is_wsl or ansible_host_environment_is_windows
+  register: current_policy
+  failed_when: current_policy.rc != 0
+  changed_when: false
 
+- name: Set PowerShell Execution Policy if not already set
+  ansible.builtin.shell:
+    cmd: Set-ExecutionPolicy RemoteSigned -Force -Scope CurrentUser
+    executable: powershell.exe
+  when: "'RemoteSigned' not in current_policy.stdout"

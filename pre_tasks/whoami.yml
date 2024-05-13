@@ -1,5 +1,17 @@
----
-- name: Register Current User
+- name: Detect and Register Current User Across Environments
+  ansible.builtin.shell:
+    cmd: "{{ 'echo $env:UserName' if ansible_host_environment_is_windows else 'echo $USER' }}"
+    executable: "{{ 'powershell.exe' if ansible_host_environment_is_windows else '/bin/bash' }}"
+  register: detected_user
+  ignore_errors: true
+  changed_when: false
+
+- name: Register Host User
   ansible.builtin.set_fact:
-    host_user: "{{ ansible_env['USER']}}"
+    host_user: "{{ detected_user.stdout.strip() }}"
   when: host_user is not defined
+
+
+- name: DEBUG
+  ansible.builtin.debug:
+    msg: "host_user: {{ host_user }}"
