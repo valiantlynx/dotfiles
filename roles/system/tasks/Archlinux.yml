@@ -1,0 +1,15 @@
+---
+- name: "System | Arch | Update pacman"
+  community.general.pacman:
+    update_cache: true
+    upgrade: true
+    state: latest
+  become: true
+
+- name: "System | Arch | Install"
+  community.general.pacman:
+    name:
+      - jq
+      - open-iscsi
+    state: present
+  become: true

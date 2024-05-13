@@ -1,0 +1,6 @@
+---
+- name: "Terraform | Arch | Install Terraform"
+  community.general.pacman:
+    name: terraform
+    state: present
+  become: true

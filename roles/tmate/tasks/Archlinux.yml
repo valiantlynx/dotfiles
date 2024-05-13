@@ -1,0 +1,6 @@
+---
+- name: "Tmate | Arch | Install Tmate"
+  community.general.pacman:
+    name: tmate
+    state: present
+  become: true

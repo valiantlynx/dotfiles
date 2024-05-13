@@ -1,0 +1,20 @@
+---
+- name: Run Ubuntu Tasks
+  ansible.builtin.import_tasks: ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Run Arch Tasks
+  ansible.builtin.import_tasks: Archlinux.yml
+  when: ansible_os_family == 'Archlinux' or ansible_os_family == 'Arch'
+
+- name: "Neofetch | Ensure .config directory exists"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/neofetch"
+    state: directory
+    mode: "0755"
+
+- name: "Neofetch | Copy config file"
+  ansible.builtin.copy:
+    src: config
+    dest: "{{ ansible_user_dir }}/.config/neofetch/config"
+    mode: "0644"
