@@ -28,19 +28,15 @@
         - always
 
   tasks:
-    - name: Display roles and environment info
-      ansible.builtin.debug:
-        msg: "Running on WSL: {{ ansible_host_environment_is_wsl }}, Windows: {{ ansible_host_environment_is_windows }}, Ubuntu: {{ ansible_host_environment_is_ubuntu }} | Roles: {{ run_roles }}"
-
     - name: Set roles 
       ansible.builtin.set_fact:
         run_roles: "{{ ansible_run_tags != ['all'] and ansible_run_tags or default_roles | difference(exclude_roles | default([])) }}"
       tags:
         - always
 
-    - name: Display roles
+    - name: Display roles and environment info
       ansible.builtin.debug:
-        var: run_roles
+        msg: "Running on WSL: {{ ansible_host_environment_is_wsl }}, Windows: {{ ansible_host_environment_is_windows }}, Ubuntu: {{ ansible_host_environment_is_ubuntu }} | Roles: {{ run_roles }}"
       tags:
         - always
 
