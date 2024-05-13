@@ -78,11 +78,9 @@ completions=(
   gh
   go
   helm
-  kubectl
   ssh
   system
   terraform
-  kubectl
   tmux
   vault
 )
