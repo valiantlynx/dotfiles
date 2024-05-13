@@ -1,24 +1,42 @@
 default_roles:
-  - system
+    - system
+  - 1password
+  # - alacritty
+  - asciiquarium
   - bash
   - bat
   - docker
+  - flatpak
   - fonts
   - fzf
   - git
   - go
+  - helm
+  - k8s
+  - k9s
   - lazygit
+  - lsd
   - lua
+  - nala
+  - neofetch
   - neovim
   - npm
   - nvm
+  - obsidian
+  - pwsh
+  - python
+  - ruby
+  - rust
   - ssh
   - sshfs
   - terraform
+  - tldr
   - tmate
   - tmux
   - zellij
-  - python
+  # - spotify
+  - zoxide
+  
 
 git_user_name: "valiantlynx"
 git_user_email: !vault | 
