@@ -16,21 +16,21 @@
     nala_is_installed: false
   when: nala_cmd.stdout|length == 0
 
-- name: "Nala | Install Nala APT Repo"
-  block:
-    - name: "Nala | Add nala repo gpg key"
-      apt_key:
-        url: "https://deb.volian.org/volian/dists/scar/Release.gpg"
-        keyring: /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg
-        state: present
+# - name: "Nala | Install Nala APT Repo"
+#   block:
+#     - name: "Nala | Add nala repo gpg key"
+#       apt_key:
+#         url: "https://deb.volian.org/volian/dists/scar/Release.gpg"
+#         keyring: /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg
+#         state: present
 
-    - name: "Nala | Add nala repository source"
-      apt_repository:
-        repo: "deb [arch=amd64,arm64,armhf] http://deb.volian.org/volian/ scar main"
-        state: present
+#     - name: "Nala | Add nala repository source"
+#       apt_repository:
+#         repo: "deb [arch=amd64,arm64,armhf] http://deb.volian.org/volian/ scar main"
+#         state: present
 
-  become: true
-  when: not nala_is_installed
+#   become: true
+#   when: not nala_is_installed
 
 - name: "Nala | Install Nala"
   ansible.builtin.apt:
