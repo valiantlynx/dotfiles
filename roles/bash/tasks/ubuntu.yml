@@ -19,7 +19,7 @@
       become: true
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh
-        dest: /{{ ansible_user_dir }}/oh-my-bash.install.sh
+        dest: "{{ ansible_user_dir }}/oh-my-bash.install.sh"
         force: true
         mode: 755
       notify:
@@ -28,7 +28,7 @@
     - name: "Bash | Run the install script"
       become: true
       ansible.builtin.script:
-        cmd: /{{ ansible_user_dir }}/oh-my-bash.install.sh
+        cmd: "{{ ansible_user_dir }}/oh-my-bash.install.sh"
 
 - name: "Bash | Copy .bashrc"
   ansible.builtin.copy:
