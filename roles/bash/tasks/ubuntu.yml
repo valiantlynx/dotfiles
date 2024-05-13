@@ -16,24 +16,17 @@
   when: not ohmybash_is_installed
   block:
     - name: "Bash | Download oh-my-bash Install Script"
-      become: true
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh
-        dest: "{{ ansible_user_dir }}/oh-my-bash.install.sh"
+        dest: /{{ ansible_user_dir }}/oh-my-bash.install.sh
         force: true
-        mode: 0755
+        mode: "0755"
       notify:
         - "Bash | Cleanup oh-my-bash install script"
 
-    
-    - name: "Bash | Give script execute permissions"
-      become: true
-      ansible.builtin.command:
-        cmd: chmod +x "{{ ansible_user_dir }}/oh-my-bash.install.sh"
-        
     - name: "Bash | Run the install script"
       ansible.builtin.script:
-        cmd: "{{ ansible_user_dir }}/oh-my-bash.install.sh"
+        cmd: /{{ ansible_user_dir }}/oh-my-bash.install.sh
 
 - name: "Bash | Copy .bashrc"
   ansible.builtin.copy:
