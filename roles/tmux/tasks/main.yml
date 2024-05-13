@@ -1,5 +1,4 @@
 ---
----
 - name: "tmux | Install TPM"
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
