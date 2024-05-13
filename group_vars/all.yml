@@ -41,12 +41,11 @@ git_user_email: !vault |
 #     63623261303331373361363462383363396263653732613730393433306263343764303462346634
 #     303065356531623266636561386337316533
 
+flatpak_packages:
+  - md.obsidian.Obsidian
+
 k8s:
-  package_versions:
-    default:
-      - name: kubectl
-      - name: kubelet
-      - name: kubeadm
+  repo_version: "v1.26"
 
 helm:
   repos:

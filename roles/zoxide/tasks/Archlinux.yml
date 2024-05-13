@@ -1,0 +1,6 @@
+---
+- name: "Zoxide | Arch | Install Zoxide"
+  community.general.pacman:
+    name: zoxide
+    state: present
+  become: true

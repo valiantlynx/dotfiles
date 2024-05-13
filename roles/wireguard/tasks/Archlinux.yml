@@ -1,0 +1,6 @@
+---
+- name: "Wireguard | Arch | Install Wireguard"
+  community.general.pacman:
+    name: wireguard-tools
+    state: present
+  become: true

@@ -1,0 +1,6 @@
+---
+- name: "Spotify | Arch | Install Spotify"
+  community.general.pacman:
+    name: spotify-launcher
+    state: present
+  become: true
