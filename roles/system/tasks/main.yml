@@ -1,4 +1,8 @@
 ---
+- name: DEBUG ansible_env
+  ansible.builtin.debug:
+    msg: "host_user: {{ ansible_env }}"
+
 - name: Run Ubuntu Tasks
   ansible.builtin.import_tasks: ubuntu.yml
   when: ansible_os_family == 'Debian'
