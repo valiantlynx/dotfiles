@@ -7,7 +7,7 @@
 print_info() {
     info title
     info underline
-    prin "Weather" "$(curl https://wttr.in/lincoln?format=4)"
+    prin "Weather" "$(curl https://wttr.in/grimstad?format=4)"
     prin "$(color 12)╭──────────── $(color 10)Software$(color 12) ────────────"
     info "$(color 12)│ $(color 14)OS" distro
     info "$(color 12)│ $(color 14)Kernel" kernel
