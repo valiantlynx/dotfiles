@@ -12,6 +12,7 @@
   ansible.builtin.pip:
     name: "{{ item }}"
     state: present
+    executable: pip3
   loop:
     - bpytop
     - shell-gpt==0.9.0
