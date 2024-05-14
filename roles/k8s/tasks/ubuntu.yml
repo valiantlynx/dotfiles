@@ -16,17 +16,23 @@
     mode: '0755'
   become: true
 
+- name: Check if kubectl is installed
+  ansible.builtin.command: which kubectl
+  register: kubectl_check
+  ignore_errors: true
+
 - name: K8s | Add Kubernetes apt key and repository
   ansible.builtin.shell: |
     curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
     echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list
   become: true
-  force: true
+  when: kubectl_check.rc != 0
 
 - name: K8s | Update apt package index
   ansible.builtin.apt:
     update_cache: yes
   become: true
+  when: kubectl_check.rc != 0
 
 - name: K8s | Install kubectl
   ansible.builtin.apt:
