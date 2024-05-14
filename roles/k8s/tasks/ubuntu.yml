@@ -20,14 +20,19 @@
     url: https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key
     dest: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
     mode: '0644'
+    force: yes
   become: true
 
-- name: K8s | Convert the signing key to GPG format
-  ansible.builtin.command:
-    cmd: gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+- name: Debug keyring file
+  ansible.builtin.stat:
+    path: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
   become: true
-  ignore_errors: true  # To handle the case if the key is already in GPG format
+  register: keyring_file
 
+- name: Print keyring file details
+  ansible.builtin.debug:
+    var: keyring_file
+    
 - name: K8s | Add Kubernetes apt repository
   ansible.builtin.apt_repository:
     repo: 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /'
