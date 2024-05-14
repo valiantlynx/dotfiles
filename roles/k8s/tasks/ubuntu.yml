@@ -15,16 +15,18 @@
     mode: '0755'
   become: true
 
-- name: K8s | Download and add Kubernetes signing key
-  ansible.builtin.command:
-    cmd: curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-  become: true
-
-- name: K8s | Set permissions for the keyring
-  ansible.builtin.file:
-    path: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+- name: K8s | Download Kubernetes signing key
+  ansible.builtin.get_url:
+    url: https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key
+    dest: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
     mode: '0644'
   become: true
+
+- name: K8s | Convert the signing key to GPG format
+  ansible.builtin.command:
+    cmd: gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  become: true
+  ignore_errors: true  # To handle the case if the key is already in GPG format
 
 - name: K8s | Add Kubernetes apt repository
   ansible.builtin.apt_repository:
