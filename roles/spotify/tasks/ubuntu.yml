@@ -1,8 +1,26 @@
 ---
+- name: Check if Spotify client is installed
+  command: dpkg -l | grep spotify-client
+  register: result
+  failed_when: result.rc != 0
+  ignore_errors: true
+
+- name: Spotify | Add Spotify apt key and repository
+  ansible.builtin.shell: |
+    curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+    echo "deb http://repository.spotify.com stable non-free" | tee /etc/apt/sources.list.d/spotify.list
+  become: true
+  when: result.rc != 0
+
+- name: Spotify | Update apt package index
+  ansible.builtin.apt:
+    update_cache: yes
+  become: true
+  when: result.rc != 0
+
 - name: "Spotify | Install"
   ansible.builtin.apt:
     name:
       - spotify-client
     state: latest
   become: true
-  when: not ansible_host_environment_is_wsl
