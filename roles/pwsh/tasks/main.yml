@@ -1,5 +1,4 @@
 ---
 - name: Run Ubuntu Tasks
-  when: ansible_host_environment_is_windows or ansible_host_environment_is_wsl 
   ansible.builtin.import_tasks: ubuntu.yml
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Debian' and ansible_host_environment_is_wsl 
