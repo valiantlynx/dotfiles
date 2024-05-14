@@ -23,26 +23,9 @@
     force: yes
   become: true
 
-- name: Debug keyring file
-  ansible.builtin.stat:
-    path: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-  become: true
-  register: keyring_file
-
-- name: Print keyring file details
-  ansible.builtin.debug:
-    var: keyring_file
-
-- name: Ensure the Kubernetes repository list file exists
-  ansible.builtin.file:
-    path: /etc/apt/sources.list.d/kubernetes.list
-    state: touch
-  become: true
-
 - name: K8s | Add Kubernetes apt repository
   ansible.builtin.command:
     cmd: echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
-  become: true
 
 - name: Set permissions for the repository list file
   ansible.builtin.file:
