@@ -97,7 +97,7 @@ function ubuntu_setup() {
     _cmd "sudo apt-get update"
     _cmd "sudo apt-get install -y ansible"
     _cmd "sudo apt-get install python3-argcomplete"
-    _cmd "sudo activate-global-python-argcomplete3"
+    # _cmd "sudo activate-global-python-argcomplete3"
   fi
   if ! dpkg -s python3 >/dev/null 2>&1; then
     _task "Installing Python3"
