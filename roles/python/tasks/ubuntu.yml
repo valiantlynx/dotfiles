@@ -8,11 +8,15 @@
     state: present
   become: true
 
-- name: "Python | Install pip packages"
+- name: "Create a virtual environment"
+  ansible.builtin.command:
+    cmd: python3 -m venv ~/venv
+    creates: ~/venv/bin/activate
+
+- name: "Install pip packages in virtual environment"
   ansible.builtin.pip:
     name: "{{ item }}"
-    state: present
-    executable: pip3
+    virtualenv: ~/venv
   loop:
     - bpytop
     - shell-gpt==0.9.0
