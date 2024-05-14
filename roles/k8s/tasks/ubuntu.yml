@@ -1,12 +1,35 @@
 ---
-- name: K8s | Adding kubernetes apt key
-  ansible.builtin.apt_key:
-    url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+- name: K8s | Ensure required packages are installed
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+    state: present
   become: true
 
-- name: K8s | Adding kubernetes apt repo
+- name: K8s | Create keyrings directory
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+  become: true
+
+- name: K8s | Download and add Kubernetes signing key
+  ansible.builtin.command:
+    cmd: curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  become: true
+
+- name: K8s | Set permissions for the keyring
+  ansible.builtin.file:
+    path: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+    mode: '0644'
+  become: true
+
+- name: K8s | Add Kubernetes apt repository
   ansible.builtin.apt_repository:
-    repo: "deb https://apt.kubernetes.io/ kubernetes-xenial main"
+    repo: 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /'
+    state: present
   become: true
   register: repo_result
 
@@ -14,32 +37,13 @@
   ansible.builtin.debug:
     var: repo_result
 
-- name: K8s | Installing Kubernetes
+- name: K8s | Update apt package index
   ansible.builtin.apt:
-    name: "{{ item.name }}={{ item.version | default('*') }}"
+    update_cache: yes
+  become: true
+
+- name: K8s | Install kubectl
+  ansible.builtin.apt:
+    name: kubectl
     state: present
-    force: true
   become: true
-  loop: "{{ k8s.package_versions[ansible_hostname] | default(k8s.package_versions.default) }}"
-
-- name: K8s | Preventing unintended upgrades
-  ansible.builtin.dpkg_selections:
-    name: "{{ item.name }}"
-    selection: hold
-  become: true
-  loop: "{{ k8s.package_versions[ansible_hostname] | default(k8s.package_versions.default) }}"
-  when: item.version is defined
-
-# - name: K8s | Configure .kube/config
-#   block:
-#     - name: K8s | Ensure .kube directory exists
-#       ansible.builtin.file:
-#         path: "~/.kube"
-#         state: directory
-#         mode: "0755"
-#
-#     - name: K8s | Copy .kube/config file
-#       ansible.builtin.copy:
-#         src: config
-#         dest: "~/.kube/config"
-#         mode: "0600"
