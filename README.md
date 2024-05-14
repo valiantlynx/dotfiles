@@ -91,7 +91,7 @@ system_host:
 
 ### Examples
 
-Below includes minimal and advanced configuration examples. If you would like to see a more real world example take a look at [blackglasses public configuration](https://github.com/TechDufus/dotfiles-erikreinert) repository.
+Below includes minimal and advanced configuration examples. If you would like to see a more real world example take a look at [blackglasses public configuration](https://github.com/valiantlynx/dotfiles-erikreinert) repository.
 
 #### Minimal
 
