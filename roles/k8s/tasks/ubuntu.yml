@@ -39,3 +39,5 @@
     name: kubectl
     state: present
   become: true
+  when: kubectl_check.rc != 0
+
