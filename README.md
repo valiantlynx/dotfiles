@@ -1,3 +1,42 @@
+auto lo
+iface lo inet loopback
+
+#wireless interface settings wlx18a6f70bc768
+auto wlx18a6f70bc768
+iface wlx18a6f70bc768 inet manual
+    address  192.168.88.89/24
+    gateway  192.168.88.1
+    wpa-driver wext
+    wpa-ap-scan 1
+    wpa-ssid NAME
+    wpa-psk PASSWORD
+    wpa-key-mgmt WPA-PSK
+    wpa-proto RSN
+    wpa-pairwise CCMP
+
+# Ethernet interface settings eno1
+auto eno1
+iface eno1 inet static
+        address  192.168.88.88/24
+        #gateway  192.168.88.1
+
+#bridge settings vmbr0
+auto vmbr0
+iface vmbr0 inet static
+        address 192.168.88.99/24
+        bridge-ports none
+        bridge-stp off
+        bridge-fd 0
+        post-up   echo 1 > /proc/sys/net/ipv4/ip_forward
+        post-up   iptables -t nat -A POSTROUTING -s '192.168.88.99/24' -o wlx18a6f70bc768 -j MASQUERADE
+        post-down iptables -t nat -D POSTROUTING -s '192.168.88.99/24' -o wlx18a6f70bc768 -j MASQUERADE
+        post-up   iptables -t raw -I PREROUTING -i fwbr+ -j CT --zone 1
+        post-down iptables -t raw -D PREROUTING -i fwbr+ -j CT --zone 1
+
+source /etc/network/interfaces.d/*
+
+
+
 ### System Upgrade
 
 Verify your `Ubuntu` installation has all latest packages installed before running the playbook.
