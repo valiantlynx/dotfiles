@@ -1,5 +1,4 @@
 ### System Upgrade
-
 Verify your `Ubuntu` installation has all latest packages installed before running the playbook.
 
 ```
