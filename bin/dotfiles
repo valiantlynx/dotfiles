@@ -117,7 +117,7 @@ function nix_setup() {
   _task "Checking if Ansible is installed"
   if ! command -v ansible >/dev/null 2>&1; then
     _task "Installing Ansible on NixOS"
-    _cmd "nix-env -iA nixpkgs.ansible"
+    _cmd "nix-env -iA nixos.ansible"
   else
     _task_done
   fi
@@ -125,7 +125,7 @@ function nix_setup() {
   _task "Checking if Git is installed"
   if ! command -v git >/dev/null 2>&1; then
     _task "Installing Git on NixOS"
-    _cmd "nix-env -iA nixpkgs.git"
+    _cmd "nix-env -iA nixos.git"
   else
     _task_done
   fi
@@ -133,12 +133,11 @@ function nix_setup() {
   _task "Checking if Python3 is installed"
   if ! command -v python3 >/dev/null 2>&1; then
     _task "Installing Python3 on NixOS"
-    _cmd "nix-env -iA nixpkgs.python3"
+    _cmd "nix-env -iA nixos.python3"
   else
     _task_done
   fi
 }
-
 
 function arch_setup() {
   if ! [ -x "$(command -v ansible)" ]; then
