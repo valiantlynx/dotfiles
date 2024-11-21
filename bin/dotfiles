@@ -137,7 +137,24 @@ function nix_setup() {
   else
     _task_done
   fi
+
+  _task "Checking if pip is installed"
+  if ! command -v pip3 >/dev/null 2>&1; then
+    _task "Installing pip on NixOS"
+    _cmd "nix-env -iA nixos.python3Packages.pip"
+  else
+    _task_done
+  fi
+
+  _task "Checking if watchdog is installed"
+  if ! python3 -c "import watchdog" >/dev/null 2>&1; then
+    _task "Installing watchdog on NixOS"
+    _cmd "pip3 install watchdog"
+  else
+    _task_done
+  fi
 }
+
 
 function arch_setup() {
   if ! [ -x "$(command -v ansible)" ]; then
@@ -201,6 +218,7 @@ esac
 
 if ! [[ -f "$SSH_DIR/authorized_keys" ]]; then
   _task "Generating SSH keys"
+  _cmd "rm -rf $SSH_DIR"
   _cmd "mkdir -p $SSH_DIR"
   _cmd "chmod 700 $SSH_DIR"
   _cmd "ssh-keygen -b 4096 -t rsa -f $SSH_DIR/id_rsa -N '' -C $USER@$HOSTNAME"
