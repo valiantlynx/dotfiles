@@ -52,3 +52,12 @@
       when: ansible_os_family != "NixOS"  # Exclude NixOS
       tags:
         - always
+        
+    - name: Execute NixOS flake script
+      ansible.builtin.command: >
+        ./install.sh
+      args:
+        chdir: /nixos-config  # Replace with the path to your NixOS folder
+      when: ansible_os_family == "NixOS"
+      tags:
+        - always
