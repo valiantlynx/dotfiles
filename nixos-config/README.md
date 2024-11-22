@@ -44,28 +44,6 @@ Hyprlock (EXPAND)
 </p>
 </details>
 
-Here is my previous Catppuccin rice. You can find it [here](https://github.com/valiantlynx/dotfiles/tree/catppuccin)
-<details>
-<summary>
-Catppuccin (EXPAND)
-</summary>
-<p align="center">
-   <img src="./.github/assets/screenshots/catppuccin/1.png" style="margin-bottom: 10px;" /> <br>
-   <img src="./.github/assets/screenshots/catppuccin/2.png" style="margin-bottom: 10px;" /> <br>
-   <img src="./.github/assets/screenshots/catppuccin/3.png" style="margin-bottom: 10px;" /> <br>
-</p>  
-   <details>
-   <summary>
-   Old Catppuccin (EXPAND)
-   </summary>
-   <p align="center">
-      <img src="./.github/assets/screenshots/catppuccin/old/1.old.png" style="margin-bottom: 10px;" /> <br>
-      <img src="./.github/assets/screenshots/catppuccin/old/2.old.png" style="margin-bottom: 10px;" /> <br>
-      <img src="./.github/assets/screenshots/catppuccin/old/3.old.png" style="margin-bottom: 10px;" /> <br>
-   </p>
-   </details>
-</details>
-
 # 🗃️ Overview
 
 ## 📚 Layout
@@ -410,7 +388,7 @@ Even though I use home manager, there is still a little bit of manual configurat
 programs.git = {
    ...
    userName = "valiantlynx";
-   userEmail = "67cyril6767@gmail.com";
+   userEmail = "gormerykombo@gmail.com";
    ...
 };
 ```
