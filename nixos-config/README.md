@@ -8,16 +8,16 @@
    <div align="center">
       <p></p>
       <div align="center">
-         <a href="https://github.com/Frost-Phoenix/nixos-config/stargazers">
-            <img src="https://img.shields.io/github/stars/Frost-Phoenix/nixos-config?color=FABD2F&labelColor=282828&style=for-the-badge&logo=starship&logoColor=FABD2F">
+         <a href="https://github.com/valiantlynx/dotfiles/stargazers">
+            <img src="https://img.shields.io/github/stars/valiantlynx/dotfiles?color=FABD2F&labelColor=282828&style=for-the-badge&logo=starship&logoColor=FABD2F">
          </a>
-         <a href="https://github.com/Frost-Phoenix/nixos-config/">
-            <img src="https://img.shields.io/github/repo-size/Frost-Phoenix/nixos-config?color=B16286&labelColor=282828&style=for-the-badge&logo=github&logoColor=B16286">
+         <a href="https://github.com/valiantlynx/dotfiles/">
+            <img src="https://img.shields.io/github/repo-size/valiantlynx/dotfiles?color=B16286&labelColor=282828&style=for-the-badge&logo=github&logoColor=B16286">
          </a>
          <a = href="https://nixos.org">
             <img src="https://img.shields.io/badge/NixOS-unstable-blue.svg?style=for-the-badge&labelColor=282828&logo=NixOS&logoColor=458588&color=458588">
          </a>
-         <a href="https://github.com/Frost-Phoenix/nixos-config/blob/main/LICENSE">
+         <a href="https://github.com/valiantlynx/dotfiles/blob/main/LICENSE">
             <img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=MIT&colorA=282828&colorB=98971A&logo=unlicense&logoColor=98971A&"/>
          </a>
       </div>
@@ -44,7 +44,7 @@ Hyprlock (EXPAND)
 </p>
 </details>
 
-Here is my previous Catppuccin rice. You can find it [here](https://github.com/Frost-Phoenix/nixos-config/tree/catppuccin)
+Here is my previous Catppuccin rice. You can find it [here](https://github.com/valiantlynx/dotfiles/tree/catppuccin)
 <details>
 <summary>
 Catppuccin (EXPAND)
@@ -380,7 +380,7 @@ First install nixos using any [graphical ISO image](https://nixos.org/download.h
 
 ```bash
 nix-shell -p git
-git clone https://github.com/Frost-Phoenix/nixos-config
+git clone https://github.com/valiantlynx/dotfiles
 cd nixos-config
 ```
 #### 3. **Install script**
@@ -472,7 +472,7 @@ Other dotfiles that I learned / copy from:
 
 <!-- # ✨ Stars History -->
 
-<!-- <p align="center"><img src="https://api.star-history.com/svg?repos=frost-phoenix/nixos-config&type=Timeline&theme=dark" /></p> -->
+<!-- <p align="center"><img src="https://api.star-history.com/svg?repos=valiantlynx/dotfiles&type=Timeline&theme=dark" /></p> -->
 
 <p align="center"><img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/footers/gray0_ctp_on_line.svg?sanitize=true" /></p>
 
