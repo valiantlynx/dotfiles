@@ -36,11 +36,11 @@
 
     - name: Display roles and environment info
       ansible.builtin.debug:
-        msg: "Running on WSL: {{ ansible_host_environment_is_wsl }}, Windows: {{ ansible_host_environment_is_windows }}, Ubuntu: {{ ansible_host_environment_is_ubuntu }} | Roles: {{ run_roles }}"
+        msg: "Running on WSL: {{ ansible_host_environment_is_wsl }}, Windows: {{ ansible_host_environment_is_windows }}, Ubuntu: {{ ansible_host_environment_is_ubuntu }}, OS Family: {{ ansible_os_family }} | Roles: {{ run_roles }}"
       tags:
         - always
 
-    - name: Run roles
+    - name: Run roles (only if not NixOS)
       ansible.builtin.include_role:
         apply:
           tags:
@@ -49,5 +49,6 @@
       loop_control:
         loop_var: roles_item
       with_items: "{{ run_roles }}"
+      when: ansible_os_family != "NixOS"  # Exclude NixOS
       tags:
         - always
