@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   version = "1.0";
 
   src = fetchFromGitHub {
-    owner = "Frost-Phoenix";
+    owner = "valiantlynx";
     repo = "2048-cli";
     rev = "e5b5e2b";
     sha256 = "sha256-DqOSfKQC7WdslEknzFByZPc20AsjX6+5PwKR3gqucOM=";

@@ -1,7 +1,7 @@
 <h1 align="center">
    <img src="./.github/assets/logo/nixos-logo.png  " width="100px" /> 
    <br>
-      Frost-Phoenix's Flakes 
+      valiantlynx's Flakes 
    <br>
       <img src="./.github/assets/pallet/pallet-0.png" width="600px" /> <br>
 
@@ -409,7 +409,7 @@ Even though I use home manager, there is still a little bit of manual configurat
 ```nix
 programs.git = {
    ...
-   userName = "Frost-Phoenix";
+   userName = "valiantlynx";
    userEmail = "67cyril6767@gmail.com";
    ...
 };
