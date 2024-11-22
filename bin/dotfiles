@@ -138,33 +138,18 @@ function nix_setup() {
     _task_done
   fi
 
-  # Install virtualenv if it's not already installed
-  _task "Checking if virtualenv is installed"
-  if ! command -v virtualenv >/dev/null 2>&1; then
-    _task "Installing virtualenv on NixOS"
-    _cmd "nix-env -iA nixos.python3Packages.virtualenv"
+  _task "Checking if pip is installed"
+  if ! command -v pip3 >/dev/null 2>&1; then
+    _task "Installing pip on NixOS"
+    _cmd "nix-env -iA nixos.python3Packages.pip"
   else
     _task_done
   fi
 
-  # Create a virtual environment if it does not exist
-  if [ ! -d "$HOME/myenv" ]; then
-    _task "Creating Python Virtual Environment"
-    _cmd "python3 -m venv ~/myenv"
-  else
-    _task_done
-  fi
-
-  # Activate the virtual environment
-  _task "Activating virtual environment"
-  source ~/myenv/bin/activate
-
-  # Install the required packages inside the virtual environment
   _task "Checking if watchdog is installed"
-  pip show watchdog >/dev/null 2>&1
-  if [ $? -ne 0 ]; then
-    _task "Installing watchdog in virtual environment"
-    pip install watchdog
+  if ! python3 -c "import watchdog" >/dev/null 2>&1; then
+    _task "Installing watchdog on NixOS"
+    _cmd "nix-shell -p python312Packages.watchdog"
   else
     _task_done
   fi
