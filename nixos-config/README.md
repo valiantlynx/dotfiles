@@ -117,7 +117,7 @@ Utils (EXPAND)
 Nixos (EXPAND)
 </summary>
 
-- ```cdnix```      $\rightarrow$ ```cd ~/nixos-config && codium ~/nixos-config```
+- ```cdnix```      $\rightarrow$ ```cd ~/.dotfiles/nixos-config && codium ~/.dotfiles/nixos-config```
 - ```ns```         $\rightarrow$ ```nom-shell --run zsh```
 - ```nix-test```   $\rightarrow$ ```nh os test```
 - ```nix-switch``` $\rightarrow$ ```nh os switch```
@@ -358,8 +358,8 @@ First install nixos using any [graphical ISO image](https://nixos.org/download.h
 
 ```bash
 nix-shell -p git
-git clone https://github.com/valiantlynx/dotfiles
-cd nixos-config
+git clone https://github.com/valiantlynx/dotfiles .dotfiles
+cd .dotfiles/nixos-config
 ```
 #### 3. **Install script**
 > [!CAUTION]
@@ -380,7 +380,7 @@ After rebooting, the config should be applied, you'll be greeted by hyprlock pro
 #### 5. **Manual config**
 
 Even though I use home manager, there is still a little bit of manual configuration to do:
-- Set Aseprite theme (they are in the folder `./nixos-config/modules/home/aseprite/themes`).
+- Set Aseprite theme (they are in the folder `./.dotfiles/nixos-config/modules/home/aseprite/themes`).
 - Enable Discord theme (in Discord settings under VENCORD > Themes).
 - Configure the browser (for now, all browser configuration is done manually).
 - Change the git account information in `./modules/home/git.nix`

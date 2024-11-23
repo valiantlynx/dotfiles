@@ -57,7 +57,7 @@
       ansible.builtin.command: >
         ./install.sh
       args:
-        chdir: /nixos-config  # Replace with the path to your NixOS folder
+        chdir: "{{ ansible_user_dir }}/.dotfiles/nixos-config"  # Replace with the path to your NixOS folder
       when: ansible_os_family == "NixOS"
       tags:
         - always
