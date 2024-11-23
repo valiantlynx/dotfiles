@@ -3,6 +3,7 @@
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
+  when: ansible_os_family != "NixOS"  # Exclude NixOS
 
 - name: "tmux | Configure tmux"
   ansible.builtin.copy:
