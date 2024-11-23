@@ -4,12 +4,9 @@ let
 in
 {
   home.packages = (with pkgs; [
-    _2048
-
     ## CLI utility
     ani-cli
     binsider
-    bitwise                           # cli tool for bit / hex manipulation
     caligula                          # User-friendly, lightweight TUI for disk imaging
     dconf-editor
     docfd                             # TUI multiline fuzzy document finder
@@ -18,10 +15,8 @@ in
     fd                                # find replacement
     ffmpeg
     file                              # Show file information 
-    gtt                               # google translate TUI
     gifsicle                          # gif utility
     gtrash                            # rm replacement, put deleted files in system trash
-    hexdump
     imv                               # image viewer
     jq                                # JSON processor
     killall
@@ -46,7 +41,6 @@ in
     tdf                               # cli pdf viewer
     treefmt2                          # project formatter
     tldr
-    todo                              # cli todo list
     toipe                             # typing test in the terminal
     ttyper                            # cli typing test
     unzip
@@ -70,7 +64,6 @@ in
     gimp
     libreoffice
     nix-prefetch-github
-    obs-studio
     pavucontrol                       # pulseaudio volume controle (GUI)
     pitivi                            # video editing
     qalculate-gtk                     # calculator
