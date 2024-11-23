@@ -168,5 +168,5 @@ export NVM_DIR="$HOME/.nvm"
 if [[ -z "$TMUX" ]]; then
   if command -v neofetch &> /dev/null; then neofetch; fi
 fi
-#toilet "TechDufus" -F border:gay -f emboss2
+#toilet "valiantlynx" -F border:gay -f emboss2
 
