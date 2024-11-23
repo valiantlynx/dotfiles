@@ -22,7 +22,6 @@ default_roles:
   - neovim
   - npm
   - nvm
-  - obsidian
   - pwsh
   - python
   - ruby
@@ -61,7 +60,7 @@ bash_private:
     303065356531623266636561386337316533
 
 flatpak_packages:
-  - md.obsidian.Obsidian
+  - com.logseq.Logseq
 
 k8s:
   repo_version: "v1.26"
