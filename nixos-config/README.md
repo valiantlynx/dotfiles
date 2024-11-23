@@ -447,15 +447,6 @@ Other dotfiles that I learned / copy from:
   - [sioodmy/dotfiles](https://github.com/sioodmy/dotfiles)
   - [Ruixi-rebirth/flakes](https://github.com/Ruixi-rebirth/flakes)
 
-
-<!-- # ✨ Stars History -->
-
-<!-- <p align="center"><img src="https://api.star-history.com/svg?repos=valiantlynx/dotfiles&type=Timeline&theme=dark" /></p> -->
-
-<p align="center"><img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/footers/gray0_ctp_on_line.svg?sanitize=true" /></p>
-
-<!-- end of page, send back to the top -->
-
 <div align="right">
   <a href="#readme">Back to the Top</a>
 </div>
