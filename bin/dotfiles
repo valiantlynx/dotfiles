@@ -149,7 +149,7 @@ function nix_setup() {
   _task "Checking if watchdog is installed"
   if ! python3 -c "import watchdog" >/dev/null 2>&1; then
     _task "Installing watchdog on NixOS"
-    _cmd "nix-shell -p python312Packages.watchdog"
+    _cmd "nix-shell -p python311Packages.watchdog"
   else
     _task_done
   fi

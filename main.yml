@@ -69,11 +69,12 @@
       tags:
         - always
 
-    - name: Execute NixOS flake script
-      ansible.builtin.command: >
-        ./install.sh
+    - name: Run NixOS flake script in tmux session (to wait for manual input)
+      ansible.builtin.shell: |
+        tmux new-session -d "bash -c './install.sh; exec bash'"
+        tmux attach-session -d
       args:
-        chdir: "{{ ansible_user_dir }}/.dotfiles/nixos-config"  # Replace with the path to your NixOS folder
+        chdir: "{{ ansible_user_dir }}/.dotfiles/nixos-config"
       when: ansible_os_family == "NixOS"
       tags:
         - always
