@@ -4,6 +4,9 @@ let
 in
 {
   home.packages = (with pkgs; [
+    # VPN
+    eduvpn-client                    # for accessing school resouces using any internet other than eduroam
+    
     ## CLI utility
     ani-cli
     binsider
