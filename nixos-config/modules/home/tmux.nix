@@ -3,7 +3,7 @@
 {
   programs.tmux = {
     enable = true;
-    shortcut = "m";
+    shortcut = "b";
     escapeTime = 0;
     keyMode = "vi";
     terminal = "screen-256color";
