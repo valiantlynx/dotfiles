@@ -63,7 +63,6 @@
       loop_control:
         loop_var: roles_item
       with_items:
-        - tmux
         - neovim
       when: ansible_os_family == "NixOS"  # Only for NixOS
       tags:
