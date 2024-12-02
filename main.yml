@@ -68,10 +68,9 @@
       tags:
         - always
 
-    - name: Run NixOS flake script in tmux session (to wait for manual input)
+    - name: Run NixOS flake script with pseudo-terminal
       ansible.builtin.shell: |
-        tmux new-session -d "bash -c './install.sh; exec bash'"
-        tmux attach-session -d
+        script -q -c "bash {{ ansible_user_dir }}/.dotfiles/nixos-config/install.sh" /dev/null
       args:
         chdir: "{{ ansible_user_dir }}/.dotfiles/nixos-config"
       when: ansible_os_family == "NixOS"
