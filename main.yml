@@ -68,11 +68,15 @@
       tags:
         - always
 
-    - name: Run NixOS flake script with pseudo-terminal
+    - name: Run the NixOS configuration script
       ansible.builtin.shell: |
-        script -q -c "bash {{ ansible_user_dir }}/.dotfiles/nixos-config/install.sh" /dev/null
+        bash  ./install.sh \
+          -u "{{ nixos_username }}" \
+          -h "{{ nixos_host }}" \
+          {% if skip_confirm is defined and skip_confirm %}-c {% endif %}
       args:
         chdir: "{{ ansible_user_dir }}/.dotfiles/nixos-config"
+      register: script_output
       when: ansible_os_family == "NixOS"
       tags:
         - always
