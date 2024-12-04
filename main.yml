@@ -64,6 +64,7 @@
         loop_var: roles_item
       with_items:
         - neovim
+        - bash
       when: ansible_os_family == "NixOS"  # Only for NixOS
       tags:
         - always
