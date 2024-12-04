@@ -35,7 +35,10 @@ default_roles:
   - zellij
   - spotify
   - zoxide
-  
+
+nixos_host: "D" # D-desktop or L-laptop or V-virtualmachine
+nixos_username: "valiantlynx"
+skip_confirm: true
 
 git_user_name: "valiantlynx"
 git_user_email: !vault | 
