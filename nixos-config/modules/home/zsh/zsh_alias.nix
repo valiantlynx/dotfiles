@@ -43,6 +43,9 @@
       # python
       piv = "python -m venv .venv";
       psv = "source .venv/bin/activate";
+
+      # dotfiles
+      dotfiles = "bash ~/.dotfiles/bin/dotfiles";
     };
   };
 }
