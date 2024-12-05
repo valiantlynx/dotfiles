@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+# Parse command-line arguments
+while getopts "u:h:c" opt; do
+  case $opt in
+    u) username="$OPTARG" ;;           # Username
+    h) HOST="$OPTARG" ;;               # Host type
+    c) skip_confirm=true ;;            # Skip confirmation
+    *) echo "Usage: $0 -u <username> -h <host> [-c]"; exit 1 ;;
+  esac
+done
+
 init() {
     # Vars
     CURRENT_USERNAME='valiantlynx'
@@ -62,11 +72,15 @@ print_header() {
 }
 
 get_username() {
-    echo -en "Enter your$GREEN username$NORMAL : $YELLOW"
-    read username
-    echo -en "$NORMAL"
-    echo -en "Use$YELLOW "$username"$NORMAL as ${GREEN}username${NORMAL} ? "
-    confirm
+    if [[ -z "$username" ]]; then
+        echo -en "Enter your ${GREEN}username${NORMAL} [default: ${CURRENT_USERNAME}]: "
+        read input_username
+        username="${input_username:-$CURRENT_USERNAME}"
+    fi
+    echo "Using username: ${YELLOW}${username}${NORMAL}"
+    if [[ "$skip_confirm" != true ]]; then
+        confirm
+    fi
 }
 
 set_username() {
@@ -75,24 +89,32 @@ set_username() {
 }
 
 get_host() {
-    echo -en "Choose a ${GREEN}host${NORMAL} - [${YELLOW}D${NORMAL}]esktop, [${YELLOW}L${NORMAL}]aptop or [${YELLOW}V${NORMAL}]irtual machine: "
-    read -n 1 -r
-    echo
-
-    if [[ $REPLY =~ ^[Dd]$ ]]; then
-        HOST='desktop'
-    elif [[ $REPLY =~ ^[Ll]$ ]]; then
-        HOST='laptop'
-    elif [[ $REPLY =~ ^[Vv]$ ]]; then
-        HOST='vm'
+    if [[ -z "$HOST" ]]; then
+        echo -en "Choose a ${GREEN}host${NORMAL} - [${YELLOW}D${NORMAL}]esktop, [${YELLOW}L${NORMAL}]aptop, [${YELLOW}V${NORMAL}]irtual machine (default: desktop): "
+        read -n 1 -r input_host
+        echo
+        case "$input_host" in
+            [Dd]|"") HOST="desktop" ;;
+            [Ll]) HOST="laptop" ;;
+            [Vv]) HOST="vm" ;;
+            *)
+                echo "${RED}Invalid choice. Please select 'D', 'L', or 'V'.${NORMAL}"
+                exit 1
+                ;;
+        esac
     else
-        echo "Invalid choice. Please select 'D' for desktop, 'L' for laptop or 'V' for virtual machine."
-        exit 1
+        case "$HOST" in
+            [Dd]) HOST="desktop" ;;
+            [Ll]) HOST="laptop" ;;
+            [Vv]) HOST="vm" ;;
+            desktop|laptop|vm) ;;  # If full name is already provided, do nothing
+            *)
+                echo "${RED}Invalid HOST value provided. Allowed values: 'D', 'L', 'V', 'desktop', 'laptop', 'vm'.${NORMAL}"
+                exit 1
+                ;;
+        esac
     fi
-
-    echo -en "$NORMAL"
-    echo -en "Use the$YELLOW "$HOST"$NORMAL ${GREEN}host${NORMAL} ? "
-    confirm
+    echo "Using host: ${YELLOW}${HOST}${NORMAL}"
 }
 
 install() {
@@ -122,8 +144,10 @@ install() {
     sleep 0.2
 
     # Last Confirmation
-    echo -en "You are about to start the system build, do you want to process ? "
-    confirm
+    if [[ "$skip_confirm" != true ]]; then
+        echo "You are about to start the system build. Do you want to proceed?"
+        confirm
+    fi
 
     # Build the system (flakes + home manager)
     echo -e "\nBuilding the system...\n"
