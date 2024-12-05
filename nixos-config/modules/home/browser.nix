@@ -14,6 +14,7 @@
         else
           inputs.zen-browser.packages."${system}".specific
       )
+      google-chrome
     ]
   );
 }
