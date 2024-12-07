@@ -40,6 +40,10 @@ nixos_host: "D" # D-desktop or L-laptop or V-virtualmachine
 nixos_username: "valiantlynx"
 skip_confirm: true
 
+nixos_host: "L" # D-desktop or L-laptop or V-virtualmachine
+nixos_username: "valiantlynx"
+skip_confirm: true
+
 git_user_name: "valiantlynx"
 git_user_email: !vault | 
   $ANSIBLE_VAULT;1.1;AES256

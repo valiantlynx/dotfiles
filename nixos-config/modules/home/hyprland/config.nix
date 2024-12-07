@@ -1,4 +1,4 @@
-{ ... }:
+{ host, ... }:
 {
   wayland.windowManager.hyprland = {
     settings = {
@@ -372,9 +372,18 @@
     };
 
     extraConfig = "
+    ${
+          if (host == "desktop") then
+            "
       monitor = DP-1, 1920x1080, 0x0, 1
       monitor = HDMI-A-1, 1920x1080, 1920x0, 1
-
+    "
+          else
+            "
+      monitor=,preferred,auto,auto
+    "
+        }
+      
       xwayland {
         force_zero_scaling = true
       }
