@@ -49,59 +49,20 @@
   ansible.builtin.set_fact:
     ansible_host_environment_is_ubuntu: "{{ ubuntu_detection_result.stdout == 'true' }}"
 
-- name: Detect Docker Build Environment
-  ansible.builtin.shell: |
-    isDocker(){
-        local cgroup=/proc/1/cgroup
-        test -f $cgroup && [[ "$(<$cgroup)" = *:cpuset:/docker/* ]]
-    }
+- name: Get facts about the current container
+  community.docker.current_container_facts:
 
-    isDockerBuildkit(){
-        local cgroup=/proc/1/cgroup
-        test -f $cgroup && [[ "$(<$cgroup)" = *:cpuset:/docker/buildkit/* ]]
-    }
-
-    isDockerContainer(){
-        [ -e /.dockerenv ]
-    }
-
-    if isDockerBuildkit || (isDocker && ! isDockerContainer)
-    then
-        echo "docker_build"
-    else
-        echo "not_docker_build"
-    fi
-  register: docker_detection_result
-  args:
-    executable: /bin/bash
-  ignore_errors: true
-  changed_when: false
-
-- name: Register Docker Build State fact
-  ansible.builtin.set_fact:
-    ansible_host_environment_is_docker: "{{ docker_detection_result.stdout == '' }}"
-
-- name: Detect Regular Docker Container
-  ansible.builtin.shell: |
-    if [ -e /.dockerenv ]; then
-        echo "docker_container"
-    else
-        echo "not_docker_container"
-    fi
-  register: docker_container_result
-  args:
-    executable: /bin/bash
-  ignore_errors: true
-  changed_when: false
-
-- name: Register Docker Container State fact
-  ansible.builtin.set_fact:
-    ansible_host_environment_is_docker: "{{ docker_container_result.stdout == 'true' }}"
-
-- name: Debug Docker Build Environment
+- name: Print detected container ID
   ansible.builtin.debug:
-    msg: "Docker Build: {{ ansible_host_environment_is_docker }}"
+    msg: "Running in container with ID {{ ansible_module_container_id }}"
+  when: ansible_module_running_in_container
 
-- name: Debug Docker Container Environment
+- name: Print container type
   ansible.builtin.debug:
-    msg: "Docker Container: {{ ansible_host_environment_is_docker }}"
+    msg: "Container environment detected: {{ ansible_module_container_type }}"
+  when: ansible_module_running_in_container
+
+- name: Print if not running in a container
+  ansible.builtin.debug:
+    msg: "Not running inside a container"
+  when: not ansible_module_running_in_container
