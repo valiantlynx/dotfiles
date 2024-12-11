@@ -34,7 +34,7 @@
     src: hosts.j2
     mode: "0644"
   become: true
-  when: not ansible_host_environment_is_wsl
+  when: not (ansible_host_environment_is_docker or ansible_host_environment_is_wsl)
 
 - name: System | Detecting win32yank
   ansible.builtin.stat:
