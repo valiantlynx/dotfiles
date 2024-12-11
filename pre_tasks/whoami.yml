@@ -1,6 +1,6 @@
 - name: Detect and Register Current User Across Environments
   ansible.builtin.shell:
-    cmd: "{{ 'echo $env:UserName' if ansible_host_environment_is_windows else 'echo $USER' }}"
+    cmd: "{{ 'echo $env:UserName' if ansible_host_environment_is_windows else 'echo $(whoami)' }}"
     executable: "{{ 'powershell.exe' if ansible_host_environment_is_windows else '/bin/bash' }}"
   register: detected_user
   ignore_errors: true
