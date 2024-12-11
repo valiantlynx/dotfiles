@@ -49,9 +49,11 @@
   ansible.builtin.set_fact:
     ansible_host_environment_is_ubuntu: "{{ ubuntu_detection_result.stdout == 'true' }}"
 
-- name: Detect Docker
+- name: Detect Docker (via /.dockerenv and cgroup check)
   ansible.builtin.shell: |
     if [ -f /.dockerenv ]; then
+      echo true
+    elif grep -i docker /proc/1/cgroup > /dev/null 2>&1; then
       echo true
     else
       echo false
