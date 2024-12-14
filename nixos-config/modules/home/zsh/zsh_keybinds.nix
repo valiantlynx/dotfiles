@@ -104,6 +104,9 @@
 
       # set wine prefix
       export WINEPREFIX=~/.wine
+
+      # direnv for beautyful nix shell
+      eval "$(direnv hook zsh)"
     '';
   };
 }

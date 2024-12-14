@@ -13,6 +13,7 @@
     - name: Detect wsl variable
       ansible.builtin.debug:
         var: ansible_host_environment_is_wsl
+        var: ansible_host_environment_is_docker
       tags:
         - always
 
@@ -36,7 +37,7 @@
 
     - name: Display roles and environment info
       ansible.builtin.debug:
-        msg: "Running on WSL: {{ ansible_host_environment_is_wsl }}, Windows: {{ ansible_host_environment_is_windows }}, Ubuntu: {{ ansible_host_environment_is_ubuntu }}, OS Family: {{ ansible_os_family }} | Roles: {{ run_roles }}"
+        msg: "Running on WSL: {{ ansible_host_environment_is_wsl }}, Docker: {{ ansible_host_environment_is_docker }}, Windows: {{ ansible_host_environment_is_windows }}, Ubuntu: {{ ansible_host_environment_is_ubuntu }}, OS Family: {{ ansible_os_family }} | Roles: {{ run_roles }}"
       tags:
         - always
 
