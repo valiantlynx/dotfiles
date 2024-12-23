@@ -47,7 +47,9 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+        };
       };
       lib = nixpkgs.lib;
     in
@@ -63,7 +65,15 @@
         };
         laptop = nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [ ./hosts/laptop ];
+          modules = [
+            ./hosts/laptop
+            {
+              # Allow insecure packages globally
+              nixpkgs.config.permittedInsecurePackages = [
+                "electron-27.3.11"
+              ];
+            }
+          ];
           specialArgs = {
             host = "laptop";
             inherit self inputs username;
