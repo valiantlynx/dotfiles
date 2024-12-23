@@ -7,6 +7,11 @@
   ...
 }:
 {
+  # Allow insecure packages globally
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-27.3.11"
+  ];
+
   imports = [
     ./bootloader.nix
     ./hardware.nix

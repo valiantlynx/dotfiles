@@ -65,15 +65,7 @@
         };
         laptop = nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [
-            ./hosts/laptop
-            {
-              # Allow insecure packages globally
-              nixpkgs.config.permittedInsecurePackages = [
-                "electron-27.3.11"
-              ];
-            }
-          ];
+          modules = [ ./hosts/laptop ];
           specialArgs = {
             host = "laptop";
             inherit self inputs username;
