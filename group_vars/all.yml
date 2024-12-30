@@ -11,9 +11,9 @@ default_roles:
   - fzf
   - git
   - go
-  - helm
-  - k8s
-  - k9s
+  # - helm
+  # - k8s
+  # - k9s
   - lazygit
   - lsd
   - lua
