@@ -1,4 +1,4 @@
 ---
 - name: Run Ubuntu Tasks
   ansible.builtin.import_tasks: ubuntu.yml
-  when: ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Debian' or ansible_os_family == 'Darwin'
