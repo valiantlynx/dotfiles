@@ -210,15 +210,6 @@ function macos_setup() {
   else
     _task_done
   fi
-
-  # Check and install Watchdog (if required)
-  _task "Checking if Watchdog is installed"
-  if ! pip3 list | grep watchdog >/dev/null 2>&1; then
-    _task "Installing Watchdog with pip"
-    _cmd "pip3 install watchdog"
-  else
-    _task_done
-  fi
 }
 
 update_ansible_galaxy() {
