@@ -53,28 +53,20 @@ function _task {
   printf "${LBLACK} [ ]  ${TASK} \n${LRED}"
 }
 
-# _cmd performs commands with error checking
+# _cmd performs commands with full output and error handling
 function _cmd {
-  #create log if it doesn't exist
-  if ! [[ -f $DOTFILES_LOG ]]; then
-    touch $DOTFILES_LOG
-  fi
-  # empty conduro.log
-  > $DOTFILES_LOG
-  # hide stdout, on error we print and exit
-  if eval "$1" 1> /dev/null 2> $DOTFILES_LOG; then
+  # Log the task and command
+  echo -e "${ARROW} Executing: $1"
+  echo -e "Command: $1" >> $DOTFILES_LOG
+
+  # Execute the command, showing output and logging errors
+  if eval "$1"; then
     return 0 # success
+  else
+    echo -e "${X_MARK} Command failed: $1" >> $DOTFILES_LOG
+    echo -e "${LRED}Error: Command failed. Check the log at $DOTFILES_LOG.${NC}"
+    exit 1
   fi
-  # read error from log and add spacing
-  printf "${OVERWRITE}${LRED} [X]  ${TASK}${LRED}\n"
-  while read line; do
-    printf "      ${line}\n"
-  done < $DOTFILES_LOG
-  printf "\n"
-  # remove log file
-  rm $DOTFILES_LOG
-  # exit installation
-  exit 1
 }
 
 function _clear_task {
@@ -176,6 +168,59 @@ function arch_setup() {
   _cmd "sudo localectl set-locale LANG=en_US.UTF-8"
 }
 
+function macos_setup() {
+  # Check if Homebrew is installed
+  if ! command -v brew >/dev/null 2>&1; then
+    _task "Installing Homebrew"
+    _cmd '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+  fi
+
+  # Check and install Ansible
+  _task "Checking if Ansible is installed"
+  if ! command -v ansible >/dev/null 2>&1; then
+    _task "Installing Ansible with Homebrew"
+    _cmd "brew install ansible"
+  else
+    _task_done
+  fi
+
+  # Check and install Python3
+  _task "Checking if Python3 is installed"
+  if ! command -v python3 >/dev/null 2>&1; then
+    _task "Installing Python3 with Homebrew"
+    _cmd "brew install python"
+  else
+    _task_done
+  fi
+
+  # Check and install pip
+  _task "Checking if pip is installed"
+  if ! command -v pip3 >/dev/null 2>&1; then
+    _task "Installing pip with Homebrew"
+    _cmd "brew install pip"
+  else
+    _task_done
+  fi
+
+  # Check and install Git
+  _task "Checking if Git is installed"
+  if ! command -v git >/dev/null 2>&1; then
+    _task "Installing Git with Homebrew"
+    _cmd "brew install git"
+  else
+    _task_done
+  fi
+
+  # Check and install Watchdog (if required)
+  _task "Checking if Watchdog is installed"
+  if ! pip3 list | grep watchdog >/dev/null 2>&1; then
+    _task "Installing Watchdog with pip"
+    _cmd "pip3 install watchdog"
+  else
+    _task_done
+  fi
+}
+
 update_ansible_galaxy() {
   local os=$1
   local os_requirements=""
@@ -187,9 +232,22 @@ update_ansible_galaxy() {
   _cmd "ansible-galaxy install -r $DOTFILES_DIR/requirements/common.yml $os_requirements"
 }
 
-source /etc/os-release
-_task "Loading Setup for detected OS: $ID"
-case $ID in
+# Determine the operating system
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  if [[ -f /etc/os-release ]]; then
+    source /etc/os-release
+    OS_ID=$ID
+  else
+    OS_ID="unknown_linux"
+  fi
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+  OS_ID="darwin"
+else
+  OS_ID="unsupported"
+fi
+
+_task "Loading Setup for detected OS: $OS_ID"
+case $OS_ID in
   ubuntu|pop|debian)
     ubuntu_setup
     ;;
@@ -198,6 +256,9 @@ case $ID in
     ;;
   nixos)
     nix_setup
+    ;;
+  darwin)
+    macos_setup
     ;;
   *)
     _task "Unsupported OS"
