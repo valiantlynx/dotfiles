@@ -19,6 +19,7 @@ LPURPLE='\033[01;35m'
 LCYAN='\033[01;36m'
 WHITE='\033[01;37m'
 OVERWRITE='\e[1A\e[K'
+
 #emoji codes
 CHECK_MARK="${GREEN}\xE2\x9C\x94${NC}"
 X_MARK="${RED}\xE2\x9C\x96${NC}"
@@ -29,8 +30,12 @@ BOOK="${RED}\xF0\x9F\x93\x8B${NC}"
 HOT="${ORANGE}\xF0\x9F\x94\xA5${NC}"
 WARNING="${RED}\xF0\x9F\x9A\xA8${NC}"
 RIGHT_ANGLE="${GREEN}\xE2\x88\x9F${NC}"
+
+
 DOTFILES_LOG="$HOME/.dotfiles.log"
+
 set -e
+
 # Paths
 CONFIG_DIR="$HOME/.config/dotfiles"
 VAULT_SECRET="$HOME/.ansible-vault/vault.secret"
@@ -47,6 +52,7 @@ function _task {
   TASK=$1
   printf "${LBLACK} [ ]  ${TASK} \n${LRED}"
 }
+
 # _cmd performs commands with error checking
 function _cmd {
   #create log if it doesn't exist
@@ -70,13 +76,16 @@ function _cmd {
   # exit installation
   exit 1
 }
+
 function _clear_task {
   TASK=""
 }
+
 function _task_done {
   printf "${OVERWRITE}${LGREEN} [✓]  ${LGREEN}${TASK}\n"
   _clear_task
 }
+
 function ubuntu_setup() {
   if ! dpkg -s ansible >/dev/null 2>&1; then
     _task "Installing Ansible"
@@ -101,6 +110,7 @@ function ubuntu_setup() {
     #_cmd "sudo apt install python3-watchdog"
   #fi
 }
+
 function nix_setup() {
   _task "Checking if Ansible is installed"
   if ! command -v ansible >/dev/null 2>&1; then
@@ -109,6 +119,7 @@ function nix_setup() {
   else
     _task_done
   fi
+
   _task "Checking if Git is installed"
   if ! command -v git >/dev/null 2>&1; then
     _task "Installing Git on NixOS"
@@ -116,6 +127,7 @@ function nix_setup() {
   else
     _task_done
   fi
+
   _task "Checking if Python3 is installed"
   if ! command -v python3 >/dev/null 2>&1; then
     _task "Installing Python3 on NixOS"
@@ -123,6 +135,7 @@ function nix_setup() {
   else
     _task_done
   fi
+
   _task "Checking if pip is installed"
   if ! command -v pip3 >/dev/null 2>&1; then
     _task "Installing pip on NixOS"
@@ -131,6 +144,8 @@ function nix_setup() {
     _task_done
   fi
 }
+
+
 function arch_setup() {
   if ! [ -x "$(command -v ansible)" ]; then
     _task "Installing Ansible"
@@ -151,13 +166,16 @@ function arch_setup() {
     _task "Installing Python3 Watchdog"
     _cmd "sudo pacman -S --noconfirm python-watchdog"
   fi
+
   if ! pacman -Q openssh >/dev/null 2>&1; then
     _task "Installing OpenSSH"
     _cmd "sudo pacman -S --noconfirm openssh"
   fi
+
   _task "Setting Locale"
   _cmd "sudo localectl set-locale LANG=en_US.UTF-8"
 }
+
 update_ansible_galaxy() {
   local os=$1
   local os_requirements=""
@@ -168,6 +186,7 @@ update_ansible_galaxy() {
   fi
   _cmd "ansible-galaxy install -r $DOTFILES_DIR/requirements/common.yml $os_requirements"
 }
+
 source /etc/os-release
 _task "Loading Setup for detected OS: $ID"
 case $ID in
@@ -185,6 +204,8 @@ case $ID in
     _cmd "echo 'Unsupported OS'"
     ;;
 esac
+
+
 if ! [[ -f "$SSH_DIR/authorized_keys" ]]; then
   _task "Generating SSH keys"
   _cmd "rm -rf $SSH_DIR"
@@ -193,6 +214,7 @@ if ! [[ -f "$SSH_DIR/authorized_keys" ]]; then
   _cmd "ssh-keygen -b 4096 -t rsa -f $SSH_DIR/id_rsa -N '' -C $USER@$HOSTNAME"
   _cmd "cat $SSH_DIR/id_rsa.pub >> $SSH_DIR/authorized_keys"
 fi
+
 if ! [[ -d "$DOTFILES_DIR" ]]; then
   _task "Cloning repository"
   _cmd "git clone --quiet https://github.com/valiantlynx/dotfiles.git $DOTFILES_DIR"
@@ -200,18 +222,23 @@ else
   _task "Updating repository"
   _cmd "git -C $DOTFILES_DIR pull --quiet"
 fi
+
 pushd "$DOTFILES_DIR" 2>&1 > /dev/null
 update_ansible_galaxy $ID
+
 _task "Running playbook"; _task_done
 if [[ -f $VAULT_SECRET ]]; then
   ansible-playbook --vault-password-file $VAULT_SECRET "$DOTFILES_DIR/main.yml" "$@"
 else
   ansible-playbook "$DOTFILES_DIR/main.yml" "$@"
 fi
+
 popd 2>&1 > /dev/null
+
 if ! [[ -f "$IS_FIRST_RUN" ]]; then
   echo -e "${CHECK_MARK} ${GREEN}First run complete!${NC}"
   echo -e "${ARROW} ${CYAN}Please reboot your computer to complete the setup.${NC}"
   touch "$IS_FIRST_RUN"
 fi
+
 # vi:ft=sh:
