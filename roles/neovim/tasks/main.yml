@@ -9,12 +9,12 @@
 - name: "Neovim | Config folder"
   ansible.builtin.file:
     mode: "0755"
-    path: "{{ ansible_user_dir }}/.config/nvim"
+    path: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.config/nvim"
     state: directory
 
 - name: "Neovim | Create symlink to role files directory"
   ansible.builtin.file:
     src: "{{ role_path }}/files"
-    dest: "{{ ansible_user_dir }}/.config/nvim"
+    dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.config/nvim"
     state: link
     force: true

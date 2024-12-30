@@ -9,12 +9,12 @@
 
 - name: "Neofetch | Ensure .config directory exists"
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/neofetch"
+    path: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.config/neofetch"
     state: directory
     mode: "0755"
 
 - name: "Neofetch | Copy config file"
   ansible.builtin.copy:
     src: config
-    dest: "{{ ansible_user_dir }}/.config/neofetch/config"
+    dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.config/neofetch/config"
     mode: "0644"

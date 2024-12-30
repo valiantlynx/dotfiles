@@ -7,7 +7,7 @@
 - name: "tmux | Configure tmux"
   ansible.builtin.copy:
     src: tmux
-    dest: "{{ ansible_user_dir }}/.config/"
+    dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.config/"
     mode: 0644
     directory_mode: 0755
     force: true

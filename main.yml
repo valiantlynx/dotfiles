@@ -77,7 +77,7 @@
           -h "{{ nixos_host }}" \
           {% if skip_confirm is defined and skip_confirm %}-c {% endif %}
       args:
-        chdir: "{{ ansible_user_dir }}/.dotfiles/nixos-config"
+        chdir: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.dotfiles/nixos-config"
       when: ansible_os_family == "NixOS"
       tags:
         - always

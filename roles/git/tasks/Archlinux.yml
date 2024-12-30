@@ -60,7 +60,7 @@
   community.general.git_config:
     name: user.signingkey
     scope: global
-    value: "{{ ansible_user_dir }}/.ssh/id_ed25519.pub"
+    value: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.ssh/id_ed25519.pub"
 
 - name: "Git | Set gpg.format"
   community.general.git_config:
@@ -82,18 +82,18 @@
 
 - name: "Git | Ensure ~/.config/git/allowed_signers exists"
   ansible.builtin.file:
-    path: "{{ ansible_user_dir }}/.config/git"
+    path: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.config/git"
     state: directory
     mode: "0755"
 
 - name: "Git | Configure ~/.config/git/allowed_signers"
   ansible.builtin.copy:
     src: allowed_signers
-    dest: "{{ ansible_user_dir }}/.config/git/allowed_signers"
+    dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.config/git/allowed_signers"
     mode: "0600"
 
 - name: "Git | Set gpg.ssh.allowedSignersFile"
   community.general.git_config:
     name: gpg.ssh.allowedSignersFile
     scope: global
-    value: "{{ ansible_user_dir }}/.config/git/allowed_signers"
+    value: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.config/git/allowed_signers"

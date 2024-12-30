@@ -1,7 +1,7 @@
 ---
 - name: "SSH | Copy SSH keys"
   copy:
-    dest: "{{ ansible_user_dir }}/.ssh/{{ ssh_key_item.key }}"
+    dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.ssh/{{ ssh_key_item.key }}"
     content: "{{ ssh_key_item.value }}"
     mode: 0600
   no_log: true
@@ -11,5 +11,5 @@
 
 # - name: Copy config
 #   ansible.builtin.template:
-#     dest: "{{ ansible_user_dir }}/.ssh/config"
+#     dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.ssh/config"
 #     src: "config.j2"

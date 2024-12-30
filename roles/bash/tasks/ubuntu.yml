@@ -1,7 +1,7 @@
 ---
 - name: "Bash | Detect oh-my-bash"
   ansible.builtin.stat:
-    path: "{{ ansible_user_dir }}/.oh-my-bash"
+    path: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.oh-my-bash"
   register: ohmybash
 
 - name: "Bash | Register oh-my-bash state"
@@ -18,7 +18,7 @@
     - name: "Bash | Download oh-my-bash Install Script"
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh
-        dest: /{{ ansible_user_dir }}/oh-my-bash.install.sh
+        dest: /{{ ansible_user_dir | default(ansible_env.HOME) }}/oh-my-bash.install.sh
         force: true
         mode: "0755"
       notify:
@@ -26,23 +26,23 @@
 
     - name: "Bash | Run the install script"
       ansible.builtin.script:
-        cmd: /{{ ansible_user_dir }}/oh-my-bash.install.sh
+        cmd: /{{ ansible_user_dir | default(ansible_env.HOME) }}/oh-my-bash.install.sh
 
 - name: "Bash | Copy .bashrc"
   ansible.builtin.copy:
     src: ".bashrc"
-    dest: "{{ ansible_user_dir }}/.bashrc"
+    dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.bashrc"
     mode: "0644"
 
 - name: "Bash | Copy .profile"
   ansible.builtin.copy:
     src: ".profile"
-    dest: "{{ ansible_user_dir }}/.profile"
+    dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.profile"
     mode: "0644"
 
 - name: "Bash | Copy custom bash config"
   ansible.builtin.copy:
-    dest: "{{ ansible_user_dir }}/.config/"
+    dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.config/"
     src: "bash"
     mode: "0644"
     directory_mode: 0755
@@ -50,7 +50,7 @@
 
 - name: "Bash | Copy custom bash theme"
   ansible.builtin.copy:
-    dest: "{{ ansible_user_dir }}/.oh-my-bash/custom/"
+    dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.oh-my-bash/custom/"
     src: "themes"
     directory_mode: 0755
     mode: "0644"
@@ -64,7 +64,7 @@
 
 - name: "Bash | Set private variables"
   ansible.builtin.template:
-    dest: "{{ ansible_user_dir }}/.config/bash/.bash_private"
+    dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.config/bash/.bash_private"
     src: ".bash_private.j2"
     mode: "0644"
   no_log: false
