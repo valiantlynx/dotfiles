@@ -53,6 +53,12 @@
       when: ansible_os_family != "NixOS"  # Exclude NixOS
       tags:
         - always
+
+    - name: Log the OS family
+      ansible.builtin.debug:
+        msg: "Detected OS family: {{ ansible_os_family }}"
+      tags:
+        - always
     
     # Run tmux and neovim roles specifically on NixOS
     - name: Run tmux and neovim roles for NixOS
@@ -66,7 +72,7 @@
       with_items:
         - neovim
         - bash
-      when: ansible_os_family == "NixOS"  # Only for NixOS
+      when: ansible_os_family == "NixOS" or ansible_os_family == "Darwin" # Only for NixOS
       tags:
         - always
 
@@ -79,5 +85,14 @@
       args:
         chdir: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.dotfiles/nixos-config"
       when: ansible_os_family == "NixOS"
+      tags:
+        - always
+
+    - name: Run the Macos Nix configuration script
+      ansible.builtin.shell: |
+        nix run nix-darwin --extra-experimental-features  "nix-command flakes" -- switch --flake ~/.dotfiles/nix/darwin#macbook
+      args:
+        chdir: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.dotfiles/nix/darwin"
+      when: ansible_os_family == "Darwin"
       tags:
         - always
