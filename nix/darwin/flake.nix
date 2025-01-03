@@ -120,22 +120,20 @@
       nix.settings.experimental-features = "nix-command flakes";
 
       # Create /etc/zshrc that loads the nix-darwin environment.
-
       programs.zsh = {
-        enable = true; # default shell on catalina
-        shellAliases = {
-          # Utils
-          c = "clear";
-          y = "yazi";
-          py = "python";
-          ipy = "ipython";
-          dsize = "du -hs";
-
-
-          # dotfiles
-          dotfiles = "bash ~/.dotfiles/bin/dotfiles";
-        };
+        enable = true;
+        enableCompletion = true;
       };
+
+      environment.extraInit = ''
+      alias c="clear"
+      alias dotfiles="bash ~/.dotfiles/bin/dotfiles"
+      alias dsize="du -hs"
+      alias g="lazygit"
+    '';
+
+
+
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
 
