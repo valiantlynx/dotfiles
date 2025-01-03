@@ -169,6 +169,12 @@ function arch_setup() {
 }
 
 function macos_setup() {
+  # Check if niv is installed
+  if ! command -v brew >/dev/null 2>&1; then
+    _task "Installing Homebrew"
+    _cmd 'sh <(curl -L https://nixos.org/nix/install)'
+  fi
+
   # Check if niv-darwin is installed
   if ! command -v brew >/dev/null 2>&1; then
     _task "Installing Homebrew"
@@ -179,35 +185,8 @@ function macos_setup() {
   # Check and install Ansible
   _task "Checking if Ansible is installed"
   if ! command -v ansible >/dev/null 2>&1; then
-    _task "Installing Ansible with Homebrew"
-    _cmd "brew install ansible"
-  else
-    _task_done
-  fi
-
-  # Check and install Python3
-  _task "Checking if Python3 is installed"
-  if ! command -v python3 >/dev/null 2>&1; then
-    _task "Installing Python3 with Homebrew"
-    _cmd "brew install python"
-  else
-    _task_done
-  fi
-
-  # Check and install pip
-  _task "Checking if pip is installed"
-  if ! command -v pip3 >/dev/null 2>&1; then
-    _task "Installing pip with Homebrew"
-    _cmd "brew install pip"
-  else
-    _task_done
-  fi
-
-  # Check and install Git
-  _task "Checking if Git is installed"
-  if ! command -v git >/dev/null 2>&1; then
-    _task "Installing Git with Homebrew"
-    _cmd "brew install git"
+    _task "Installing Ansible with nix"
+    _cmd "nix-env -iA nixos.ansible"
   else
     _task_done
   fi
