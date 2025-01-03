@@ -126,13 +126,14 @@
       };
 
       environment.extraInit = ''
-      alias c="clear"
-      alias dotfiles="bash ~/.dotfiles/bin/dotfiles"
-      alias dsize="du -hs"
-      alias g="lazygit"
-    '';
-
-
+        alias c="clear"
+        alias dotfiles="bash ~/.dotfiles/bin/dotfiles"
+        alias dsize="du -hs"
+        alias g="lazygit"
+      '';
+      
+      # set sytem to use touchid auth instead of password
+      security.pam.enableSudoTouchIdAuth = true;
 
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
