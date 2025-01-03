@@ -1,5 +1,5 @@
 {
-  description = "Example Darwin system flake";
+  description = "Valiantlynx Darwin system flake";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-24.05-darwin";
@@ -29,7 +29,7 @@
         system = "aarch64-darwin";
       };
     };
-    username = "elliott";
+    username = "gormery";
     configuration = {
       pkgs,
       lib,
@@ -45,44 +45,19 @@
       ];
       environment.systemPackages =
         [
-          pkgs.alacritty
-          pkgs.air
-          pkgs.act
-          pkgs.awscli
-          pkgs.bun
-          pkgs.ffmpeg
-          pkgs.jujutsu
           pkgs.git
-          pkgs.gh
-          pkgs.gnupg
-          pkgs.unstable.go_1_23
-          pkgs.iperf
-          pkgs.lua-language-server
-          pkgs.mkalias
           pkgs.neovim
-          pkgs.nil
-          pkgs.obsidian
-          pkgs.opentofu
-          pkgs.pass
-          pkgs.postgresql_16
-          pkgs.rclone
-          pkgs.ripgrep
-          pkgs.rustup
-          pkgs.sqlc
-          pkgs.stylua
-          pkgs.unstable.stripe-cli
-          pkgs.tailwindcss
-          pkgs.tailwindcss-language-server
-          pkgs.qmk
-          pkgs.templ
           pkgs.tmux
-          pkgs.unstable.amber-lang
           pkgs.zoxide
+          pkgs.yazi
+          pkgs.btop
+          pkgs.kitty
+          pkgs.fzf
         ];
 
       users.users.elliott = {
         name = username;
-        home = "/Users/elliott";
+        home = "/Users/gormery";
       };
 
       homebrew = {
@@ -91,20 +66,19 @@
           "mas"
         ];
         casks = [
-          "hammerspoon"
           "amethyst"
-          "alfred"
+          "raycast"
           "logseq"
-          "notion"
           "firefox"
           "discord"
-          "iina"
+          "spotify"
+          "visual-studio-code"
           "the-unarchiver"
         ];
         taps = [
         ];
         masApps = {
-          Yoink = 457622435;
+              #Yoink = 457622435;
         };
       };
 
@@ -163,20 +137,13 @@
   in {
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#simple
-    darwinConfigurations."tsukuyomi" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations."macbook" = nix-darwin.lib.darwinSystem {
       modules = [
         configuration
-        home-manager.darwinModules.home-manager
-        {
-          # `home-manager` config
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.elliott = import ./home.nix;
-        }
       ];
     };
 
     # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations."tsukuyomi".pkgs;
+    darwinPackages = self.darwinConfigurations."macbook".pkgs;
   };
 }
