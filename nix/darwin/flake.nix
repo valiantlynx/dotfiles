@@ -6,6 +6,7 @@
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
     #Templ
     templ.url = "github:a-h/templ";
@@ -20,6 +21,7 @@
     nix-darwin,
     nixpkgs,
     nixpkgs-unstable,
+    nix-homebrew, 
     templ,
     home-manager,
     ...
@@ -45,7 +47,10 @@
       ];
       environment.systemPackages =
         [
+          pkgs.mkalias
           pkgs.git
+          pkgs.lazygit
+          pkgs.git-lfs
           pkgs.neovim
           pkgs.tmux
           pkgs.zoxide
@@ -115,8 +120,22 @@
       nix.settings.experimental-features = "nix-command flakes";
 
       # Create /etc/zshrc that loads the nix-darwin environment.
-      programs.zsh.enable = true; # default shell on catalina
 
+      programs.zsh = {
+        enable = true; # default shell on catalina
+        shellAliases = {
+          # Utils
+          c = "clear";
+          y = "yazi";
+          py = "python";
+          ipy = "ipython";
+          dsize = "du -hs";
+
+
+          # dotfiles
+          dotfiles = "bash ~/.dotfiles/bin/dotfiles";
+        };
+      };
       # Set Git commit hash for darwin-version.
       system.configurationRevision = self.rev or self.dirtyRev or null;
 
@@ -140,6 +159,22 @@
     darwinConfigurations."macbook" = nix-darwin.lib.darwinSystem {
       modules = [
         configuration
+        nix-homebrew.darwinModules.nix-homebrew
+        {
+          nix-homebrew = {
+            # Install Homebrew under the default prefix
+            enable = true;
+
+            # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
+            enableRosetta = true;
+
+            # User owning the Homebrew prefix
+            user = "gormery";
+
+            
+            autoMigrate = true;
+          };
+        }
       ];
     };
 
