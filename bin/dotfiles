@@ -169,11 +169,12 @@ function arch_setup() {
 }
 
 function macos_setup() {
-  # Check if Homebrew is installed
+  # Check if niv-darwin is installed
   if ! command -v brew >/dev/null 2>&1; then
     _task "Installing Homebrew"
-    _cmd '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+    _cmd 'nix run nix-darwin --extra-experimental-features  "nix-command flakes" -- switch --flake ~/.dotfiles/nix/darwin#macbook'
   fi
+
 
   # Check and install Ansible
   _task "Checking if Ansible is installed"
