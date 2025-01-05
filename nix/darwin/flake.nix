@@ -147,6 +147,17 @@
         NSGlobalDomain.AppleShowAllExtensions = true;
         loginwindow.GuestEnabled = false;
         finder.FXPreferredViewStyle = "clmv";
+        # Disable “natural” scrolling
+        #NSGlobalDomain."com.apple.swipescrolldirection" = false;
+
+        # Show hidden files in Finder
+        finder.AppleShowAllFiles = true;
+
+        # Enable the auto-hide Dock
+        dock.autohide = true;
+        dock.magnification = true;
+        dock.largesize = 72;
+        dock.tilesize = 48;
       };
 
       # The platform the configuration will be used on.
