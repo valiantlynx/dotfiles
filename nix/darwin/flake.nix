@@ -74,7 +74,7 @@
           "amethyst"
           "raycast"
           "logseq"
-          "firefox"
+          "blender"
           "discord"
           "spotify"
           "visual-studio-code"
