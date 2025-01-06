@@ -195,8 +195,8 @@ function macos_setup() {
 function windows_setup() {
   # 1) Install uv
   ensure_uv_installed
-
   ensure_komorebi_installed
+  symlink_komorebi_config
   configure_and_start_komorebi
 
     exit 1 #TODO: remove this line and finish the setup for windows. this just stops the script from running the rest of the setup cause im done for now
@@ -241,17 +241,37 @@ function ensure_komorebi_installed() {
   if command -v komorebic.exe &>/dev/null; then
     _task_done "Komorebi is already installed."
   else
-    # First ensure Scoop is installed, then install Komorebi
-    if ! command -v scoop &>/dev/null; then
-      _task "Installing Scoop"
-      _cmd 'powershell -NoProfile -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; iwr https://get.scoop.sh | iex"'
-      _task_done "Scoop installed."
-      # Re-source the updated $PATH from Scoop if necessary
-    fi
-
-    _task "Installing Komorebi via Scoop"
-    _cmd 'powershell -NoProfile -Command "scoop install komorebi"'
+    _task "Installing Komorebi via winget"
+    _cmd 'powershell -NoProfile -Command "winget install LGUG2Z.komorebi LGUG2Z.whkd"'
     _task_done "Komorebi installed."
+  fi
+}
+function symlink_komorebi_config() {
+  local source_dir="$HOME/.dotfiles/win"
+  local target_link="$HOME/.config/komorebi"
+
+  echo "[TASK] Symlinking $target_link → $source_dir"
+
+  # If ~/.config/komorebi already exists (either a directory or old symlink), remove it
+  if [ -e "$target_link" ] || [ -L "$target_link" ]; then
+    echo "Removing existing $target_link"
+    rm -rf "$target_link"
+  fi
+
+  # Create parent directories if they don't exist
+  mkdir -p "$(dirname "$target_link")"
+
+  echo "Creating symlink $target_link → $source_dir"
+  # Create the symlink
+  export MSYS=winsymlinks:nativestrict
+  ln -s "$source_dir" "$target_link"
+
+  # Verify
+  if [ -L "$target_link" ] && [ "$(readlink "$target_link")" = "$source_dir" ]; then
+    echo "[DONE] $target_link → $(readlink "$target_link")"
+  else
+    echo "Error: symlink creation failed."
+    exit 1
   fi
 }
 
@@ -261,12 +281,12 @@ function configure_and_start_komorebi() {
   # For example, let's store it in $HOME/.config/komorebi
   local config_home="$HOME/.config/komorebi"
 
-  mkdir -p "$config_home"
-
   # If you want it permanently in PowerShell profile:
   # (but from Git Bash, you can do a single-run environment export)
   # For demonstration, just export for this script:
   export KOMOREBI_CONFIG_HOME="$config_home"
+  export WHKD_CONFIG_HOME="$config_home" # For WHKD
+  
   echo "KOMOREBI_CONFIG_HOME set to $KOMOREBI_CONFIG_HOME"
 
   # Optionally add Komorebi install folder to PATH if needed
@@ -277,7 +297,7 @@ function configure_and_start_komorebi() {
   # Start Komorebi
   # 'komorebic.exe start' or 'komorebic.exe'
   _task "Starting Komorebi"
-  _cmd "komorebic.exe start"
+  _cmd "komorebic.exe start --whkd --bar"
   _task_done "Komorebi started"
 }
 
