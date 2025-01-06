@@ -6,13 +6,16 @@
   "default_workspace_padding": 2,
   "default_container_padding": 100,
   "border": true,
-  "border_width": 0,
+  "border_width": 2,
   "border_offset": -10,
+  "mouse_follows_focus": true,
+  "transparency": true,
+  "transparency_alpha": 249,
   "theme": {
     "palette": "Base16",
-    "name": "Ashes",
+    "name": "GruvboxDarkSoft",
     "unfocused_border": "Base03",
-    "bar_accent": "Base0D"
+    "bar_accent": "GruvboxDarkSoft"
   },
   "stackbar": {
     "height": 40,
