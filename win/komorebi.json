@@ -1,13 +1,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/v0.1.32/schema.json",
-  "app_specific_configuration_path": "$Env:USERPROFILE/.dotfiles/win/applications.json",
+  "app_specific_configuration_path": "$Env:USERPROFILE/.config/komorebi/applications.json",
   "window_hiding_behaviour": "Cloak",
   "cross_monitor_move_behaviour": "Insert",
-  "default_workspace_padding": 20,
-  "default_container_padding": 20,
+  "default_workspace_padding": 2,
+  "default_container_padding": 1,
   "border": true,
-  "border_width": 8,
-  "border_offset": -1,
+  "border_width": 0,
+  "border_offset": -10,
   "theme": {
     "palette": "Base16",
     "name": "Ashes",
