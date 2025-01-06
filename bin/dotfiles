@@ -192,6 +192,98 @@ function macos_setup() {
   fi
 }
 
+function windows_setup() {
+  # 1) Install uv
+  ensure_uv_installed
+
+  ensure_komorebi_installed
+  configure_and_start_komorebi
+
+    exit 1 #TODO: remove this line and finish the setup for windows. this just stops the script from running the rest of the setup cause im done for now
+
+    # Check and install Ansible
+  _task "Checking if Ansible is installed"
+  if ! command -v ansible >/dev/null 2>&1; then
+    _task "Installing Ansible with uv"
+    _cmd " uv pip install ansible --system"
+  else
+    _task_done
+  fi
+}
+
+function ensure_uv_installed() {
+  _task "Checking uv installation"
+
+  if command -v uv &>/dev/null; then
+    # uv is already on the system
+    _task_done
+    echo "uv is already installed."
+  else
+    # Install uv
+    _task "Installing uv"
+    _cmd 'powershell -ExecutionPolicy Bypass -Command "irm https://astral.sh/uv/install.ps1 | iex"'
+    _task_done
+
+    # Verify uv is on PATH
+    if ! command -v uv &>/dev/null; then
+      echo "Error: uv installation did not succeed or is not on PATH."
+      exit 1
+    fi
+    echo "uv installed successfully."
+  fi
+}
+
+# 2) Ensure Komorebi is installed via Scoop (example approach)
+function ensure_komorebi_installed() {
+  _task "Checking Komorebi installation"
+
+  # If 'komorebic.exe' is not found, assume Komorebi is not installed
+  if command -v komorebic.exe &>/dev/null; then
+    _task_done "Komorebi is already installed."
+  else
+    # First ensure Scoop is installed, then install Komorebi
+    if ! command -v scoop &>/dev/null; then
+      _task "Installing Scoop"
+      _cmd 'powershell -NoProfile -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; iwr https://get.scoop.sh | iex"'
+      _task_done "Scoop installed."
+      # Re-source the updated $PATH from Scoop if necessary
+    fi
+
+    _task "Installing Komorebi via Scoop"
+    _cmd 'powershell -NoProfile -Command "scoop install komorebi"'
+    _task_done "Komorebi installed."
+  fi
+}
+
+# 3) Set KOMOREBI_CONFIG_HOME, add to PATH, then start Komorebi
+function configure_and_start_komorebi() {
+  _task "Setting KOMOREBI_CONFIG_HOME environment variable"
+  # For example, let's store it in $HOME/.config/komorebi
+  local config_home="$HOME/.config/komorebi"
+
+  mkdir -p "$config_home"
+
+  # If you want it permanently in PowerShell profile:
+  # (but from Git Bash, you can do a single-run environment export)
+  # For demonstration, just export for this script:
+  export KOMOREBI_CONFIG_HOME="$config_home"
+  echo "KOMOREBI_CONFIG_HOME set to $KOMOREBI_CONFIG_HOME"
+
+  # Optionally add Komorebi install folder to PATH if needed
+  # For Scoop, typically "C:/Users/<User>/scoop/apps/komorebi/current" might be auto on PATH
+  # If not, we can do:
+  # export PATH="$PATH:/c/Users/$USER/scoop/apps/komorebi/current"
+
+  # Start Komorebi
+  # 'komorebic.exe start' or 'komorebic.exe'
+  _task "Starting Komorebi"
+  _cmd "komorebic.exe start"
+  _task_done "Komorebi started"
+}
+
+
+
+
 update_ansible_galaxy() {
   local os=$1
   local os_requirements=""
@@ -213,6 +305,8 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   OS_ID="darwin"
+elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+  OS_ID="windows"
 else
   OS_ID="unsupported"
 fi
@@ -230,6 +324,9 @@ case $OS_ID in
     ;;
   darwin)
     macos_setup
+    ;;
+  windows)
+    windows_setup
     ;;
   *)
     _task "Unsupported OS"
