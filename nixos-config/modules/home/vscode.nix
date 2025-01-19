@@ -12,7 +12,7 @@ in
 {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium;
+    package = pkgs.vscode;
     extensions = with pkgs.vscode-extensions; [
       # nix language
       jnoortheen.nix-ide
@@ -20,6 +20,22 @@ in
       arrterian.nix-env-selector
       # python
       ms-python.python
+      ms-python.vscode-pylance
+      ms-python.autopep8
+      ms-python.isort
+      donjayamanne.python-environment-manager
+      donjayamanne.python-extension-pack
+      aaron-bond.better-comments
+      formulahendry.auto-rename-tag
+      github.copilot
+      ms-azuretools.vscode-docker
+      ms-vscode-remote.remote-containers
+      ms-vscode-remote.remote-ssh
+      ms-vscode-remote.vscode-remote-extensionpack
+      ms-toolsai.jupyter
+      ritwickdey.liveserver
+      esbenp.prettier-vscode
+      wakatime.vscode-wakatime
       # C/C++
       ms-vscode.cpptools
       # OCaml
@@ -107,8 +123,13 @@ in
     # Keybindings
     keybindings = [
       {
-        key = "ctrl+q";
+        key = "ctrl+k+c";
         command = "editor.action.commentLine";
+        when = "editorTextFocus && !editorReadonly";
+      }
+      {
+        key = "ctrl+k+u";
+        command = "editor.action.uncommentline";
         when = "editorTextFocus && !editorReadonly";
       }
       {
