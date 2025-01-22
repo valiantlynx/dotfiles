@@ -17,7 +17,8 @@
     update_cache: yes
   become: true
   when: result.rc != 0
-
+  ignore_errors: true
+  
 - name: "Spotify | Install"
   ansible.builtin.apt:
     name:
