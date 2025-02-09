@@ -21,10 +21,10 @@ in
       # python
       ms-python.python
       ms-python.vscode-pylance
-      ms-python.autopep8
+      #ms-python.autopep8
       ms-python.isort
-      donjayamanne.python-environment-manager
-      donjayamanne.python-extension-pack
+      #donjayamanne.python-environment-manager
+      #donjayamanne.python-extension-pack
       aaron-bond.better-comments
       formulahendry.auto-rename-tag
       github.copilot

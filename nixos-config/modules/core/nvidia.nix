@@ -64,7 +64,7 @@
   nvidia.modesetting.enable = true;
   #nvidia.nvidiaPersistenced = true;
 
-  #nvidia.open = true;
+  nvidia.open = true;
   # Optionally, you may need to select the appropriate driver version for your specific GPU.
   nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 

@@ -152,6 +152,8 @@ install() {
     # Build the system (flakes + home manager)
     echo -e "\nBuilding the system...\n"
     sudo nixos-rebuild switch --flake .#${HOST}
+
+    sudo /run/current-system/bin/switch-to-configuration boot
 }
 
 main() {
@@ -167,3 +169,4 @@ main() {
 }
 
 main && exit 0
+
