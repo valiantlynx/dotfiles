@@ -25,7 +25,7 @@ in
       ms-python.isort
       #donjayamanne.python-environment-manager
       #donjayamanne.python-extension-pack
-      aaron-bond.better-comments
+      #aaron-bond.better-comments
       formulahendry.auto-rename-tag
       github.copilot
       ms-azuretools.vscode-docker
@@ -61,7 +61,6 @@ in
       "vsicons.dontShowNewVersionMessage" = true;
       "explorer.confirmDragAndDrop" = false;
       "editor.fontLigatures" = true;
-      "editor.minimap.enabled" = false;
       "workbench.startupEditor" = "none";
 
       "editor.formatOnSave" = true;
@@ -74,16 +73,13 @@ in
       "workbench.editor.limit.perEditorGroup" = true;
       "workbench.editor.showTabs" = "single";
       "files.autoSave" = "onWindowChange";
-      "explorer.openEditors.visible" = 0;
-      "breadcrumbs.enabled" = false;
-      "editor.renderControlCharacters" = false;
-      "workbench.activityBar.location" = "hidden";
-      "workbench.statusBar.visible" = false;
+      "explorer.openEditors.visible" = 10;
+      "breadcrumbs.enabled" = true;
+      "editor.renderControlCharacters" = true;
       "editor.scrollbar.verticalScrollbarSize" = 2;
       "editor.scrollbar.horizontalScrollbarSize" = 2;
-      "editor.scrollbar.vertical" = "hidden";
-      "editor.scrollbar.horizontal" = "hidden";
-      "workbench.layoutControl.enabled" = false;
+      "editor.scrollbar.vertical" = "auto";
+      "editor.scrollbar.horizontal" = "auto";
 
       "editor.mouseWheelZoom" = true;
 
