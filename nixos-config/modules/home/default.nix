@@ -37,6 +37,7 @@
     ./starship.nix # shell prompt
     ./swaylock.nix
     ./tmux.nix # lock screen
+    ./uv.nix # python virtual env manager and version manager
     ./viewnior.nix # image viewer
     ./vscode.nix # vscode
     ./waybar # status bar
