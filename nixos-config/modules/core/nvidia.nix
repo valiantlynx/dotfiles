@@ -13,7 +13,9 @@
   nixpkgs.config.allowUnfree = true;
 
   services.xserver = {
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = [
+      "nvidia"
+    ];
     #  config = ''
     #    Section "Device"
     #        Identifier  "Intel Graphics"
@@ -53,10 +55,10 @@
     graphics = {
       extraPackages = with pkgs; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        #        intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-        #        libvdpau-va-gl
-        #        vaapiVdpau
-        #        #mesa.drivers
+        intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+        libvdpau-va-gl
+        vaapiVdpau
+        mesa.drivers
       ];
     };
 
@@ -65,13 +67,13 @@
     nvidia.powerManagement.finegrained = true;
 
     #nvidia.forceFullCompositionPipeline = true;
-    #nvidia-drm.modeset = 1 #is required for some wayland compositors, e.g. sway
+    #nvidia-drm.modeset = true; # is required for some wayland compositors, e.g. sway
     nvidia.modesetting.enable = true;
     #nvidia.nvidiaPersistenced = true;
 
     nvidia.open = true;
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+    nvidia.package = config.boot.kernelPackages.nvidiaPackages.latest;
 
     #offload , Sync or reverseSync
     nvidia.prime = {
@@ -100,7 +102,7 @@
   # };  
 
   # Cuda?
-  #services.xmr-stak.cudaSupport = true; 
+  #services.xmr-stak.cudaSupport = true;
 
   #Switch GPU
   #services.switcherooControl.enable = true;
