@@ -16,6 +16,7 @@
     repo: ppa:neovim-ppa/unstable
     state: present
   become: true
+  ignore_errors: true
 
 - name: "Neovim | Ubuntu | Install"
   ansible.builtin.apt:
