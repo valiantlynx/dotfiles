@@ -75,6 +75,7 @@
     name: docker-compose
     state: absent
     executable: pip3
+  ignore_errors: true
 
 - name: Download Docker Compose
   become: true
