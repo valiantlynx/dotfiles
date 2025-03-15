@@ -57,6 +57,9 @@ add_to_file() {
 echo -e "${YELLOW}Updating package lists...${RESET}"
 sudo apt update
 
+#update drivers
+sudo ubuntu-drivers autoinstall
+
 # Install additional Nvidia packages
 echo -e "${YELLOW}Installing ${SKY_BLUE}Nvidia packages${RESET}..."
 for NVIDIA in "${nvidia_pkg[@]}"; do
