@@ -6,6 +6,8 @@ nvidia_pkg=(
   libva-wayland2
   libnvidia-egl-wayland1
   nvidia-vaapi-driver
+  nvidia-driver-570-server
+  nvidia-utils-570-server
 )
 
 # Create log directory if it doesn't exist
