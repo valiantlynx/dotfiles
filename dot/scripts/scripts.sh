@@ -32,42 +32,38 @@ install_script() {
 echo "Installing custom scripts..."
 
 # Wallpaper scripts
-install_script "wall-change" "./scripts/wall-change.sh"
-install_script "wallpaper-picker" "./scripts/wallpaper-picker.sh"
-install_script "random-wallpaper" "./scripts/random-wallpaper.sh"
+install_script "wall-change" "$HOME/.dotfiles/dot/scripts/scripts/wall-change.sh"
+install_script "wallpaper-picker" "$HOME/.dotfiles/dot/scripts/scripts/wallpaper-picker.sh"
+install_script "random-wallpaper" "$HOME/.dotfiles/dot/scripts/scripts/random-wallpaper.sh"
 
 # Utility scripts
-install_script "runbg" "./scripts/runbg.sh"
-install_script "music" "./scripts/music.sh"
-install_script "lofi" "./scripts/lofi.sh"
+install_script "runbg" "$HOME/.dotfiles/dot/scripts/scripts/runbg.sh"
 
 # Toggle scripts
-install_script "toggle_blur" "./scripts/toggle_blur.sh"
-install_script "toggle_oppacity" "./scripts/toggle_oppacity.sh"
-install_script "toggle_waybar" "./scripts/toggle_waybar.sh"
-install_script "toggle_float" "./scripts/toggle_float.sh"
-
-# System info
-install_script "maxfetch" "./scripts/maxfetch.sh"
+install_script "toggle_blur" "$HOME/.dotfiles/dot/scripts/scripts/toggle_blur.sh"
+install_script "toggle_oppacity" "$HOME/.dotfiles/dot/scripts/scripts/toggle_oppacity.sh"
+install_script "toggle_waybar" "$HOME/.dotfiles/dot/scripts/scripts/toggle_waybar.sh"
+install_script "toggle_float" "$HOME/.dotfiles/dot/scripts/scripts/toggle_float.sh"
 
 # Archive management
-install_script "compress" "./scripts/compress.sh"
-install_script "extract" "./scripts/extract.sh"
+install_script "compress" "$HOME/.dotfiles/dot/scripts/scripts/compress.sh"
+install_script "extract" "$HOME/.dotfiles/dot/scripts/scripts/extract.sh"
 
 # Help
-install_script "show-keybinds" "./scripts/keybinds.sh"
+install_script "show-keybinds" "$HOME/.dotfiles/dot/scripts/scripts/keybinds.sh"
 
 # VM management
-install_script "vm-start" "./scripts/vm-start.sh"
+install_script "vm-start" "$HOME/.dotfiles/dot/scripts/scripts/vm-start.sh"
 
 # Miscellaneous
-install_script "ascii" "./scripts/ascii.sh"
-install_script "record" "./scripts/record.sh"
-install_script "screenshot" "./scripts/screenshot.sh"
+install_script "ascii" "$HOME/.dotfiles/dot/scripts/scripts/ascii.sh"
+install_script "record" "$HOME/.dotfiles/dot/scripts/scripts/record.sh"
+install_script "screenshot" "$HOME/.dotfiles/dot/scripts/scripts/screenshot.sh"
 
 # Power management
-install_script "rofi-power-menu" "./scripts/rofi-power-menu.sh"
-install_script "power-menu" "./scripts/power-menu.sh"
+install_script "rofi-power-menu" "$HOME/.dotfiles/dot/scripts/scripts/rofi-power-menu.sh"
+install_script "power-menu" "$HOME/.dotfiles/dot/scripts/scripts/power-menu.sh"
+install_script "lg" "$HOME/.dotfiles/dot/scripts/scripts/lg.sh"
 
 echo "All scripts have been installed to $SCRIPT_DIR"
 echo "You may need to restart your terminal or run 'source ~/.bashrc' for the PATH changes to take effect"
