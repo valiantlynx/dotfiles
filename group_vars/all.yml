@@ -22,6 +22,7 @@ default_roles:
   - neofetch
   - hyprland
   - rofi
+  - swww
   - swaync
   - waybar
   - neovim
