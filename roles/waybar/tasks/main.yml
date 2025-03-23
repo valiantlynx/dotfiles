@@ -1,0 +1,8 @@
+---
+- name: "waybar | Configure waybar"
+  ansible.builtin.copy:
+    src: waybar
+    dest: "{{ ansible_user_dir }}/.config/"
+    mode: 0644
+    directory_mode: 0755
+    force: true

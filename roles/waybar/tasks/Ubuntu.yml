@@ -1,0 +1,6 @@
+---
+- name: "Waybar | Ubuntu | Install waybar"
+  ansible.builtin.apt:
+    name: waybar
+    state: present
+  become: true

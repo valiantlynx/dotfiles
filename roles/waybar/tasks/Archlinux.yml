@@ -1,0 +1,6 @@
+---
+- name: "Waybar | Arch | Install waybar"
+  community.general.pacman:
+    name: waybar
+    state: present
+  become: true
