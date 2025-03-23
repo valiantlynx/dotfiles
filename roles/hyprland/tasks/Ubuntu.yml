@@ -1,0 +1,6 @@
+---
+- name: "Hyprland | Ubuntu | Install hyprland"
+  ansible.builtin.apt:
+    name: hyprland
+    state: present
+  become: true
