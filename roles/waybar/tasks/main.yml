@@ -1,8 +1,13 @@
 ---
-- name: "waybar | Configure waybar"
-  ansible.builtin.copy:
-    src: waybar
-    dest: "{{ ansible_user_dir }}/.config/"
-    mode: 0644
-    directory_mode: 0755
+- name: "waybar | Config folder"
+  ansible.builtin.file:
+    mode: "0755"
+    path: "{{ ansible_user_dir }}/.config/waybar"
+    state: directory
+
+- name: "Waybar | Create symlink to role files directory"
+  ansible.builtin.file:
+    src: "{{ role_path }}/files"
+    dest: "{{ ansible_user_dir }}/.config/waybar"
+    state: link
     force: true

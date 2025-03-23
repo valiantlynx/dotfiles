@@ -4,10 +4,15 @@
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
 
-- name: "tmux | Configure tmux"
-  ansible.builtin.copy:
-    src: tmux
-    dest: "{{ ansible_user_dir }}/.config/"
-    mode: 0644
-    directory_mode: 0755
+- name: "tmux | Config folder"
+  ansible.builtin.file:
+    mode: "0755"
+    path: "{{ ansible_user_dir }}/.config/tmux"
+    state: directory
+
+- name: "Tmux | Create symlink to role files directory"
+  ansible.builtin.file:
+    src: "{{ role_path }}/files"
+    dest: "{{ ansible_user_dir }}/.config/tmux"
+    state: link
     force: true
