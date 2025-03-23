@@ -48,6 +48,28 @@
     directory_mode: 0755
     force: true
 
+- name: "Bash | Ensure .local/bin directory exists"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.local/bin"
+    state: directory
+    mode: "0755"
+
+- name: "Bash | Ensure PATH includes .local/bin"
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_user_dir }}/.bashrc"
+    line: 'export PATH="$HOME/.local/bin:$PATH"'
+    state: present
+    create: true
+    mode: "0644"
+  
+- name: "Bash | Copy bash scripts to bin directory without .sh extension"
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_user_dir }}/.local/bin/{{ item | basename | regex_replace('\\.sh$', '') }}"
+    mode: "0755"
+  with_fileglob:
+    - "bash/scripts/*.sh"
+
 - name: "Bash | Copy custom bash theme"
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.oh-my-bash/custom/"
