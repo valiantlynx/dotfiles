@@ -1,0 +1,20 @@
+---
+- import_tasks: Ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Run Arch Tasks
+  ansible.builtin.import_tasks: Archlinux.yml
+  when: ansible_os_family == 'Archlinux'
+
+- name: "swaync | Config folder"
+  ansible.builtin.file:
+    mode: "0755"
+    path: "{{ ansible_user_dir }}/.config/swaync"
+    state: directory
+
+- name: "swaync | Create symlink to role files directory"
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/swaync"
+    dest: "{{ ansible_user_dir }}/.config/swaync"
+    state: link
+    force: true

@@ -1,0 +1,6 @@
+---
+- name: "swaync | Ubuntu | Install swaync"
+  ansible.builtin.apt:
+    name: swaync
+    state: present
+  become: true

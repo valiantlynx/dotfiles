@@ -1,0 +1,6 @@
+---
+- name: "swaync | Arch | Install swaync"
+  community.general.pacman:
+    name: swaync
+    state: present
+  become: true
