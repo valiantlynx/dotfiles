@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-wallpaper_path="$HOME/Downloads/dot/wallpapers"
-wallpapers_folder="$HOME/Downloads/dot/wallpapers/others"
+wallpaper_path="$HOME/.dotfiles/roles/bash/files/wallpapers"
+wallpapers_folder="$HOME/.dotfiles/roles/bash/files/wallpapers/others"
 
 current_wallpaper=$(readlink "$wallpaper_path/wallpaper" 2> /dev/null)
 current_wallpaper_name="$(basename "$current_wallpaper")"
