@@ -1,0 +1,6 @@
+---
+- name: "Kitty | Ubuntu | Install kitty"
+  ansible.builtin.apt:
+    name: kitty
+    state: present
+  become: true
