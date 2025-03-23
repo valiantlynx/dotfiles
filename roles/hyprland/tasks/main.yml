@@ -7,7 +7,7 @@
 
 - name: "Hyprland | Create symlink to role files directory"
   ansible.builtin.file:
-    src: "{{ role_path }}/files"
+    src: "{{ role_path }}/files/hypr"
     dest: "{{ ansible_user_dir }}/.config/hypr"
     state: link
     force: true
