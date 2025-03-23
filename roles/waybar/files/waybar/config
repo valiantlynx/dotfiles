@@ -40,7 +40,7 @@
     "custom/launcher": {
       "format": "",
       "on-click": "random-wallpaper",
-      "on-click-right": "rofi -show drun",
+      "on-click-right": "hyprctl dispatch exec '[float; center;] rofi -show drun'",
       "tooltip": "true",
       "tooltip-format": "Random Wallpaper"
     },
