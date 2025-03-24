@@ -1,0 +1,6 @@
+---
+- name: "nvtop | Arch | Install nvtop"
+  community.general.pacman:
+    name: nvtop
+    state: present
+  become: true
