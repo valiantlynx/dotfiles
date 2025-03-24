@@ -1,25 +1,3 @@
 ---
-- name: Logseq | Detect if Desktop Environment"
-  ansible.builtin.set_fact:
-    ansible_host_is_desktop_environment: "{{ lookup('env', 'XDG_CURRENT_DESKTOP') }}"
-
-- name: "Logseq | Install"
-  community.general.flatpak:
-    name: "com.logseq.Logseq"
-    state: present
-  when:
-    - not ansible_host_environment_is_wsl
-    - ansible_host_is_desktop_environment | bool
-
-- name: "Logseq | Clone Logseq Git Repo"
-  ansible.builtin.git:
-    repo: "git@github.com:valiantlynx/valiantlynx_logseq.git"
-    dest: "{{ ansible_user_dir }}/valiantlynx_logseq"
-  failed_when: false # This only really needs to be run once, ever.
-
-# - name: "Logseq | Create Cron Job to Pull, Commit, and Push to Git"
-#   ansible.builtin.cron:
-#     name: "Git Pull, Commit, and Push"
-#     minute: "*"
-#     job: "cd {{ ansible_user_dir }}/valiantlynx_logseq && git pull && git add -A && git commit -m 'Auto backup from $HOSTNAME' && git push"
-#   become: true
+- import_tasks: Ubuntu.yml
+  when: ansible_os_family == 'Debian'
