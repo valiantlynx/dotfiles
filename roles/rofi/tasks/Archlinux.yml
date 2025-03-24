@@ -1,0 +1,6 @@
+---
+- name: "rofi | Arch | Install rofi"
+  community.general.pacman:
+    name: rofi
+    state: present
+  become: true

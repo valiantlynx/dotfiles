@@ -1,0 +1,32 @@
+---
+- name: "NVIDIA | Prepare for installation"
+  block:
+    - name: "NVIDIA | Create temporary directory for installation script"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/nvidia_temp"
+        state: directory
+        mode: "0755"
+
+    - name: "NVIDIA | Copy NVIDIA installation script"
+      ansible.builtin.copy:
+        src: "nvidia.sh"  # Assumes the script is named nvidia.sh in the files directory
+        dest: "{{ ansible_user_dir }}/nvidia_temp/nvidia.sh"
+        mode: "0755"
+
+    - name: "NVIDIA | Run NVIDIA installation script"
+      ansible.builtin.shell: 
+        cmd: "{{ ansible_user_dir }}/nvidia_temp/nvidia.sh"
+      become: yes  # Run with sudo privileges
+      register: nvidia_output
+      changed_when: nvidia_output.rc == 0
+      failed_when: nvidia_output.rc != 0
+
+    - name: "NVIDIA | Display installation output"
+      ansible.builtin.debug:
+        var: nvidia_output.stdout_lines
+      when: nvidia_output.stdout_lines is defined
+
+    - name: "NVIDIA | Clean up temporary directory"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/nvidia_temp"
+        state: absent

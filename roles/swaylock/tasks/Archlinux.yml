@@ -1,0 +1,6 @@
+---
+- name: "swaylock | Arch | Install swaylock"
+  community.general.pacman:
+    name: swaylock
+    state: present
+  become: true

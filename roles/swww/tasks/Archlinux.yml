@@ -1,0 +1,6 @@
+---
+- name: "swww | Arch | Install swww"
+  community.general.pacman:
+    name: swww
+    state: present
+  become: true

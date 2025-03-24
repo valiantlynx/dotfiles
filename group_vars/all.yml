@@ -18,7 +18,17 @@ default_roles:
   - lsd
   - lua
   - nala
+  - uv
+  - nvidia
+  #- waypaper
+  - kitty
   - neofetch
+  - hyprland
+  - rofi
+  - swww
+  - swaync
+  #- swayosd # swayosd coming in ubuntu 25.04 
+  - waybar
   - neovim
   - npm
   - nvm
@@ -32,6 +42,7 @@ default_roles:
   - tldr
   - tmate
   - tmux
+  - yazi
   - zellij
   #- spotify
   - zoxide

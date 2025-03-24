@@ -1,0 +1,15 @@
+#!/bin/sh
+# Add user local bin directories to system PATH
+# This ensures programs run by the system can find user scripts
+
+# Add all users' .local/bin directories to PATH
+if [ -d "/home/*/local/bin" ] ; then
+    PATH="$PATH:/home/*/local/bin"
+fi
+
+# Add specific user's .local/bin if it exists (for targeted approach)
+if [ -d "{{ ansible_user_dir }}/.local/bin" ] ; then
+    PATH="$PATH:{{ ansible_user_dir }}/.local/bin"
+fi
+
+export PATH

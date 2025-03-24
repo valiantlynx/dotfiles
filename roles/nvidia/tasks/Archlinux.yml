@@ -1,0 +1,6 @@
+---
+- name: "nvidia | Arch | Install nvidia"
+  community.general.pacman:
+    name: nvidia
+    state: present
+  become: true

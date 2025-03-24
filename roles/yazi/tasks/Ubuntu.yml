@@ -1,0 +1,23 @@
+---
+- name: Yazi | Ubuntu | Install optional dependencies
+  ansible.builtin.apt:
+    name:
+      - ffmpeg
+      - p7zip-full
+      - jq
+      - poppler-utils
+      - fd-find
+      - ripgrep
+      - fzf
+      - zoxide
+      - imagemagick
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Yazi | Ubuntu | Install Yazi via Snap
+  community.general.snap:
+    name: yazi
+    classic: yes
+    state: present
+  become: yes

@@ -1,0 +1,6 @@
+---
+- name: "swayosd | Arch | Install swayosd"
+  community.general.pacman:
+    name: swayosd
+    state: present
+  become: true

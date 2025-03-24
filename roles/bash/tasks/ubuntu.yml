@@ -48,6 +48,38 @@
     directory_mode: 0755
     force: true
 
+- name: "Bash | Ensure .local/bin directory exists"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.local/bin"
+    state: directory
+    mode: "0755"
+
+- name: "Bash | Copy bash scripts to bin directory without .sh extension"
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_user_dir }}/.local/bin/{{ item | basename | regex_replace('\\.sh$', '') }}"
+    mode: "0755"
+  with_fileglob:
+    - "bash/scripts/*.sh"
+
+# New tasks to make scripts available system-wide
+- name: "Bash | Create symlinks in /usr/local/bin for user scripts"
+  ansible.builtin.file:
+    src: "{{ ansible_user_dir }}/.local/bin/{{ item | basename | regex_replace('\\.sh$', '') }}"
+    dest: "/usr/local/bin/{{ item | basename | regex_replace('\\.sh$', '') }}"
+    state: link
+    force: true
+  with_fileglob:
+    - "bash/scripts/*.sh"
+  become: true
+
+- name: "Bash | Add .local/bin to system-wide PATH via /etc/profile.d"
+  ansible.builtin.template:
+    src: local-bin.sh.j2
+    dest: /etc/profile.d/local-bin.sh
+    mode: "0644"
+  become: true
+
 - name: "Bash | Copy custom bash theme"
   ansible.builtin.copy:
     dest: "{{ ansible_user_dir }}/.oh-my-bash/custom/"

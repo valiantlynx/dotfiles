@@ -1,0 +1,42 @@
+---
+- name: "SWWW | Check if SWWW is installed and version is correct"
+  ansible.builtin.shell: swww -V 2>/dev/null || echo "not installed"
+  register: swww_version_check
+  changed_when: false
+  failed_when: false
+
+- name: "SWWW | Register SWWW installation state"
+  ansible.builtin.set_fact:
+    swww_is_installed: "{{ swww_version_check.stdout is search('0.9.5') }}"
+
+- name: "SWWW | Debug swww_is_installed"
+  ansible.builtin.debug:
+    var: swww_is_installed
+
+- name: "SWWW | Install SWWW using bash script"
+  when: not swww_is_installed
+  block:
+    - name: "SWWW | Create directory for script"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/swww_temp"
+        state: directory
+        mode: "0755"
+
+    - name: "SWWW | Copy installation script"
+      ansible.builtin.copy:
+        src: "swww.sh"
+        dest: "{{ ansible_user_dir }}/swww_temp/swww.sh"
+        mode: "0755"
+
+    - name: "SWWW | Run the installation script"
+      ansible.builtin.shell: "{{ ansible_user_dir }}/swww_temp/swww.sh"
+      register: script_output
+
+    - name: "SWWW | Show installation output"
+      ansible.builtin.debug:
+        var: script_output.stdout_lines
+
+    - name: "SWWW | Clean up temporary directory"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/swww_temp"
+        state: absent

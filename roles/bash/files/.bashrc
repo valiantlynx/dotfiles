@@ -9,7 +9,7 @@ export OSH="$HOME/.oh-my-bash"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="axin"
+OSH_THEME="cupcake"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -148,6 +148,9 @@ fi
 # Example aliases
 # alias bashconfig="mate ~/.bashrc"
 # alias ohmybash="mate ~/.oh-my-bash"
+alias cat=bat
+export XDG_CURRENT_DESKTOP=Hyprland
+export XDG_ICON_THEME="Papirus"
 
 if [[ -f "$HOME/.config/bash/.bash_private" ]]; then
     source "$HOME/.config/bash/.bash_private"
@@ -170,3 +173,8 @@ if [[ -z "$TMUX" ]]; then
 fi
 #toilet "valiantlynx" -F border:gay -f emboss2
 
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/valiantlynx/.lmstudio/bin"
+source ~/ros2_iron/install/local_setup.bash
+. "$HOME/.cargo/env"

@@ -1,0 +1,12 @@
+---
+- name: "Hyprland | Ubuntu | Install hyprland"
+  ansible.builtin.apt:
+    name: hyprland
+    state: present
+  become: true
+
+- name: "Hyprland | Ubuntu | Install xdg-desktop-portal-wlr"
+  ansible.builtin.apt:
+    name: xdg-desktop-portal-wlr
+    state: present
+  become: true

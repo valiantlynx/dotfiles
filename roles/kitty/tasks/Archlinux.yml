@@ -1,0 +1,6 @@
+---
+- name: "Kitty | Arch | Install kitty"
+  community.general.pacman:
+    name: kitty
+    state: present
+  become: true

@@ -1,0 +1,6 @@
+---
+- name: "rofi | Ubuntu | Install rofi"
+  ansible.builtin.apt:
+    name: rofi
+    state: present
+  become: true
