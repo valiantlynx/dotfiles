@@ -3,3 +3,5 @@ vault-password.txt
 /callback_plugins/__pycache__
 
 roles/neovim/files/lazy-lock.json
+
+Install-Logs/

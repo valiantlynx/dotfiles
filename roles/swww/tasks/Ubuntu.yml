@@ -13,96 +13,28 @@
   ansible.builtin.debug:
     var: swww_is_installed
 
-- name: "SWWW | Install SWWW"
+- name: "SWWW | Install SWWW using bash script"
   when: not swww_is_installed
   block:
-    - name: "SWWW | Create logs directory"
-      ansible.builtin.file:
-        path: "{{ ansible_user_dir }}/Install-Logs"
-        state: directory
-        mode: "0755"
-
-    - name: "SWWW | Install dependencies"
-      ansible.builtin.apt:
-        name:
-          - liblz4-dev
-          - git
-          - cargo
-          - build-essential
-          - pkg-config
-        state: present
-        update_cache: yes
-      become: true
-
-    - name: "SWWW | Create temporary directory"
+    - name: "SWWW | Create directory for script"
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/swww_temp"
         state: directory
         mode: "0755"
 
-    - name: "SWWW | Clone SWWW repository"
-      ansible.builtin.git:
-        repo: "https://github.com/LGFae/swww.git"
-        dest: "{{ ansible_user_dir }}/swww_temp/swww"
-        version: "v0.9.5"
-        recursive: true
-
-    - name: "SWWW | Build SWWW with Cargo"
-      ansible.builtin.shell: |
-        source "$HOME/.cargo/env" || true
-        cargo build --release
-      args:
-        chdir: "{{ ansible_user_dir }}/swww_temp/swww"
-
-    - name: "SWWW | Remove previous SWWW binaries if they exist"
-      ansible.builtin.file:
-        path: "{{ item }}"
-        state: absent
-      become: true
-      loop:
-        - "/usr/bin/swww"
-        - "/usr/bin/swww-daemon"
-
-    - name: "SWWW | Copy SWWW binaries to /usr/bin"
+    - name: "SWWW | Copy installation script"
       ansible.builtin.copy:
-        src: "{{ ansible_user_dir }}/swww_temp/swww/target/release/{{ item }}"
-        dest: "/usr/bin/{{ item }}"
+        src: "swww.sh"
+        dest: "{{ ansible_user_dir }}/swww_temp/swww.sh"
         mode: "0755"
-        remote_src: true
-      become: true
-      loop:
-        - "swww"
-        - "swww-daemon"
 
-    - name: "SWWW | Ensure bash completion directory exists"
-      ansible.builtin.file:
-        path: "/usr/share/bash-completion/completions"
-        state: directory
-        mode: "0755"
-      become: true
+    - name: "SWWW | Run the installation script"
+      ansible.builtin.shell: "{{ ansible_user_dir }}/swww_temp/swww.sh"
+      register: script_output
 
-    - name: "SWWW | Copy bash completions"
-      ansible.builtin.copy:
-        src: "{{ ansible_user_dir }}/swww_temp/swww/completions/swww.bash"
-        dest: "/usr/share/bash-completion/completions/swww"
-        mode: "0644"
-        remote_src: true
-      become: true
-
-    - name: "SWWW | Ensure zsh completion directory exists"
-      ansible.builtin.file:
-        path: "/usr/share/zsh/site-functions"
-        state: directory
-        mode: "0755"
-      become: true
-
-    - name: "SWWW | Copy zsh completions"
-      ansible.builtin.copy:
-        src: "{{ ansible_user_dir }}/swww_temp/swww/completions/_swww"
-        dest: "/usr/share/zsh/site-functions/_swww"
-        mode: "0644"
-        remote_src: true
-      become: true
+    - name: "SWWW | Show installation output"
+      ansible.builtin.debug:
+        var: script_output.stdout_lines
 
     - name: "SWWW | Clean up temporary directory"
       ansible.builtin.file:

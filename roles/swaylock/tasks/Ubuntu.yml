@@ -1,0 +1,6 @@
+---
+- name: "swaylock | Ubuntu | Install swaylock"
+  ansible.builtin.apt:
+    name: swaylock
+    state: present
+  become: true
