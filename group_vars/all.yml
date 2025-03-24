@@ -32,6 +32,7 @@ default_roles:
   - neovim
   - npm
   - nvm
+  - nvtop
   - pwsh
   - python
   - ruby

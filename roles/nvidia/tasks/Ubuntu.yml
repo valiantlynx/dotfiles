@@ -1,5 +1,13 @@
 ---
-- name: "NVIDIA | Prepare for installation"
+- name: "NVIDIA | Check NVIDIA installation status"
+  ansible.builtin.shell: 
+    cmd: "nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null || echo 'not installed'"
+  register: nvidia_check
+  changed_when: false
+  failed_when: false
+
+- name: "NVIDIA | Prepare and Install NVIDIA"
+  when: "'not installed' in nvidia_check.stdout"
   block:
     - name: "NVIDIA | Create temporary directory for installation script"
       ansible.builtin.file:
@@ -30,3 +38,16 @@
       ansible.builtin.file:
         path: "{{ ansible_user_dir }}/nvidia_temp"
         state: absent
+
+- name: "NVIDIA | Display GPU Information"
+  when: "'not installed' not in nvidia_check.stdout"
+  block:
+    - name: "NVIDIA | Show Existing GPU Details"
+      ansible.builtin.shell: 
+        cmd: "nvidia-smi"
+      register: nvidia_details
+      changed_when: false
+
+    - name: "NVIDIA | Print Existing GPU Information"
+      ansible.builtin.debug:
+        msg: "NVIDIA GPU already installed. Skipping installation."
