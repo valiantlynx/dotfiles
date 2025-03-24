@@ -18,6 +18,8 @@ default_roles:
   - lsd
   - lua
   - nala
+  - uv
+  #- waypaper
   - kitty
   - neofetch
   - hyprland

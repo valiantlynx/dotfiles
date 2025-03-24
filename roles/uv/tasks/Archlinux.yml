@@ -1,0 +1,17 @@
+---
+- name: "UV | Check if UV is installed"
+  ansible.builtin.shell: command -v uv || echo "not installed"
+  register: uv_check
+  changed_when: false
+
+- name: "UV | Install UV"
+  when: uv_check.stdout == "not installed"
+  ansible.builtin.shell: curl -LsSf https://astral.sh/uv/install.sh | sh
+  args:
+    executable: /bin/bash
+  register: install_output
+
+- name: "UV | Show installation output"
+  ansible.builtin.debug:
+    var: install_output.stdout_lines
+  when: install_output is defined
