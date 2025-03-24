@@ -110,23 +110,6 @@ Type=Application
 X-GNOME-Autostart-enabled=true
 EOF
 
-# Create a default configuration directory if it doesn't exist
-mkdir -p ~/.config/waypaper/
-
-# Create a default configuration file if it doesn't exist
-if [ ! -f ~/.config/waypaper/config.ini ]; then
-    echo -e "${NOTE} Creating default configuration file..."
-    cat > ~/.config/waypaper/config.ini << EOF
-[Settings]
-wallpaper = 
-backend = swww
-colorscheme = default
-monitors = *
-fill = fill
-sort = name
-language = en
-EOF
-fi
 
 # Clean up
 cd
