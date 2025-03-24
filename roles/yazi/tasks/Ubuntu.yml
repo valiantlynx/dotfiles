@@ -1,0 +1,5 @@
+---
+- name: "yazi | Ubuntu | Install yazi"
+  ansible.builtin.snap:
+    name: yazi
+    state: present

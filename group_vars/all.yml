@@ -40,6 +40,7 @@ default_roles:
   - tldr
   - tmate
   - tmux
+  - yazi
   - zellij
   #- spotify
   - zoxide

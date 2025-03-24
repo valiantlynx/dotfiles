@@ -1,0 +1,6 @@
+---
+- name: "yazi | Arch | Install yazi"
+  community.general.pacman:
+    name: yazi
+    state: present
+  become: true
