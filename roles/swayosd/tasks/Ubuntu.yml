@@ -1,0 +1,6 @@
+---
+- name: "swayosd | Ubuntu | Install swayosd"
+  ansible.builtin.apt:
+    name: swayosd
+    state: present
+  become: true

@@ -27,6 +27,7 @@ default_roles:
   - rofi
   - swww
   - swaync
+  #- swayosd # swayosd coming in ubuntu 25.04 
   - waybar
   - neovim
   - npm
