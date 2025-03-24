@@ -1,1 +1,1 @@
-require("full-border"):setup()
+require("full_border"):setup()
