@@ -38,7 +38,7 @@
       "on-click-right": "hyprctl dispatch exec '[float; center; size 950 650] kitty --override font_size=14 --title float_kitty btop'"
     },
     "custom/launcher": {
-      "format": "",
+      "format": "",
       "on-click": "random-wallpaper",
       "on-click-right": "hyprctl dispatch exec '[float; center;] rofi -show drun || pkill rofi'",
       "tooltip": "true",
