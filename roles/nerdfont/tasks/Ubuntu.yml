@@ -1,0 +1,31 @@
+---
+- name: "Nerd Fonts | Ensure NerdFonts Directory Exists"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.local/share/fonts/NerdFonts"
+    state: directory
+    mode: '0755'
+
+- name: "Nerd Fonts | Download Selected Nerd Fonts"
+  ansible.builtin.unarchive:
+    src: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/{{ item }}.zip"
+    dest: "{{ ansible_user_dir }}/.local/share/fonts/NerdFonts/"
+    remote_src: yes
+    creates: "{{ ansible_user_dir }}/.local/share/fonts/NerdFonts/{{ item }}"
+  loop:
+    - FiraCode
+    - JetBrainsMono
+    - Hack
+  failed_when: false
+
+- name: "Nerd Fonts | Update Font Cache"
+  ansible.builtin.command: 
+    cmd: fc-cache -fv
+  become: yes
+  changed_when: false
+
+- name: "Nerd Fonts | Verify Installation"
+  ansible.builtin.shell: 
+    cmd: fc-list | grep -E "FiraCode|JetBrainsMono|Hack"
+  register: nerd_fonts_installed
+  changed_when: false
+  ignore_errors: true
