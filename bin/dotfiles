@@ -190,7 +190,7 @@ update_ansible_galaxy() {
 source /etc/os-release
 _task "Loading Setup for detected OS: $ID"
 case $ID in
-  ubuntu|pop|debian)
+  ubuntu|pop|debian|kali)
     ubuntu_setup
     ;;
   arch)
