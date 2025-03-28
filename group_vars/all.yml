@@ -23,7 +23,6 @@ default_roles:
   - nvidia
   #- waypaper
   - kitty
-  - neofetch
   - hyprland
   - rofi
   - swww
