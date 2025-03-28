@@ -18,17 +18,22 @@
 
 # - name: "Nala | Install Nala APT Repo"
 #   block:
+#     - name: "Nala | Create trusted.gpg.d directory"
+#       ansible.builtin.file:
+#         path: /etc/apt/trusted.gpg.d
+#         state: directory
+#         mode: '0755'
+#       become: true
 #     - name: "Nala | Add nala repo gpg key"
-#       apt_key:
-#         url: "https://deb.volian.org/volian/dists/scar/Release.gpg"
-#         keyring: /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg
-#         state: present
-
+#       ansible.builtin.shell: |
+#         curl -fsSL https://deb.volian.org/volian/dists/scar/Release.gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg
+#       args:
+#         creates: /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg
+#       become: true
 #     - name: "Nala | Add nala repository source"
 #       apt_repository:
-#         repo: "deb [arch=amd64,arm64,armhf] http://deb.volian.org/volian/ scar main"
+#         repo: "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg] http://deb.volian.org/volian/ scar main"
 #         state: present
-
 #   become: true
 #   when: not nala_is_installed
 
