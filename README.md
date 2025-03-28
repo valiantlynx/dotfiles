@@ -138,6 +138,7 @@ bash_private:
 The `vault.secret` file allows you to encrypt values with `Ansible vault` and store them securely in source control. Create a file located at `~/.config/dotfiles/vault.secret` with a secure password in it.
 
 ```bash
+mkdir ~/.ansible-vault/
 vim ~/.ansible-vault/vault.secret
 ```
 
