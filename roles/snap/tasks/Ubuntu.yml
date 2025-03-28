@@ -1,0 +1,9 @@
+---
+- name: "Snap | Install snapd"
+  ansible.builtin.apt:
+    name: 
+      - snapd
+      - squashfs-tools
+    state: present
+    update_cache: true
+  become: true
