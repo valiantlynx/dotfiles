@@ -7,3 +7,20 @@
     state: present
     update_cache: true
   become: true
+
+
+- name: Ensure Snap service is started and enabled
+  ansible.builtin.systemd:
+    name: snapd
+    state: started
+    enabled: yes
+  become: yes
+  when: 
+    - ansible_service_mgr == 'systemd'
+    - ansible_system == 'Linux'
+
+- name: Wait for Snap to be ready
+  ansible.builtin.command: snap wait system seed.loaded
+  changed_when: false
+  become: yes
+  when: ansible_system == 'Linux'
