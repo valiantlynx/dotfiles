@@ -189,5 +189,23 @@ else
   echo ".cargo/env file not found!"
 fi
 
+# Check if zoxide is installed, then map cd to z
+if command -v zoxide &> /dev/null; then
+  alias cd='z'
+else
+  echo "zoxide is not installed, cd will work as usual."
+fi
+
+# Check if lsd is installed, then map ls to lsd
+if command -v lsd &> /dev/null; then
+  alias ls='lsd'
+  alias l='ls -l'
+  alias la='ls -a'
+  alias lla='ls -la'
+  alias lt='ls --tree'
+else
+  echo "lsd is not installed, ls will work as usual."
+fi
+
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/valiantlynx/.lmstudio/bin"

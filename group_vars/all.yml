@@ -1,8 +1,8 @@
 default_roles:
   - system
-  - 1password
+  # - 1password
   # - alacritty
-  - asciiquarium
+  #- asciiquarium
   - bash
   - bat
   - docker
@@ -11,10 +11,10 @@ default_roles:
   - nerdfont
   - fzf
   - git
-  - go
-  - helm
-  - k8s
-  - k9s
+  #- go
+  #- helm
+  #- k8s
+  #- k9s
   - lazygit
   - lsd
   - lua
@@ -23,7 +23,7 @@ default_roles:
   - nvidia
   - vscode
   - chromium
-  - ros2
+  # - ros2
   #- waypaper
   - kitty
   - hyprland
@@ -33,21 +33,21 @@ default_roles:
   #- swayosd # swayosd coming in ubuntu 25.04 
   - waybar
   - neovim
-  - npm
+  #- npm
   - nvm
   - nvtop
   - pwsh
-  - python
-  - ruby
-  - rust
+  #- python
+  #- ruby
+  #- rust
   - ssh
   - sshfs
-  - terraform
-  - tldr
-  - tmate
+  #- terraform
+  #- tldr
+  #- tmate
   - tmux
   - yazi
-  - zellij
+  #- zellij
   - logseq
   #- spotify
   - zoxide
