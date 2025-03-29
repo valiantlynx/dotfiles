@@ -162,12 +162,24 @@ done
 [ -f ~/.bash_lumen ] && source ~/.bash_lumen
 [ -f ~/.fzf.bash ]   && source ~/.fzf.bash
 
+# Check if NVM is installed before sourcing
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Check if the ROS 2 setup script exists before sourcing it
+if [ -f "/opt/ros/jazzy/setup.bash" ]; then
+  source /opt/ros/jazzy/setup.bash
+else
+  echo "ROS 2 setup script not found at /opt/ros/jazzy/setup.bash"
+fi
+
+# Check if the .cargo/env file exists before sourcing it
+if [ -f "$HOME/.cargo/env" ]; then
+  . "$HOME/.cargo/env"
+else
+  echo ".cargo/env file not found!"
+fi
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/valiantlynx/.lmstudio/bin"
-source /opt/ros/jazzy/setup.bash
-. "$HOME/.cargo/env"
