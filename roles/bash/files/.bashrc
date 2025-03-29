@@ -148,7 +148,6 @@ fi
 # Example aliases
 # alias bashconfig="mate ~/.bashrc"
 # alias ohmybash="mate ~/.oh-my-bash"
-alias cat=bat
 export XDG_CURRENT_DESKTOP=Hyprland
 export XDG_ICON_THEME="Papirus"
 
