@@ -1,7 +1,7 @@
 default_roles:
   - system
-  # - 1password
-  # - alacritty
+  #- 1password
+  #- alacritty
   #- asciiquarium
   - bash
   - bat
@@ -24,7 +24,7 @@ default_roles:
   - nvidia
   - vscode
   - chromium
-  # - ros2
+  #- ros2
   #- waypaper
   - kitty
   - hyprland
