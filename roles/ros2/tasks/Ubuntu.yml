@@ -79,3 +79,26 @@
     - name: "ROS2 | Notify user about installed scripts"
       ansible.builtin.debug:
         msg: "ROS2 scripts installed and available system-wide as 'install_ros2' and 'uninstall_ros2'"
+
+
+- name: "ROS2 | Copy Netplan configuration files for Pi and Dev"
+  block:
+    - name: "ROS2 | Copy 02-my-network-config-pi.yaml for Pi (Wi-Fi)"
+      ansible.builtin.copy:
+        src: "02-my-network-config-pi.yaml"  # Assuming the file is in your files directory
+        dest: "/etc/netplan/02-my-network-config-pi.yaml"
+        mode: "0644"
+      become: yes
+
+    - name: "ROS2 | Copy 02-my-network-config-dev.yaml for Dev (Ethernet)"
+      ansible.builtin.copy:
+        src: "02-my-network-config-dev.yaml"  # Assuming the file is in your files directory
+        dest: "/etc/netplan/02-my-network-config-dev.yaml"
+        mode: "0644"
+      become: yes
+
+    - name: "ROS2 | Apply Netplan configuration"
+      ansible.builtin.shell: >
+        netplan generate &&
+        netplan apply
+      become: yes
