@@ -1,6 +1,7 @@
-# If ~/.inputrc doesn't exist yet: First include the original /etc/inputrc
-# so it won't get overriden
-if [ ! -a ~/.inputrc ]; then echo '$include /etc/inputrc' > ~/.inputrc; fi
+# If ~/.inputrc doesn't exist yet, include the original /etc/inputrc
+if [ ! -a ~/.inputrc ]; then
+  echo '$include /etc/inputrc' >> ~/.inputrc
+fi
 
-# Add shell-option to ~/.inputrc to enable case-insensitive tab completion
-echo 'set completion-ignore-case On' >> ~/.inputrc
+# Only add the "completion-ignore-case" line if it's not already present
+grep -qxF 'set completion-ignore-case On' ~/.inputrc || echo 'set completion-ignore-case On' >> ~/.inputrc
