@@ -170,23 +170,17 @@ export NVM_DIR="$HOME/.nvm"
 # Check if bat is installed before changing the alias for cat
 if command -v bat &> /dev/null; then
   alias cat='bat'
-else
-  echo "bat is not installed, alias for cat not changed."
 fi
 
 
 # Check if the ROS 2 setup script exists before sourcing it
 if [ -f "/opt/ros/jazzy/setup.bash" ]; then
   source /opt/ros/jazzy/setup.bash
-else
-  echo "ROS 2 setup script not found at /opt/ros/jazzy/setup.bash"
 fi
 
 # Check if the .cargo/env file exists before sourcing it
 if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
-else
-  echo ".cargo/env file not found!"
 fi
 
 # Check if zoxide is installed, then map cd to z
@@ -203,9 +197,13 @@ if command -v lsd &> /dev/null; then
   alias la='ls -a'
   alias lla='ls -la'
   alias lt='ls --tree'
-else
-  echo "lsd is not installed, ls will work as usual."
 fi
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/valiantlynx/.lmstudio/bin"
+
+# Check if kitty is not installed
+if ! command -v kitty &> /dev/null; then
+  export TERM=xterm-256color
+  echo "kitty is not installed, TERM set to xterm-256color"
+fi
