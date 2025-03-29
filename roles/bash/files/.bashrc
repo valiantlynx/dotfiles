@@ -167,6 +167,14 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Check if bat is installed before changing the alias for cat
+if command -v bat &> /dev/null; then
+  alias cat='bat'
+else
+  echo "bat is not installed, alias for cat not changed."
+fi
+
+
 # Check if the ROS 2 setup script exists before sourcing it
 if [ -f "/opt/ros/jazzy/setup.bash" ]; then
   source /opt/ros/jazzy/setup.bash

@@ -45,7 +45,3 @@
       ansible.builtin.apt:
         deb: "{{ debian_url }}"
         allow_downgrade: true
-        
-    - name: BAT | GITHUB | Get current version of bat
-      ansible.builtin.shell: >
-          echo "alias cat=bat" >> ~/.bashrc
