@@ -21,6 +21,8 @@ default_roles:
   - nala
   - uv
   - nvidia
+  - vscode
+  - chromium
   #- waypaper
   - kitty
   - hyprland
