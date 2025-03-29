@@ -169,5 +169,5 @@ export NVM_DIR="$HOME/.nvm"
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/valiantlynx/.lmstudio/bin"
-source ~/ros2_iron/install/local_setup.bash
+source /opt/ros/jazzy/setup.bash
 . "$HOME/.cargo/env"
