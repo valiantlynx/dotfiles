@@ -44,7 +44,7 @@
   block:
     - name: "ROS2 | Check ROS2 Version"
       ansible.builtin.shell: 
-        cmd: "source /opt/ros/*/setup.bash && ls /opt/ros/
+        cmd: "source /opt/ros/*/setup.bash && ls /opt/ros/"
 "
         executable: /bin/bash
       register: ros2_details
