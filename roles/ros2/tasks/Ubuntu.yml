@@ -52,3 +52,30 @@
     - name: "ROS2 | Print Existing ROS2 Information"
       ansible.builtin.debug:
         msg: "ROS2 already installed. Version: {{ ros2_details.stdout | default('Unknown') }}"
+
+- name: "ROS2 | Ensure user bin directory exists"
+  ansible.builtin.file:
+    path: "/usr/local/bin"
+    state: directory
+    mode: "0755"
+  become: yes
+
+- name: "ROS2 | Install ROS2 management scripts to bin"
+  block:
+    - name: "ROS2 | Copy installation script to bin"
+      ansible.builtin.copy:
+        src: "install_ros2.sh"
+        dest: "/usr/local/bin/install_ros2"
+        mode: "0755"
+      become: yes
+
+    - name: "ROS2 | Copy uninstallation script to bin"
+      ansible.builtin.copy:
+        src: "uninstall_ros2.sh"
+        dest: "/usr/local/bin/uninstall_ros2"
+        mode: "0755"
+      become: yes
+
+    - name: "ROS2 | Notify user about installed scripts"
+      ansible.builtin.debug:
+        msg: "ROS2 scripts installed and available system-wide as 'install_ros2' and 'uninstall_ros2'"
