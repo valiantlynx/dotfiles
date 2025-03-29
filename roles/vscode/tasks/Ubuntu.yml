@@ -1,0 +1,7 @@
+---
+- name: VsCode | Ubuntu | Install code via Snap
+  community.general.snap:
+    name: code
+    classic: yes
+    state: present
+  become: yes
