@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 alias yolo="git push origin master --force --no-verify"
-alias g='git'
+alias g='lazygit'
 alias gs='git status'
 alias gcane='git commit --amend --no-edit'
 alias gc="git checkout"
