@@ -1,0 +1,13 @@
+network:
+  version: 2
+  renderer: NetworkManager
+  
+  ethernets:
+    eth0:
+      dhcp4: no
+      addresses: [192.168.38.157/24]
+      routes:
+        - to: default
+          via: 192.168.38.1
+      nameservers:
+        addresses: [192.168.38.1]
