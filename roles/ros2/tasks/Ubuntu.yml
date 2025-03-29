@@ -1,0 +1,54 @@
+---
+- name: "ROS2 | Check ROS2 installation status"
+  ansible.builtin.shell: 
+    cmd: "which ros2 2>/dev/null || echo 'not installed'"
+  register: ros2_check
+  changed_when: false
+  failed_when: false
+
+- name: "ROS2 | Prepare and Install ROS2"
+  when: "'not installed' in ros2_check.stdout"
+  block:
+    - name: "ROS2 | Create temporary directory for installation script"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/ros2_temp"
+        state: directory
+        mode: "0755"
+
+    - name: "ROS2 | Copy ROS2 installation script"
+      ansible.builtin.copy:
+        src: "install_ros2.sh"  # Assumes the script is named install_ros2.sh in the files directory
+        dest: "{{ ansible_user_dir }}/ros2_temp/install_ros2.sh"
+        mode: "0755"
+
+    - name: "ROS2 | Run ROS2 installation script"
+      ansible.builtin.shell: 
+        cmd: "{{ ansible_user_dir }}/ros2_temp/install_ros2.sh"
+      become: yes  # Run with sudo privileges
+      register: ros2_output
+      changed_when: ros2_output.rc == 0
+      failed_when: ros2_output.rc != 0
+
+    - name: "ROS2 | Display installation output"
+      ansible.builtin.debug:
+        var: ros2_output.stdout_lines
+      when: ros2_output.stdout_lines is defined
+
+    - name: "ROS2 | Clean up temporary directory"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/ros2_temp"
+        state: absent
+
+- name: "ROS2 | Display ROS2 Information"
+  when: "'not installed' not in ros2_check.stdout"
+  block:
+    - name: "ROS2 | Check ROS2 Version"
+      ansible.builtin.shell: 
+        cmd: "source /opt/ros/*/setup.bash && ros2 --version"
+        executable: /bin/bash
+      register: ros2_details
+      changed_when: false
+
+    - name: "ROS2 | Print Existing ROS2 Information"
+      ansible.builtin.debug:
+        msg: "ROS2 already installed. Version: {{ ros2_details.stdout | default('Unknown') }}"

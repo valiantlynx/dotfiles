@@ -1,0 +1,4 @@
+---
+- import_tasks: Ubuntu.yml
+  ansible.builtin.import_tasks: Ubuntu.yml
+  when: ansible_os_family == 'Debian'
