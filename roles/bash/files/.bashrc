@@ -176,6 +176,8 @@ fi
 # Check if the ROS 2 setup script exists before sourcing it
 if [ -f "/opt/ros/jazzy/setup.bash" ]; then
   source /opt/ros/jazzy/setup.bash
+fi
+if [ -f "~/gazebo_ws/install/setup.bash" ]; then
   source ~/gazebo_ws/install/setup.bash
 fi
 
