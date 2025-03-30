@@ -36,3 +36,38 @@ fi
 echo ""
 echo "ROS 2 Jazzy Jalisco has been successfully uninstalled!"
 echo ""
+
+# Gazebo
+# If you have installed Gazebo, you may want to remove it as well.
+echo "Removing Gazebo installation..."
+
+# Remove Gazebo workspace
+if [ -d ~/gazebo_ws ]; then
+    echo "Deleting Gazebo workspace directory..."
+    rm -rf ~/gazebo_ws
+fi
+
+# Remove Gazebo setup from .bashrc
+if grep -q "source ~/gazebo_ws/install/setup.bash" ~/.bashrc; then
+    echo "Removing Gazebo setup from .bashrc..."
+    sed -i '/source ~\/gazebo_ws\/install\/setup.bash/d' ~/.bashrc
+    sed -i '/# Gazebo environment setup/d' ~/.bashrc
+    echo "Removed Gazebo setup from ~/.bashrc"
+fi
+
+# Remove Gazebo repository
+echo "Removing Gazebo repository..."
+if [ -f /etc/apt/sources.list.d/gazebo-stable.list ]; then
+    sudo rm /etc/apt/sources.list.d/gazebo-stable.list
+fi
+
+# Remove Gazebo keyring
+echo "Removing Gazebo keyring..."
+if [ -f /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg ]; then
+    sudo rm /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
+fi
+
+# Update package lists again after removing Gazebo repositories
+sudo apt update
+
+echo "Gazebo has been successfully uninstalled!"
