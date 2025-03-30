@@ -201,6 +201,10 @@ if command -v lsd &> /dev/null; then
   alias lla='ls -la'
   alias lt='ls --tree'
 fi
+# Check if yazi is installed, then map y to yazi
+if command -v yazi &> /dev/null; then
+  alias y='yazi'
+fi
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/valiantlynx/.lmstudio/bin"
