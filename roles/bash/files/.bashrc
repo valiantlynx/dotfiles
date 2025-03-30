@@ -176,6 +176,7 @@ fi
 # Check if the ROS 2 setup script exists before sourcing it
 if [ -f "/opt/ros/jazzy/setup.bash" ]; then
   source /opt/ros/jazzy/setup.bash
+  source ~/gazebo_ws/install/setup.bash
 fi
 
 # Check if the .cargo/env file exists before sourcing it
