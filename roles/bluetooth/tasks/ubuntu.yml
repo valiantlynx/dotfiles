@@ -1,0 +1,17 @@
+---
+- name: "Bluetooth | Install dependencies"
+  ansible.builtin.apt:
+    name:
+      - bluez
+      - bluez-tools
+      - bluetooth
+      - blueman
+    state: present
+  become: true
+
+- name: "Docker | Enable service"
+  ansible.builtin.systemd:
+    enabled: true
+    name: bluetooth
+    state: started
+  become: true

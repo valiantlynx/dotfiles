@@ -64,6 +64,18 @@
       "return-type": "json",
       "tooltip": false
     },
+    "bluetooth": {
+      "format": "<span foreground='#458588'>{icon}</span>",
+      "format-icons": {
+        "enabled": "",
+        "disabled": "",
+        "connected": ""
+      },
+      "tooltip-format": "{controller_alias}\t{controller_address}",
+      "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+      "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+      "on-click": "blueman-manager"
+    },
     "disk": {
       "format": "<span foreground='#D65D0E'>󰋊 </span>{percentage_used}%",
       "interval": 60,
@@ -118,7 +130,7 @@
     "modules-right": [
       "cpu",
       "memory",
-      "",
+      "bluetooth",
       "pulseaudio",
       "network",
       "battery",
