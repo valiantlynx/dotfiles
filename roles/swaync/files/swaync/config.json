@@ -103,6 +103,16 @@
             "command": "swaylock"
           },
           {
+            "label": " Wifi",
+            "command": "kitty nmtui",
+            "tooltip": "Network"
+          },
+          {
+            "label": " Bluetooth",
+            "command": "blueman-manager",
+            "tooltip": "Bluetooth"
+          },
+          {
             "label": "!  Logout",
             "command": "loginctl terminate-user $USER"
           },
