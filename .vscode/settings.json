@@ -1,4 +1,0 @@
-{
-    "ansible.python.interpreterPath": "/bin/python3",
-    "idf.pythonInstallPath": "/usr/bin/python3"
-}
