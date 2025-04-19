@@ -159,8 +159,8 @@ for file in $HOME/.config/bash/*.sh; do
   source "$file"
 done
 
-[ -f ~/.bash_lumen ] && source ~/.bash_lumen
-[ -f ~/.fzf.bash ]   && source ~/.fzf.bash
+[ -f $HOME/.bash_lumen ] && source ~/.bash_lumen
+[ -f $HOME/.fzf.bash ]   && source ~/.fzf.bash
 
 # Check if NVM is installed before sourcing
 export NVM_DIR="$HOME/.nvm"
@@ -177,8 +177,8 @@ fi
 if [ -f "/opt/ros/jazzy/setup.bash" ]; then
   source /opt/ros/jazzy/setup.bash
 fi
-if [ -f "~/gazebo_ws/install/setup.bash" ]; then
-  source ~/gazebo_ws/install/setup.bash
+if [ -f "$HOME/gazebo_ws/install/setup.bash" ]; then
+  source $HOME/gazebo_ws/install/setup.bash
 fi
 
 # Check if the .cargo/env file exists before sourcing it
