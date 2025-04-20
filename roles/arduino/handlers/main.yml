@@ -10,3 +10,8 @@
     path: "/tmp/arduino-{{ arduino_version|default('latest') }}"
     state: absent
   become: true
+
+- name: Reload udev rules
+  ansible.builtin.command:
+    cmd: udevadm control --reload-rules && udevadm trigger
+  become: true

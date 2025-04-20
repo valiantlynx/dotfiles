@@ -23,26 +23,15 @@
       loop:
         - ca-certificates
         - wget
-        - unzip
-        - xz-utils
-        - libgtk2.0-0
-        - libxtst6
-        - libxrender1
-        - libxi6
-        - libxrandr2
+        - libfuse2
+        - fuse
       become: true
 
-    - name: "Arduino Desktop | Ensure clean location to download archive"
+    - name: "Arduino Desktop | Ensure clean location to download AppImage"
       ansible.builtin.file:
-        path: /tmp/arduino.tar.xz
+        path: "{{ arduino_install_dir|default('/opt/arduino') }}/arduino-ide"
         state: absent
-
-    - name: "Arduino Desktop | Download Arduino IDE"
-      ansible.builtin.get_url:
-        url: https://downloads.arduino.cc/arduino-{{ arduino_version|default('1.8.19') }}-linux64.tar.xz
-        dest: /tmp/arduino.tar.xz
-      notify:
-        - Remove arduino archive
+      become: true
 
     - name: "Arduino Desktop | Create installation directory"
       ansible.builtin.file:
@@ -52,24 +41,31 @@
         mode: '0755'
       become: true
 
-    - name: "Arduino Desktop | Extract Arduino IDE"
-      ansible.builtin.unarchive:
-        src: /tmp/arduino.tar.xz
-        dest: /tmp/
-        remote_src: yes
-
-    - name: "Arduino Desktop | Install Arduino IDE"
-      ansible.builtin.copy:
-        remote_src: true
-        src: "/tmp/arduino-{{ arduino_version|default('1.8.19') }}/"
-        dest: "{{ arduino_install_dir|default('/opt/arduino') }}"
+    - name: "Arduino Desktop | Download Arduino IDE 2 AppImage"
+      ansible.builtin.get_url:
+        url: "https://downloads.arduino.cc/arduino-ide/arduino-ide_{{ arduino_version|default('2.2.1') }}_Linux_64bit.AppImage"
+        dest: "{{ arduino_install_dir|default('/opt/arduino') }}/arduino-ide"
         owner: "{{ ansible_user_id }}"
         group: "{{ ansible_user_id }}"
-        force: true
-        mode: 0755
+        mode: '0755'
+      become: true
+
+    - name: "Arduino Desktop | Set AppImage as executable"
+      ansible.builtin.file:
+        path: "{{ arduino_install_dir|default('/opt/arduino') }}/arduino-ide"
+        mode: '0755'
+      become: true
+
+    - name: "Arduino Desktop | Add udev rules for Arduino devices"
+      ansible.builtin.copy:
+        dest: /etc/udev/rules.d/99-arduino.rules
+        content: 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"'
+        owner: root
+        group: root
+        mode: '0644'
       become: true
       notify:
-        - Remove extracted files
+        - Reload udev rules
 
     - name: "Arduino Desktop | Create desktop shortcut"
       ansible.builtin.template:
