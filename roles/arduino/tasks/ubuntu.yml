@@ -37,7 +37,7 @@
     - name: "Arduino Desktop | Download Arduino IDE 2 AppImage"
       ansible.builtin.get_url:
         url: "https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.6_Linux_64bit.AppImage"
-        dest: "{{ arduino_install_dir|default('/opt/arduino') }}/arduino-ide"
+        dest: "{{ arduino_install_dir|default('/opt/arduino') }}/arduino-ide.AppImage"
         owner: "{{ ansible_user_id }}"
         group: "{{ ansible_user_id }}"
         mode: '0755'
