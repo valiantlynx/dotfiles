@@ -1,0 +1,82 @@
+---
+- name: "Arduino Desktop | Detect any installed versions"
+  ansible.builtin.command:
+    cmd: which arduino
+  changed_when: false
+  failed_when: false
+  register: arduino_check
+
+- name: "Arduino Desktop | Register any installed versions"
+  ansible.builtin.set_fact:
+    arduino_installed: "{{ arduino_check.stdout|default('') }}"
+
+- name: "Arduino Desktop | Installed version"
+  ansible.builtin.debug:
+    var: arduino_installed
+
+- name: "Arduino Desktop | Install"
+  block:
+    - name: "Arduino Desktop | Install Dependencies"
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - ca-certificates
+        - wget
+        - unzip
+        - xz-utils
+        - libgtk2.0-0
+        - libxtst6
+        - libxrender1
+        - libxi6
+        - libxrandr2
+      become: true
+
+    - name: "Arduino Desktop | Ensure clean location to download archive"
+      ansible.builtin.file:
+        path: /tmp/arduino.tar.xz
+        state: absent
+
+    - name: "Arduino Desktop | Download Arduino IDE"
+      ansible.builtin.get_url:
+        url: https://downloads.arduino.cc/arduino-{{ arduino_version|default('1.8.19') }}-linux64.tar.xz
+        dest: /tmp/arduino.tar.xz
+      notify:
+        - Remove arduino archive
+
+    - name: "Arduino Desktop | Create installation directory"
+      ansible.builtin.file:
+        path: "{{ arduino_install_dir|default('/opt/arduino') }}"
+        state: directory
+        owner: "{{ ansible_user_id }}"
+        mode: '0755'
+      become: true
+
+    - name: "Arduino Desktop | Extract Arduino IDE"
+      ansible.builtin.unarchive:
+        src: /tmp/arduino.tar.xz
+        dest: /tmp/
+        remote_src: yes
+
+    - name: "Arduino Desktop | Install Arduino IDE"
+      ansible.builtin.copy:
+        remote_src: true
+        src: "/tmp/arduino-{{ arduino_version|default('1.8.19') }}/"
+        dest: "{{ arduino_install_dir|default('/opt/arduino') }}"
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+        force: true
+        mode: 0755
+      become: true
+      notify:
+        - Remove extracted files
+
+    - name: "Arduino Desktop | Create desktop shortcut"
+      ansible.builtin.template:
+        src: arduino.desktop.j2
+        dest: "/home/{{ ansible_user_id }}/.local/share/applications/arduino.desktop"
+        owner: "{{ ansible_user_id }}"
+        mode: '0644'
+      when: arduino_create_desktop_shortcut|default(true)
+
+  when: arduino_installed | length < 1
