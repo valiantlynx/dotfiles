@@ -50,7 +50,7 @@ default_roles:
   - yazi
   #- zellij
   - logseq
-  #- spotify
+  - spotify
   - zoxide
 
 nixos_host: "D" # D-desktop or L-laptop or V-virtualmachine
