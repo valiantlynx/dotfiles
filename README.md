@@ -1,3 +1,15 @@
+# My dotfiles. 
+its inspired by and to look like this. but for ubuntu mainly. since thats what i daily drive.
+
+### 🖼️ Gallery
+
+<p align="center">
+   <img src="./.github/assets/screenshots/1.png" style="margin-bottom: 10px;"/> <br>
+   <img src="./.github/assets/screenshots/2.png" style="margin-bottom: 10px;"/> <br>
+   <img src="./.github/assets/screenshots/3.png" style="margin-bottom: 10px;"/> <br>
+   <img src="./.github/assets/screenshots/hyprlock.png" style="margin-bottom: 10px;" /> <br>
+</p>
+
 ### System Upgrade
 Verify your `Ubuntu` installation has all latest packages installed before running the playbook.
 
