@@ -46,7 +46,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-a
 # Install development tools (optional)
 # ===================================
 echo "Installing development tools..."
-sudo apt update && sudo apt install ros-dev-tools ros-jazzy-xacro ros-jazzy-joint-state-publisher-gui -y
+sudo apt update && sudo apt install ros-dev-tools ros-jazzy-xacro -y
 
 # Install ROS 2
 # =============
