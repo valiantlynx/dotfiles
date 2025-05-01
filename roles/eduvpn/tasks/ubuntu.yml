@@ -1,0 +1,39 @@
+---
+- name: "EduVPN | Install dependencies"
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  loop:
+    - apt-transport-https
+    - wget
+    - gnupg
+
+- name: "EduVPN | Ensure keyring directory exists"
+  ansible.builtin.file:
+    path: /usr/share/keyrings
+    state: directory
+    mode: "0755"
+  become: true
+
+- name: "EduVPN | Download and Add EduVPN Key"
+  ansible.builtin.shell: |
+    wget -O- https://app.eduvpn.org/linux/v4/deb/app+linux@eduvpn.org.asc | gpg --dearmor > /usr/share/keyrings/eduvpn-v4.gpg
+  args:
+    creates: /usr/share/keyrings/eduvpn-v4.gpg
+  become: true
+
+- name: "EduVPN | Add EduVPN Repository"
+  ansible.builtin.lineinfile:
+    path: /etc/apt/sources.list.d/eduvpn-v4.list
+    line: "deb [arch={{ ansible_architecture }} signed-by=/usr/share/keyrings/eduvpn-v4.gpg] https://app.eduvpn.org/linux/v4/deb/ plucky main"
+    create: yes
+    state: present
+  become: true
+
+- name: "EduVPN | Install eduvpn-client"
+  ansible.builtin.apt:
+    name: eduvpn-client
+    update_cache: true
+    state: present
+  become: true
