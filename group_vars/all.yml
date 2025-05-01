@@ -41,7 +41,6 @@ default_roles:
   - nvm
   - nvtop
   - pwsh
-  #- python
   #- ruby
   #- rust
   - ssh
