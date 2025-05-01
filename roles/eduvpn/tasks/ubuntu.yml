@@ -24,11 +24,10 @@
   become: true
 
 - name: "EduVPN | Add EduVPN Repository"
-  ansible.builtin.lineinfile:
-    path: /etc/apt/sources.list.d/eduvpn-v4.list
-    line: "deb [arch={{ ansible_architecture }} signed-by=/usr/share/keyrings/eduvpn-v4.gpg] https://app.eduvpn.org/linux/v4/deb/ plucky main"
-    create: yes
-    state: present
+  ansible.builtin.shell: |
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/eduvpn-v4.gpg] https://app.eduvpn.org/linux/v4/deb/ plucky main" > /etc/apt/sources.list.d/eduvpn-v4.list
+  args:
+    creates: /etc/apt/sources.list.d/eduvpn-v4.list
   become: true
 
 - name: "EduVPN | Update apt cache"
