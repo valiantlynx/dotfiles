@@ -9,6 +9,7 @@ default_roles:
   - blender
   - btop
   - docker
+  - eduvpn 
   - flatpak
   - fonts
   - nerdfont
