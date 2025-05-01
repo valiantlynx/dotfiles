@@ -39,8 +39,8 @@
     },
     "custom/launcher": {
       "format": "",
-      "on-click": "random-wallpaper",
-      "on-click-right": "hyprctl dispatch exec '[float; center;] rofi -show drun || pkill rofi'",
+      "on-click-right": "random-wallpaper",
+      "on-click": "hyprctl dispatch exec '[float; center;] rofi -show drun || pkill rofi'",
       "tooltip": "true",
       "tooltip-format": "Random Wallpaper"
     },
