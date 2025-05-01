@@ -1,5 +1,5 @@
 # My dotfiles. 
-its inspired by and to look like this. but for ubuntu mainly. since thats what i daily drive.
+it is inspired by and to look like this. but for ubuntu mainly. since thats what i daily drive.
 
 ### 🖼️ Gallery
 
