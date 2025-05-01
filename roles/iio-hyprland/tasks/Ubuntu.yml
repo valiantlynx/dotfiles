@@ -1,0 +1,58 @@
+---
+- name: "iio-hyprland | Check if iio-hyprland is installed"
+  ansible.builtin.shell: which iio-hyprland 2>/dev/null || echo "not installed"
+  register: iio_hyprland_check
+  changed_when: false
+  failed_when: false
+
+- name: "iio-hyprland | Register iio-hyprland installation state"
+  ansible.builtin.set_fact:
+    iio_hyprland_is_installed: "{{ iio_hyprland_check.stdout != 'not installed' }}"
+
+- name: "iio-hyprland | Debug iio_hyprland_is_installed"
+  ansible.builtin.debug:
+    var: iio_hyprland_is_installed
+
+- name: "iio-hyprland | Install build dependencies"
+  when: not iio_hyprland_is_installed
+  become: true
+  ansible.builtin.apt:
+    name:
+      - git
+      - build-essential
+      - pkg-config
+      - libdbus-1-dev
+    state: present
+    update_cache: yes
+
+- name: "iio-hyprland | Ensure iio-sensor-proxy is installed"
+  when: not iio_hyprland_is_installed
+  become: true
+  ansible.builtin.apt:
+    name: iio-sensor-proxy
+    state: present
+
+- name: "iio-hyprland | Clone repository"
+  when: not iio_hyprland_is_installed
+  ansible.builtin.git:
+    repo: https://github.com/JeanSchoeller/iio-hyprland
+    dest: "{{ ansible_user_dir }}/iio-hyprland"
+    force: yes
+
+- name: "iio-hyprland | Build and install from source"
+  when: not iio_hyprland_is_installed
+  become: true
+  ansible.builtin.shell: cd {{ ansible_user_dir }}/iio-hyprland && make install
+  register: install_output
+
+- name: "iio-hyprland | Show installation output"
+  when: not iio_hyprland_is_installed
+  ansible.builtin.debug:
+    var: install_output.stdout_lines
+
+- name: "iio-hyprland | Clean up build directory"
+  when: not iio_hyprland_is_installed
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/iio-hyprland"
+    state: absent
+  become: true
