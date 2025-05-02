@@ -1,0 +1,6 @@
+---
+- name: "gimp | Arch | Install gimp"
+  community.general.pacman:
+    name: gimp
+    state: present
+  become: true
