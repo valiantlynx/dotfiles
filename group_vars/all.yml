@@ -25,6 +25,7 @@ default_roles:
   - lsd
   - lua
   - nala
+  - unity
   - uv
   - nvidia
   - vscode
