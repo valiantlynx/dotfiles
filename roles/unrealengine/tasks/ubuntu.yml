@@ -19,7 +19,7 @@
     mode: "0755"
   become: true
 
-- name: "Unreal Engine | Download Unreal Engine zip file"
+- name: "Unreal Engine | Download Unreal Engine zip file (you need to login to epic games account and download your own. paste the link here)"
   ansible.builtin.get_url:
     url: "https://ucs-blob-store.s3-accelerate.amazonaws.com/blobs/9f/02/31b6-fe92-4ed1-a45c-3e378aadb63b?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA2SBBZFECCYQWRK6G%2F20250502%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250502T225814Z&X-Amz-Expires=3600&X-Amz-Signature=2fb6659fd53bfff05c7fc90c7b1152b922ff72efca1944d6b9f815ba399ce61d&X-Amz-SignedHeaders=host&response-content-disposition=inline%3Bfilename%3D%22file.zip%22%3Bfilename%2A%3DUTF-8%27%27Linux_Unreal_Engine_5.5.4.zip&x-id=GetObject"
     dest: "/tmp/UnrealEngine.zip"
