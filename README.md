@@ -232,7 +232,6 @@ git subtree pull --prefix=packages/scripts/dotfiles https://github.com/valiantly
 
 ```bash
 git subtree push --prefix=packages/scripts/dotfiles https://github.com/valiantlynx/dotfiles.git main
-
 # make a test linux
 docker run --rm -it ubuntu bash 
 apt-get update && apt-get upgrade -y && apt-get install sudo curl -y
