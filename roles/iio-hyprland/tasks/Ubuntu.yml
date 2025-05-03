@@ -22,6 +22,7 @@
       - build-essential
       - pkg-config
       - libdbus-1-dev
+      - meson 
     state: present
     update_cache: yes
 
