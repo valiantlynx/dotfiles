@@ -1,0 +1,6 @@
+---
+- name: "ghostty | Arch | Install ghostty"
+  community.general.pacman:
+    name: ghostty
+    state: present
+  become: true

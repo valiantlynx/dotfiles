@@ -14,6 +14,7 @@ default_roles:
   - fonts
   - nerdfont
   - fzf
+  - ghostty
   - gimp
   - git
   #- go
@@ -33,7 +34,7 @@ default_roles:
   - chromium
   #- ros2
   #- waypaper
-  - kitty
+  #- kitty
   - hyprland
   - rofi
   - swww
