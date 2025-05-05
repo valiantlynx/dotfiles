@@ -3,6 +3,7 @@
   ansible.builtin.apt:
     name:
       - git
+      - git-lfs
     state: latest
   become: true
 
