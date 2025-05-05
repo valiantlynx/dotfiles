@@ -186,6 +186,11 @@ if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
 fi
 
+# check if neovim is installed
+if [ -f "/opt/nvim-linux-x86_64/bin/nvim" ]; then
+  export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+fi
+
 # Check if zoxide is installed, then map cd to z
 if command -v zoxide &> /dev/null; then
   alias cd='z'
