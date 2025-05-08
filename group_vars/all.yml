@@ -7,6 +7,7 @@ default_roles:
   - bash
   - bat
   - blender
+  - bluetooth
   - btop
   - docker
   - eduvpn 
