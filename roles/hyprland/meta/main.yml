@@ -1,3 +1,0 @@
----
-dependencies:
-  - role: go #should be cpp role. i only need cmake and gcc to be installed go role already has it
