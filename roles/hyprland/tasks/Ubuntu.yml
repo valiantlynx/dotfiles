@@ -1,4 +1,12 @@
 ---
+- name: "hyprland | Ubuntu | Install dependencies"
+  ansible.builtin.apt:
+    name:
+      - network-manager
+      - network-manager-gnome 
+    state: latest
+  become: true
+
 - name: "Hyprland | Ubuntu | Install hyprland"
   ansible.builtin.apt:
     name: hyprland
