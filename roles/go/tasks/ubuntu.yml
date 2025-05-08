@@ -10,6 +10,7 @@
       - 'rsync'
       - 'tar'
       - 'jq'
+      - 'cmake' #TODO: remove this if you make the cpp role
     state: present
   register: apt_result
   become: true
