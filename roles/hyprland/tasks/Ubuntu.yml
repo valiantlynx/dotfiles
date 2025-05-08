@@ -18,3 +18,45 @@
     name: xdg-desktop-portal-wlr
     state: present
   become: true
+
+- name: "Hyprlock | Check if Hyprlock is installed"
+  ansible.builtin.shell: which hyprlock 2>/dev/null || echo "not installed"
+  register: hyprlock_check
+  changed_when: false
+  failed_when: false
+
+- name: "Hyprlock | Register Hyprlock installation state"
+  ansible.builtin.set_fact:
+    hyprlock_is_installed: "{{ hyprlock_check.stdout != 'not installed' }}"
+
+- name: "Hyprlock | Debug hyprlock_is_installed"
+  ansible.builtin.debug:
+    var: hyprlock_is_installed
+
+- name: "Hyprlock | Install Hyprlock using bash script"
+  when: not hyprlock_is_installed
+  block:
+    - name: "Hyprlock | Create directory for script"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/hyprlock_temp"
+        state: directory
+        mode: "0755"
+
+    - name: "Hyprlock | Copy installation script"
+      ansible.builtin.copy:
+        src: "hyprlock.sh"
+        dest: "{{ ansible_user_dir }}/hyprlock_temp/hyprlock.sh"
+        mode: "0755"
+
+    - name: "Hyprlock | Run the installation script"
+      ansible.builtin.shell: "{{ ansible_user_dir }}/hyprlock_temp/hyprlock.sh"
+      register: script_output
+
+    - name: "Hyprlock | Show installation output"
+      ansible.builtin.debug:
+        var: script_output.stdout_lines
+
+    - name: "Hyprlock | Clean up temporary directory"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/hyprlock_temp"
+        state: absent
