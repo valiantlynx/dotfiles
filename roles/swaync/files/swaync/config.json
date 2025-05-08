@@ -109,7 +109,7 @@
           },
           {
             "label": "!  Logout",
-            "command": "loginctl terminate-user $USER"
+            "command": "lg"
           },
           {
             "label": "  Reboot",
