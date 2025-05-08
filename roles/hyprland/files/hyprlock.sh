@@ -16,6 +16,10 @@ lock=(
     libmagic-dev
     libhyprlang-dev
     libhyprutils-dev
+    libgl1-mesa-dev  # Add OpenGL development library
+    libglx-dev       # Add GLX development library
+    cmake
+    gcc
 )
 
 lock_tag="v0.4.0"  # Fallback version
@@ -70,7 +74,7 @@ if git clone --recursive -b "$lock_tag" https://github.com/hyprwm/hyprlock.git; 
         exit 1
     }
     
-    # Build using cmake
+   # Build using cmake
     cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -S . -B ./build
     
     # Determine number of CPU cores for parallel build
