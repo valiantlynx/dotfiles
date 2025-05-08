@@ -16,10 +16,16 @@ lock=(
     libmagic-dev
     libhyprlang-dev
     libhyprutils-dev
-    libgl1-mesa-dev  # Add OpenGL development library
-    libglx-dev       # Add GLX development library
+    libgl1-mesa-dev
+    libglx-dev
     cmake
     gcc
+    libcairo2-dev
+    libxkbcommon-dev
+    libwayland-dev
+    libjpeg-dev 
+    libwebp-dev 
+    libpango1.0-dev
 )
 
 lock_tag="v0.4.0"  # Fallback version
@@ -28,14 +34,23 @@ lock_tag="v0.4.0"  # Fallback version
 mkdir -p Install-Logs
 
 # Set the name of the log files
-LOG="Install-Logs/install-$(date +%d-%H%M%S)_hyprlock.log"
-MLOG="Install-Logs/install-$(date +%d-%H%M%S)_hyprlock2.log"
+LOG_DIR="Install-Logs"
+LOG="${LOG_DIR}/install-$(date +%d-%H%M%S)_hyprlock.log"
+MLOG="${LOG_DIR}/install-$(date +%d-%H%M%S)_hyprlock2.log"
+
+# Ensure log directory exists before each log operation
+ensure_log_dir() {
+    if [ ! -d "$LOG_DIR" ]; then
+        mkdir -p "$LOG_DIR"
+    fi
+}
 
 # Function to install or reinstall packages
 re_install_package() {
     local package=$1
     local log_file=$2
     
+    ensure_log_dir
     echo "${INFO} Installing/Reinstalling package: ${YELLOW}$package${RESET}"
     
     # Detect package manager
@@ -67,6 +82,7 @@ if [ -d "hyprlock" ]; then
 fi
 
 # Clone and build hyprlock
+ensure_log_dir
 printf "${INFO} Installing ${YELLOW}hyprlock $lock_tag${RESET} ...\n" | tee -a "$LOG"
 if git clone --recursive -b "$lock_tag" https://github.com/hyprwm/hyprlock.git; then
     cd hyprlock || { 
@@ -74,7 +90,7 @@ if git clone --recursive -b "$lock_tag" https://github.com/hyprwm/hyprlock.git; 
         exit 1
     }
     
-   # Build using cmake
+    # Build using cmake
     cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -S . -B ./build
     
     # Determine number of CPU cores for parallel build
@@ -82,15 +98,27 @@ if git clone --recursive -b "$lock_tag" https://github.com/hyprwm/hyprlock.git; 
     
     cmake --build ./build --config Release --target hyprlock -j"$cores"
     
+    # Ensure log directory exists before installation step
+    ensure_log_dir
+    
+    # Capture the installation result
     if sudo cmake --install build 2>&1 | tee -a "$MLOG"; then
-        printf "${OK} ${YELLOW}hyprlock $lock_tag${RESET} installed successfully.\n" | tee -a "$MLOG"
+        # Check if hyprlock binary was actually installed
+        if [ -f "/usr/local/bin/hyprlock" ]; then
+            printf "${OK} ${YELLOW}hyprlock $lock_tag${RESET} installed successfully.\n" | tee -a "$MLOG"
+        else
+            echo -e "${ERROR} Installation failed for ${YELLOW}hyprlock $lock_tag${RESET} - binary not found" | tee -a "$MLOG"
+            exit 1
+        fi
     else
         echo -e "${ERROR} Installation failed for ${YELLOW}hyprlock $lock_tag${RESET}" | tee -a "$MLOG"
+        exit 1
     fi
     
     cd ..
 else
     echo -e "${ERROR} Download failed for ${YELLOW}hyprlock $lock_tag${RESET}" | tee -a "$LOG"
+    exit 1
 fi
 
 printf "\n${OK} All operations completed.\n"
