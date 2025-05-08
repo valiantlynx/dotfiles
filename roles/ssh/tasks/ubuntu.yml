@@ -13,3 +13,14 @@
 #   ansible.builtin.template:
 #     dest: "{{ ansible_user_dir }}/.ssh/config"
 #     src: "config.j2"
+
+- name: Check if dotfiles directory exists
+  stat:
+    path: "{{ ansible_user_dir }}/.dotfiles"
+  register: dotfiles_dir
+
+- name: Change Git remote from HTTPS to SSH
+  command: git remote set-url origin git@github.com:valiantlynx/dotfiles.git
+  args:
+    chdir: "{{ ansible_user_dir }}/.dotfiles"
+  when: dotfiles_dir.stat.exists and dotfiles_dir.stat.isdir
