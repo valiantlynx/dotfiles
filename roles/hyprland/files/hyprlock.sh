@@ -1,5 +1,5 @@
 #!/bin/bash
-# hyprlock #
+# hyprlock installation script
 
 # Define color codes for better output
 INFO="\e[1;36m[INFO]\e[0m"
@@ -8,117 +8,72 @@ ERROR="\e[1;31m[ERROR]\e[0m"
 YELLOW="\e[1;33m"
 RESET="\e[0m"
 
-# Dependencies
-lock=(
-    libpam0g-dev
-    libgbm-dev
-    libdrm-dev
-    libmagic-dev
-    libhyprlang-dev
-    libhyprutils-dev
-    libgl1-mesa-dev
-    libglx-dev
-    cmake
-    gcc
-    libcairo2-dev
-    libxkbcommon-dev
-    libwayland-dev
-    libjpeg-dev 
-    libwebp-dev 
-    libpango1.0-dev
-)
+# Enable error tracing
+set -e
 
-lock_tag="v0.4.0"  # Fallback version
+# Log file for debugging
+LOG_FILE="/tmp/hyprlock_install.log"
+exec > >(tee -a "$LOG_FILE") 2>&1
 
-# Create Install-Logs directory if it doesn't exist
-mkdir -p Install-Logs
+echo "Starting hyprlock installation script at $(date)" 
 
-# Set the name of the log files
-LOG_DIR="Install-Logs"
-LOG="${LOG_DIR}/install-$(date +%d-%H%M%S)_hyprlock.log"
-MLOG="${LOG_DIR}/install-$(date +%d-%H%M%S)_hyprlock2.log"
+# Set version
+lock_tag="v0.4.0"
 
-# Ensure log directory exists before each log operation
-ensure_log_dir() {
-    if [ ! -d "$LOG_DIR" ]; then
-        mkdir -p "$LOG_DIR"
-    fi
-}
+# Create a working directory
+WORK_DIR=$(pwd)
+echo "Working directory: $WORK_DIR"
 
-# Function to install or reinstall packages
-re_install_package() {
-    local package=$1
-    local log_file=$2
-    
-    ensure_log_dir
-    echo "${INFO} Installing/Reinstalling package: ${YELLOW}$package${RESET}"
-    
-    # Detect package manager
-    if command -v apt &>/dev/null; then
-        sudo apt install -y "$package" 2>&1 | tee -a "$log_file"
-    elif command -v pacman &>/dev/null; then
-        sudo pacman -S --noconfirm "$package" 2>&1 | tee -a "$log_file"
-    elif command -v dnf &>/dev/null; then
-        sudo dnf install -y "$package" 2>&1 | tee -a "$log_file"
-    elif command -v zypper &>/dev/null; then
-        sudo zypper install -y "$package" 2>&1 | tee -a "$log_file"
-    else
-        echo "${ERROR} No supported package manager found!" | tee -a "$log_file"
-        return 1
-    fi
-    
-    return 0
-}
-
-# Installation of dependencies
-printf "\n%s - Installing ${YELLOW}hyprlock dependencies${RESET} .... \n" "${INFO}"
-for PKG1 in "${lock[@]}"; do
-    re_install_package "$PKG1" "$LOG"
-done
-
-# Check if hyprlock directory exists and remove it
+# Check if hyprlock directory exists and remove it if it does
 if [ -d "hyprlock" ]; then
-    rm -rf "hyprlock"
+    echo "Removing existing hyprlock directory..."
+    rm -rf hyprlock
 fi
 
 # Clone and build hyprlock
-ensure_log_dir
-printf "${INFO} Installing ${YELLOW}hyprlock $lock_tag${RESET} ...\n" | tee -a "$LOG"
-if git clone --recursive -b "$lock_tag" https://github.com/hyprwm/hyprlock.git; then
-    cd hyprlock || { 
-        echo "${ERROR} Failed to change directory to hyprlock" | tee -a "$LOG"
-        exit 1
-    }
-    
-    # Build using cmake
-    cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -S . -B ./build
-    
-    # Determine number of CPU cores for parallel build
-    cores=$(nproc 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null || echo 1)
-    
-    cmake --build ./build --config Release --target hyprlock -j"$cores"
-    
-    # Ensure log directory exists before installation step
-    ensure_log_dir
-    
-    # Capture the installation result
-    if sudo cmake --install build 2>&1 | tee -a "$MLOG"; then
-        # Check if hyprlock binary was actually installed
-        if [ -f "/usr/local/bin/hyprlock" ]; then
-            printf "${OK} ${YELLOW}hyprlock $lock_tag${RESET} installed successfully.\n" | tee -a "$MLOG"
-        else
-            echo -e "${ERROR} Installation failed for ${YELLOW}hyprlock $lock_tag${RESET} - binary not found" | tee -a "$MLOG"
-            exit 1
-        fi
-    else
-        echo -e "${ERROR} Installation failed for ${YELLOW}hyprlock $lock_tag${RESET}" | tee -a "$MLOG"
-        exit 1
-    fi
-    
-    cd ..
-else
-    echo -e "${ERROR} Download failed for ${YELLOW}hyprlock $lock_tag${RESET}" | tee -a "$LOG"
+echo "${INFO} Installing ${YELLOW}hyprlock $lock_tag${RESET} ..."
+
+echo "Cloning hyprlock repository..."
+if ! git clone --recursive -b "$lock_tag" https://github.com/hyprwm/hyprlock.git; then
+    echo "${ERROR} Failed to clone hyprlock repository"
     exit 1
 fi
 
-printf "\n${OK} All operations completed.\n"
+echo "Changing to hyprlock directory..."
+cd hyprlock || { 
+    echo "${ERROR} Failed to change directory to hyprlock"
+    exit 1
+}
+
+echo "Running cmake configuration..."
+if ! cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -S . -B ./build; then
+    echo "${ERROR} CMake configuration failed"
+    exit 1
+fi
+
+# Determine number of CPU cores for parallel build
+cores=$(nproc 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null || echo 1)
+echo "Building with $cores cores..."
+
+if ! cmake --build ./build --config Release --target hyprlock -j"$cores"; then
+    echo "${ERROR} CMake build failed"
+    exit 1
+fi
+
+echo "Installing hyprlock..."
+if ! sudo cmake --install build; then
+    echo "${ERROR} Installation failed"
+    exit 1
+fi
+
+# Check if hyprlock binary was actually installed
+if [ -f "/usr/local/bin/hyprlock" ]; then
+    echo "${OK} ${YELLOW}hyprlock $lock_tag${RESET} installed successfully."
+else
+    echo "${ERROR} Installation failed for ${YELLOW}hyprlock $lock_tag${RESET} - binary not found"
+    exit 1
+fi
+
+cd "$WORK_DIR" || exit 1
+echo "${OK} All operations completed."
+echo "Installation completed at $(date)"

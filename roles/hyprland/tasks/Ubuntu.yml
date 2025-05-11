@@ -36,21 +36,50 @@
 - name: "Hyprlock | Install Hyprlock using bash script"
   when: not hyprlock_is_installed
   block:
-    - name: "Hyprlock | Create directory for script"
-      ansible.builtin.file:
-        path: "{{ ansible_user_dir }}/hyprlock_temp"
+    - name: "Hyprlock | Create temporary directory"
+      ansible.builtin.tempfile:
         state: directory
-        mode: "0755"
+        suffix: hyprlock
+      register: hyprlock_temp_dir
 
     - name: "Hyprlock | Copy installation script"
       ansible.builtin.copy:
-        src: "hyprlock.sh"
-        dest: "{{ ansible_user_dir }}/hyprlock_temp/hyprlock.sh"
+        src: "{{ role_path }}/files/hyprlock.sh"
+        dest: "{{ hyprlock_temp_dir.path }}/hyprlock.sh"
         mode: "0755"
 
+    - name: "Hyprlock | Install required build dependencies"
+      ansible.builtin.apt:
+        name:
+          - libpam0g-dev
+          - libgbm-dev
+          - libdrm-dev
+          - libmagic-dev
+          - libhyprlang-dev
+          - libhyprutils-dev
+          - libgl1-mesa-dev
+          - libglx-dev
+          - cmake
+          - gcc
+          - libcairo2-dev
+          - libxkbcommon-dev
+          - libwayland-dev
+          - libjpeg-dev
+          - libwebp-dev
+          - libpango1.0-dev
+          - git
+          - wayland-protocols  # Added this package
+          - libwayland-dev     # Ensure this is installed
+          - libwayland-egl-backend-dev  # Additional dependency
+        state: present
+      become: true
+
     - name: "Hyprlock | Run the installation script"
-      ansible.builtin.shell: "{{ ansible_user_dir }}/hyprlock_temp/hyprlock.sh"
+      ansible.builtin.shell: "./hyprlock.sh"
+      args:
+        chdir: "{{ hyprlock_temp_dir.path }}"
       register: script_output
+      become: true
 
     - name: "Hyprlock | Show installation output"
       ansible.builtin.debug:
@@ -58,5 +87,5 @@
 
     - name: "Hyprlock | Clean up temporary directory"
       ansible.builtin.file:
-        path: "{{ ansible_user_dir }}/hyprlock_temp"
+        path: "{{ hyprlock_temp_dir.path }}"
         state: absent
