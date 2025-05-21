@@ -179,7 +179,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/mai
 If you want to run only a specific role, you can specify the following bash command:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles | bash -s -- --tags tmux,neovim,ssh,bash  
+curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles | bash -s -- --tags bash,system,bat,btop,flatpak,fonts,nerdfont,fzf,ghostty,git,lazygit,lsd,lua,uv,neovim,nvm,ssh,sshfs,tmux,zoxide  
 ```
 
 ### Update
