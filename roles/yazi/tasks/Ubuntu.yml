@@ -11,13 +11,51 @@
       - fzf
       - zoxide
       - imagemagick
+      - unzip  # Added for extracting the binary archive
     state: present
     update_cache: yes
   become: yes
 
-- name: Yazi | Ubuntu | Install Yazi via Snap
-  community.general.snap:
-    name: yazi
-    classic: yes
-    state: present
+- name: Yazi | Create temporary directory for download
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: yazi
+  register: yazi_temp_dir
+
+- name: Yazi | Download prebuilt binary
+  ansible.builtin.get_url:
+    url: https://github.com/sxyazi/yazi/releases/download/nightly/yazi-x86_64-unknown-linux-gnu.zip
+    dest: "{{ yazi_temp_dir.path }}/yazi.zip"
+    mode: '0644'
+
+- name: Yazi | Extract Yazi binary
+  ansible.builtin.unarchive:
+    src: "{{ yazi_temp_dir.path }}/yazi.zip"
+    dest: "{{ yazi_temp_dir.path }}"
+    remote_src: yes
+
+- name: Yazi | Install Yazi binary to /usr/local/bin
+  ansible.builtin.copy:
+    src: "{{ yazi_temp_dir.path }}/yazi-x86_64-unknown-linux-gnu/yazi"
+    dest: /usr/local/bin/yazi
+    mode: '0755'
+    owner: root
+    group: root
+    remote_src: yes
   become: yes
+
+- name: Yazi | Install Ya binary to /usr/local/bin
+  ansible.builtin.copy:
+    src: "{{ yazi_temp_dir.path }}/yazi-x86_64-unknown-linux-gnu/ya"
+    dest: /usr/local/bin/ya
+    mode: '0755'
+    owner: root
+    group: root
+    remote_src: yes
+  become: yes
+
+- name: Yazi | Clean up temporary directory
+  ansible.builtin.file:
+    path: "{{ yazi_temp_dir.path }}"
+    state: absent
+
