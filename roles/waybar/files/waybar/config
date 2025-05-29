@@ -79,7 +79,7 @@
     "disk": {
       "format": "<span foreground='#D65D0E'>󰋊 </span>{percentage_used}%",
       "interval": 60,
-      "on-click-right": "hyprctl dispatch exec '[float; center; size 950 650] kitty --override font_size=14 --title float_kitty btop'"
+      "on-click-right": "hyprctl dispatch exec '[float; center; size 850 550] ghostty  --title=float_btop -e btop'"
     },
     "height": 28,
     "hyprland/workspaces": {
@@ -117,7 +117,7 @@
       "format": "<span foreground='#689D6A'>󰟜 </span>{}%",
       "format-alt": "<span foreground='#689D6A'>󰟜 </span>{used} GiB",
       "interval": 2,
-      "on-click-right": "hyprctl dispatch exec '[float; center; size 950 650] kitty --override font_size=14 --title float_kitty btop'"
+      "on-click-right": "hyprctl dispatch exec '[float; center; size 850 550] ghostty  --title=float_btop -e btop'"
     },
     "modules-center": [
       "clock"
