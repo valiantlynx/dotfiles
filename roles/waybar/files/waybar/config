@@ -35,7 +35,7 @@
       "format": "<span foreground='#98971A'> </span> {usage}%",
       "format-alt": "<span foreground='#98971A'> </span> {avg_frequency} GHz",
       "interval": 2,
-      "on-click-right": "hyprctl dispatch exec '[float; center; size 950 650] kitty --override font_size=14 --title float_kitty btop'"
+      "on-click-right": "hyprctl dispatch exec '[float; center; size 850 550] ghostty  --title=float_btop -e btop'"
     },
     "custom/launcher": {
       "format": "",
