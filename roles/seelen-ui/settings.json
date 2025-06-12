@@ -413,7 +413,8 @@
     }
   },
   "selectedThemes": [
-    "default"
+    "default",
+    "gruvbox"
   ],
   "iconPacks": [
     "system"

@@ -1,7 +1,7 @@
-id: '@default/theme'
+id: '@gruvbox/theme'
 metadata:
   displayName:
-    en: Default
+    en: Gruvbox
     af: Versuim
     az: Defolt
     ca: No pagar
@@ -13,8 +13,8 @@ metadata:
     es: Por defecto
     bs: Podrazumevano
     fr: Défaut
-    tl: Default
-    id: Default
+    tl: Gruvbox
+    id: Gruvbox
     it: Predefinito
     hr: Zadano
     sw: Chaguo -msingi
@@ -26,7 +26,7 @@ metadata:
     hu: Alapértelmezett
     is: Sjálfgefið
     nl: Standaard
-    mt: Default
+    mt: Gruvbox
     'no': Misligholde
     pl: Domyślne
     lb: Asofbild
@@ -72,9 +72,9 @@ metadata:
     lo: ໃນຕອນຕົ້ນ
     si: පෙරනිමි
   description:
-    en: Default Seelen Theme
+    en: Gruvbox Seelen Theme
     az: Defolt Seelen tema
-    bs: Default Seelen Theme
+    bs: Gruvbox Seelen Theme
     cs: Výchozí téma Seelen
     ca: Tema de Seelen per defecte
     da: Standard Seelen-tema
@@ -83,21 +83,21 @@ metadata:
     af: Standaard Seelen -tema
     es: Tema predeterminado de Seelen
     eu: Lehenetsitako Seelen Gaia
-    cy: Thema Seelen Default
+    cy: Thema Seelen Gruvbox
     fr: Thème Seelen par défaut
-    id: Tema Seelen Default
+    id: Tema Seelen Gruvbox
     it: Tema Seelen predefinito
     zu: Ingqikithi ye-Seelen ezenzakalelayo
     is: Sjálfgefið Seelen þema
-    tl: Default na tema ng Seelen
+    tl: Gruvbox na tema ng Seelen
     lv: Noklusējuma Seelen tēma
     lt: Numatytoji "Seelen" tema
     hu: Alapértelmezett Seelen téma
     nl: Standaard Seelen Thema
-    ku: Mijara Default Seelen
+    ku: Mijara Gruvbox Seelen
     hr: Zadana tema Seelen
-    sw: Mada ya Seelen Default
-    mt: Tema Seelen Default
+    sw: Mada ya Seelen Gruvbox
+    mt: Tema Seelen Gruvbox
     'no': Standard Seelen -tema
     lb: Standardvires Themen
     pl: Domyślny motyw Seelen
