@@ -1,0 +1,644 @@
+{
+  "monitorsV2": {
+    "\\\\?\\DISPLAY#SHP14B4#4&1fa27b2c&0&UID8388688#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}": {
+      "byWidget": {
+        "@seelen/weg": {
+          "enabled": true,
+          "temporalItemsVisibility": null,
+          "pinnedItemsVisibility": null
+        },
+        "@seelen/fancy-toolbar": {
+          "enabled": true
+        },
+        "@seelen/window-manager": {
+          "enabled": true,
+          "padding": null,
+          "margin": null,
+          "gap": null,
+          "layout": null
+        },
+        "@seelen/wallpaper-manager": {
+          "enabled": true,
+          "backgrounds": null
+        }
+      },
+      "workspacesV2": []
+    },
+    "\\\\?\\DISPLAY#PHL1001#4&1fa27b2c&0&UID24647#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}": {
+      "byWidget": {
+        "@seelen/weg": {
+          "enabled": true,
+          "temporalItemsVisibility": null,
+          "pinnedItemsVisibility": null
+        },
+        "@seelen/fancy-toolbar": {
+          "enabled": true
+        },
+        "@seelen/window-manager": {
+          "enabled": true,
+          "padding": null,
+          "margin": null,
+          "gap": null,
+          "layout": null
+        },
+        "@seelen/wallpaper-manager": {
+          "enabled": true,
+          "backgrounds": null
+        }
+      },
+      "workspacesV2": []
+    }
+  },
+  "ahkEnabled": true,
+  "ahkVariables": {
+    "toggleLauncher": {
+      "fancy": "Win + S",
+      "ahk": "#s",
+      "readonly": true,
+      "devonly": false
+    },
+    "reserveTop": {
+      "fancy": "Win + Shift + I",
+      "ahk": "#+i",
+      "readonly": false,
+      "devonly": false
+    },
+    "reserveBottom": {
+      "fancy": "Win + Shift + K",
+      "ahk": "#+k",
+      "readonly": false,
+      "devonly": false
+    },
+    "reserveLeft": {
+      "fancy": "Win + Shift + J",
+      "ahk": "#+j",
+      "readonly": false,
+      "devonly": false
+    },
+    "reserveRight": {
+      "fancy": "Win + Shift + L",
+      "ahk": "#+l",
+      "readonly": false,
+      "devonly": false
+    },
+    "reserveFloat": {
+      "fancy": "Win + Shift + U",
+      "ahk": "#+u",
+      "readonly": false,
+      "devonly": false
+    },
+    "reserveStack": {
+      "fancy": "Win + Shift + O",
+      "ahk": "#+o",
+      "readonly": false,
+      "devonly": false
+    },
+    "focusTop": {
+      "fancy": "Win + Alt + I",
+      "ahk": "#!i",
+      "readonly": false,
+      "devonly": false
+    },
+    "focusBottom": {
+      "fancy": "Win + Alt + K",
+      "ahk": "#!k",
+      "readonly": false,
+      "devonly": false
+    },
+    "focusLeft": {
+      "fancy": "Win + J",
+      "ahk": "#j",
+      "readonly": false,
+      "devonly": false
+    },
+    "focusRight": {
+      "fancy": "Win + Alt + L",
+      "ahk": "#!l",
+      "readonly": false,
+      "devonly": false
+    },
+    "focusLatest": {
+      "fancy": "Win + Alt + U",
+      "ahk": "#!u",
+      "readonly": false,
+      "devonly": false
+    },
+    "increaseWidth": {
+      "fancy": "Win + Alt + =",
+      "ahk": "#!=",
+      "readonly": false,
+      "devonly": false
+    },
+    "decreaseWidth": {
+      "fancy": "Win + Alt + -",
+      "ahk": "#!-",
+      "readonly": false,
+      "devonly": false
+    },
+    "increaseHeight": {
+      "fancy": "Ctrl + Win + Alt + =",
+      "ahk": "^#!=",
+      "readonly": false,
+      "devonly": false
+    },
+    "decreaseHeight": {
+      "fancy": "Ctrl + Win + Alt + -",
+      "ahk": "^#!-",
+      "readonly": false,
+      "devonly": false
+    },
+    "restoreSizes": {
+      "fancy": "Win + Alt + 0",
+      "ahk": "#!0",
+      "readonly": false,
+      "devonly": false
+    },
+    "startWegApp0": {
+      "fancy": "Win + 1",
+      "ahk": "#1",
+      "readonly": false,
+      "devonly": false
+    },
+    "startWegApp1": {
+      "fancy": "Win + 2",
+      "ahk": "#2",
+      "readonly": false,
+      "devonly": false
+    },
+    "startWegApp2": {
+      "fancy": "Win + 3",
+      "ahk": "#3",
+      "readonly": false,
+      "devonly": false
+    },
+    "startWegApp3": {
+      "fancy": "Win + 4",
+      "ahk": "#4",
+      "readonly": false,
+      "devonly": false
+    },
+    "startWegApp4": {
+      "fancy": "Win + 5",
+      "ahk": "#5",
+      "readonly": false,
+      "devonly": false
+    },
+    "startWegApp5": {
+      "fancy": "Win + 6",
+      "ahk": "#6",
+      "readonly": false,
+      "devonly": false
+    },
+    "startWegApp6": {
+      "fancy": "Win + 7",
+      "ahk": "#7",
+      "readonly": false,
+      "devonly": false
+    },
+    "startWegApp7": {
+      "fancy": "Win + 8",
+      "ahk": "#8",
+      "readonly": false,
+      "devonly": false
+    },
+    "startWegApp8": {
+      "fancy": "Win + 9",
+      "ahk": "#9",
+      "readonly": false,
+      "devonly": false
+    },
+    "startWegApp9": {
+      "fancy": "Win + 0",
+      "ahk": "#0",
+      "readonly": false,
+      "devonly": false
+    },
+    "switchWorkspace0": {
+      "fancy": "Alt + 1",
+      "ahk": "!1",
+      "readonly": false,
+      "devonly": false
+    },
+    "switchWorkspace1": {
+      "fancy": "Alt + 2",
+      "ahk": "!2",
+      "readonly": false,
+      "devonly": false
+    },
+    "switchWorkspace2": {
+      "fancy": "Alt + 3",
+      "ahk": "!3",
+      "readonly": false,
+      "devonly": false
+    },
+    "switchWorkspace3": {
+      "fancy": "Alt + 4",
+      "ahk": "!4",
+      "readonly": false,
+      "devonly": false
+    },
+    "switchWorkspace4": {
+      "fancy": "Alt + 5",
+      "ahk": "!5",
+      "readonly": false,
+      "devonly": false
+    },
+    "switchWorkspace5": {
+      "fancy": "Alt + 6",
+      "ahk": "!6",
+      "readonly": false,
+      "devonly": false
+    },
+    "switchWorkspace6": {
+      "fancy": "Alt + 7",
+      "ahk": "!7",
+      "readonly": false,
+      "devonly": false
+    },
+    "switchWorkspace7": {
+      "fancy": "Alt + 8",
+      "ahk": "!8",
+      "readonly": false,
+      "devonly": false
+    },
+    "switchWorkspace8": {
+      "fancy": "Alt + 9",
+      "ahk": "!9",
+      "readonly": false,
+      "devonly": false
+    },
+    "switchWorkspace9": {
+      "fancy": "Alt + 0",
+      "ahk": "!0",
+      "readonly": false,
+      "devonly": false
+    },
+    "moveToWorkspace0": {
+      "fancy": "Alt + Shift + 1",
+      "ahk": "!+1",
+      "readonly": false,
+      "devonly": false
+    },
+    "moveToWorkspace1": {
+      "fancy": "Alt + Shift + 2",
+      "ahk": "!+2",
+      "readonly": false,
+      "devonly": false
+    },
+    "moveToWorkspace2": {
+      "fancy": "Alt + Shift + 3",
+      "ahk": "!+3",
+      "readonly": false,
+      "devonly": false
+    },
+    "moveToWorkspace3": {
+      "fancy": "Alt + Shift + 4",
+      "ahk": "!+4",
+      "readonly": false,
+      "devonly": false
+    },
+    "moveToWorkspace4": {
+      "fancy": "Alt + Shift + 5",
+      "ahk": "!+5",
+      "readonly": false,
+      "devonly": false
+    },
+    "moveToWorkspace5": {
+      "fancy": "Alt + Shift + 6",
+      "ahk": "!+6",
+      "readonly": false,
+      "devonly": false
+    },
+    "moveToWorkspace6": {
+      "fancy": "Alt + Shift + 7",
+      "ahk": "!+7",
+      "readonly": false,
+      "devonly": false
+    },
+    "moveToWorkspace7": {
+      "fancy": "Alt + Shift + 8",
+      "ahk": "!+8",
+      "readonly": false,
+      "devonly": false
+    },
+    "moveToWorkspace8": {
+      "fancy": "Alt + Shift + 9",
+      "ahk": "!+9",
+      "readonly": false,
+      "devonly": false
+    },
+    "moveToWorkspace9": {
+      "fancy": "Alt + Shift + 0",
+      "ahk": "!+0",
+      "readonly": false,
+      "devonly": false
+    },
+    "sendToWorkspace0": {
+      "fancy": "Win + Shift + 1",
+      "ahk": "#+1",
+      "readonly": false,
+      "devonly": false
+    },
+    "sendToWorkspace1": {
+      "fancy": "Win + Shift + 2",
+      "ahk": "#+2",
+      "readonly": false,
+      "devonly": false
+    },
+    "sendToWorkspace2": {
+      "fancy": "Win + Shift + 3",
+      "ahk": "#+3",
+      "readonly": false,
+      "devonly": false
+    },
+    "sendToWorkspace3": {
+      "fancy": "Win + Shift + 4",
+      "ahk": "#+4",
+      "readonly": false,
+      "devonly": false
+    },
+    "sendToWorkspace4": {
+      "fancy": "Win + Shift + 5",
+      "ahk": "#+5",
+      "readonly": false,
+      "devonly": false
+    },
+    "sendToWorkspace5": {
+      "fancy": "Win + Shift + 6",
+      "ahk": "#+6",
+      "readonly": false,
+      "devonly": false
+    },
+    "sendToWorkspace6": {
+      "fancy": "Win + Shift + 7",
+      "ahk": "#+7",
+      "readonly": false,
+      "devonly": false
+    },
+    "sendToWorkspace7": {
+      "fancy": "Win + Shift + 8",
+      "ahk": "#+8",
+      "readonly": false,
+      "devonly": false
+    },
+    "sendToWorkspace8": {
+      "fancy": "Win + Shift + 9",
+      "ahk": "#+9",
+      "readonly": false,
+      "devonly": false
+    },
+    "sendToWorkspace9": {
+      "fancy": "Win + Shift + 0",
+      "ahk": "#+0",
+      "readonly": false,
+      "devonly": false
+    },
+    "miscOpenSettings": {
+      "fancy": "Ctrl + Win + I",
+      "ahk": "^#i",
+      "readonly": true,
+      "devonly": false
+    },
+    "miscToggleLockTracing": {
+      "fancy": "Ctrl + Win + Alt + T",
+      "ahk": "^#!t",
+      "readonly": true,
+      "devonly": true
+    },
+    "miscToggleWinEventTracing": {
+      "fancy": "Ctrl + Win + Alt + L",
+      "ahk": "^#!l",
+      "readonly": true,
+      "devonly": true
+    }
+  },
+  "selectedThemes": [
+    "default"
+  ],
+  "iconPacks": [
+    "system"
+  ],
+  "devTools": true,
+  "language": "en",
+  "dateFormat": "ddd D MMM, hh:mm A",
+  "virtualDesktopStrategy": "Seelen",
+  "updater": {
+    "channel": "Release"
+  },
+  "byWidget": {
+    "@seelen/weg": {
+      "enabled": true,
+      "mode": "MinContent",
+      "hideMode": "OnOverlap",
+      "temporalItemsVisibility": "All",
+      "pinnedItemsVisibility": "Always",
+      "position": "Bottom",
+      "thumbnailGenerationEnabled": true,
+      "showInstanceCounter": true,
+      "showWindowTitle": true,
+      "visibleSeparators": true,
+      "size": 40,
+      "zoomSize": 70,
+      "margin": 8,
+      "padding": 8,
+      "spaceBetweenItems": 8,
+      "delayToShow": 100,
+      "delayToHide": 800
+    },
+    "@seelen/fancy-toolbar": {
+      "enabled": true,
+      "height": 30,
+      "position": "Top",
+      "hideMode": "Never",
+      "delayToShow": 100,
+      "delayToHide": 800,
+      "showHibernateButton": false,
+      "dynamicColor": true
+    },
+    "@seelen/window-manager": {
+      "enabled": true,
+      "autoStackingByCategory": true,
+      "border": {
+        "enabled": true,
+        "width": 3.0,
+        "offset": 0.0
+      },
+      "resizeDelta": 10.0,
+      "workspaceGap": 10,
+      "workspacePadding": 10,
+      "workspaceMargin": {
+        "left": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0
+      },
+      "floating": {
+        "width": 800.0,
+        "height": 500.0
+      },
+      "defaultLayout": "@default/wm-bspwm"
+    },
+    "@seelen/wallpaper-manager": {
+      "enabled": true,
+      "backgrounds": [
+        {
+          "id": "a30fb5f0-8ded-48c2-83cb-bc658cd8525e",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\4th_wall.png"
+        },
+        {
+          "id": "fa92112c-cd4f-4e40-aba7-d3686cbbf77e",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\astronaut.jpg"
+        },
+        {
+          "id": "70c766f0-d552-4f05-973b-98eea82ae5cd",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\attic.jpg"
+        },
+        {
+          "id": "ff1cf604-8368-487f-b9ec-867c6500861b",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\bike.jpg"
+        },
+        {
+          "id": "1579dd08-b955-4bc4-a81d-95d2741174ac",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\bin.png"
+        },
+        {
+          "id": "bd7f327f-03fc-42d1-9c2d-1ba902c1f76b",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\brush_mountain.png"
+        },
+        {
+          "id": "4388a614-e952-47ea-9ffa-88c008044fdc",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\bush.jpg"
+        },
+        {
+          "id": "591be5bb-de89-4142-9132-477dba019fd2",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\cabin.png"
+        },
+        {
+          "id": "6e4893eb-b3b0-459c-998c-3fd15d7800c6",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\circuit.jpg"
+        },
+        {
+          "id": "2014f7c2-26f8-4e50-9199-f051db2285e8",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\controllers.png"
+        },
+        {
+          "id": "e3c8bea3-9160-4ba3-9446-f5f982d3d982",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\contryside.jpg"
+        },
+        {
+          "id": "0bd6b7e7-f5ce-4ef8-ba07-c926164266b9",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\fern.jpg"
+        },
+        {
+          "id": "8d36351f-b6cd-470d-9f9f-54565d667712",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\forest_bridge.jpg"
+        },
+        {
+          "id": "01e63d65-683f-47dc-acb1-18d2ff236ffa",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\forest_lamp.jpg"
+        },
+        {
+          "id": "f45723d5-2cb1-407b-8f67-8e1f6778130f",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\forest_mist.jpg"
+        },
+        {
+          "id": "7d2bb101-9dfd-4a41-b793-33c3790c5aaa",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\forest_moss.png"
+        },
+        {
+          "id": "ea894285-7d4a-4322-a970-81200ff3f2a0",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\forest_mountain_road.jpg"
+        },
+        {
+          "id": "f16512b5-5636-4154-a0d9-a4636c7c7ead",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\forest_pastel.png"
+        },
+        {
+          "id": "b4fd6eef-32c3-443c-b504-ff6145b75765",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\forest_pine.jpg"
+        },
+        {
+          "id": "33c2636c-325e-47e9-87f7-ce45c1393ecc",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\forest_road.jpg"
+        },
+        {
+          "id": "20349c69-5a16-42f1-ba3a-d9ea28a0d53d",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\japanese_pedestrian_street.png"
+        },
+        {
+          "id": "bec70e10-1bb4-41bf-be4b-5273e4628a32",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\lady.png"
+        },
+        {
+          "id": "e5781f6f-8d4d-46b6-a2b4-092f9d9313e8",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\leaves.jpg"
+        },
+        {
+          "id": "ae9a94b2-52b6-4ff4-a855-da62b863ca2a",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\leaves_wall.png"
+        },
+        {
+          "id": "fd65da98-9261-4ce4-94d4-71c15608a592",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\minimal_c.png"
+        },
+        {
+          "id": "f907c43a-fb1c-411f-9fb1-707395f9c0ec",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\old_future.jpg"
+        },
+        {
+          "id": "5330c1ea-1e0c-4a83-a4e9-65b4a4bcdd6c",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\pixel_forest.png"
+        },
+        {
+          "id": "b53a3cc9-3c50-4639-a816-fa89ea1419f8",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\rails.png"
+        },
+        {
+          "id": "b841d6dc-ce15-4699-b83c-61228f9306f8",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\road.jpg"
+        },
+        {
+          "id": "2e5abba7-97ac-4129-9fb8-50f057082c48",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\seeker.jpg"
+        },
+        {
+          "id": "76f6a6a7-ff2a-40ac-a979-27fdb9ebb8a9",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\solar_system.jpeg"
+        },
+        {
+          "id": "847a4653-fb8f-4ca8-b7fa-1ba0da1f37c6",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\stairs.jpg"
+        },
+        {
+          "id": "4695132d-7169-4b89-adfa-0fafa842a7bd",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\tux.png"
+        },
+        {
+          "id": "69a17ac1-95f9-4164-ae7f-d3812494570a",
+          "path": "C:\\Users\\GormeryWanjiru\\.dotfiles\\roles\\bash\\files\\wallpapers\\others\\wavw.png"
+        }
+      ],
+      "interval": 60,
+      "randomize": true
+    },
+    "@seelen/launcher": {
+      "enabled": true,
+      "monitor": "Primary",
+      "runners": [
+        {
+          "id": "RUN",
+          "label": "t:app_launcher.runners.explorer",
+          "program": "explorer.exe",
+          "readonly": true
+        },
+        {
+          "id": "CMD",
+          "label": "t:app_launcher.runners.cmd",
+          "program": "cmd.exe",
+          "readonly": true
+        }
+      ]
+    }
+  },
+  "byTheme": {}
+}

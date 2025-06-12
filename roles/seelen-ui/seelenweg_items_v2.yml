@@ -1,0 +1,19 @@
+isReorderDisabled: false
+left:
+- type: StartMenu
+  id: a0b07dec-abff-4f96-89f9-4fd52b40cd75
+center:
+- type: Pinned
+  id: 8fd2d067-cdbb-4363-8478-a661b8a2e9b2
+  subtype: App
+  umid: null
+  path: C:\Windows\explorer.exe
+  relaunchProgram: C:\Windows\explorer.exe
+  relaunchArgs: null
+  relaunchIn: null
+  displayName: Explorer
+  windows: []
+  pinDisabled: false
+right:
+- type: Media
+  id: 6fd61451-399e-43f8-b437-2bc4d0398c5e

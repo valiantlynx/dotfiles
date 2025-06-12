@@ -1,0 +1,226 @@
+id: '@system/icon-pack'
+metadata:
+  displayName: System
+  description: Icons from Windows and Program Files
+  portrait: null
+  banner: null
+  screenshots: []
+  tags: []
+  appTargetVersion: null
+  filename: system
+  bundled: true
+missing: missing-icon.png
+apps:
+  C:\Users\GormeryWanjiru\AppData\Local\PowerToys\PowerToys.Awake.exe: 3737c24a-85f8-40cd-9789-c4ebd526df8c.png
+  Microsoft.WindowsNotepad_8wekyb3d8bbwe!App:
+    light: 5d6f4f99-0956-443d-96e7-84d5e3e2d6b7_light.png
+    dark: 5d6f4f99-0956-443d-96e7-84d5e3e2d6b7_dark.png
+    mask: null
+  Microsoft.VisualStudio.Installer: b67171ca-fcea-4df7-8d94-ec1899ec418f.png
+  ? C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Visual Studio 2022\Visual Studio Tools\VC\x86_x64 Cross Tools Command Prompt for VS 2022.lnk
+  : dd95b2b7-071a-400d-af61-c9017f03fc45.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\SafeExamBrowser\SEB Configuration Tool.lnk: 8a317c0c-9cd3-46de-bd4f-ae0af49b2e55.png
+  Microsoft.Office.OUTLOOK.EXE.15: 98cc74ab-a6d8-42ce-ac56-4ecfa666c86d.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk: 694e681e-a6fe-4229-bf23-ffccf8148e4f.png
+  Microsoft.WindowsFeedbackHub_8wekyb3d8bbwe!App:
+    light: aa65fbde-75ab-44e1-beea-98cc3a1d62e0_light.png
+    dark: aa65fbde-75ab-44e1-beea-98cc3a1d62e0_dark.png
+    mask: null
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Windows Kits\Application Verifier (X64)\Application Verifier (X64).lnk: bc3bb8e2-92a0-4566-9ad6-9514d70153f3.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\OneDrive.lnk: 974e2d10-ab04-4a9e-9bb0-edc0618c140a.png
+  C:\Program Files\komorebi\bin\komorebi-bar.exe: bbf02a19-8120-449b-a208-94e1246417d0.png
+  C:\Program Files\Git\usr\bin\mintty.exe: d3df1d81-d8ed-424e-8576-561a8406c66c.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.12\Python 3.12 Module Docs (64-bit).lnk: ba4816a2-1ba3-4a07-89a3-3cd97a803a88.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.12\Python 3.12 (64-bit).lnk: 2163d6ba-2f6b-49b7-b522-7f6b9272adc6.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\System Configuration.lnk: 513ac17b-7243-46f3-8a22-4fb424b522a3.png
+  C:\Program Files\WindowsApps\Seelen.SeelenUI_2.3.7.0_x64__p6yyn03m1894e\seelen-ui.exe: 9a985147-daaa-4921-9ffa-58b8c0f4e9d8.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Component Services.lnk: af83d895-f96b-4736-ad04-ebbc60600213.png
+  Microsoft.Office.VISIO.EXE.15: 4331ecf0-8fea-4208-8d96-a3246215c600.png
+  C:\Program Files\Microsoft OneDrive\OneDrive.exe: d28cd32d-019c-4ef4-ac35-707c0cc37aac.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Windows Media Player Legacy.lnk: fd4e80fd-731f-451b-9d51-abc65c1aaf74.png
+  VisualStudio.558870f9: a661f44e-3714-41c5-a738-c5bc7cbb97f0.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\7-Zip\7-Zip Help.lnk: 8592da5a-61a3-4aa5-9360-65e89c55f680.png
+  Chrome._crx_pjibgcllelbfgfagdaldikeohf: fb24720e-0862-49bc-a703-aa0c85b4abe7.png
+  Microsoft.Management.Clients.IntuneManagementExtension: f5d9bced-72ef-4891-a83d-2c985ac1dfdd.png
+  C:\Program Files (x86)\Citrix\ICA Client\Receiver\Receiver.exe: f0142add-9aff-4f6f-92c1-c124dcaec6fb.png
+  ? C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Ubuntu-24.04\ImageMagick (color depth=q16) (Ubuntu-24.04).lnk
+  : bbbcf09e-e588-4dde-8acb-7ce608e0becb.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\System Tools\Task Manager.lnk: 758d5a3a-0699-4f26-b7d2-3ec25373fa26.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Registry Editor.lnk: 79645e21-6bc1-428c-85e1-d6b7aff7afb5.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Windows Kits\Windows Performance Toolkit\Windows Performance Recorder.lnk: d0237a4e-86c2-4aa2-b097-a835b568e1be.png
+  Seelen.SeelenUI_p6yyn03m1894e!App:
+    light: c171a305-d4ab-441b-a345-072b0245adf7_light.png
+    dark: c171a305-d4ab-441b-a345-072b0245adf7_dark.png
+    mask: null
+  ? C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Intune Management Extension\Microsoft Intune Management Extension.lnk
+  : f5d9bced-72ef-4891-a83d-2c985ac1dfdd.png
+  ? C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Windows Kits\Windows Software Development Kit\Windows Software Development Kit.lnk
+  : e137bf4c-47bf-47f4-8aff-f8b3df4da0e5.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\System Tools\Command Prompt.lnk: b384fe0a-a837-4887-bb26-4d4d8f9cf22e.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Administrative Tools.lnk: 19cc9c0e-89f1-47e3-ae1c-b318c0220274.png
+  Microsoft.Office.WINPROJ.EXE.15: 29bd4f9c-013f-4a6e-8e9f-1c98a61782c3.png
+  Microsoft.Windows.RemoteDesktop: de007a6a-38e2-496d-baaf-17ebd22cd581.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\WSL Settings.lnk: efa72b59-493a-4e07-bd76-0687b7c94c86.png
+  C:\Program Files\WindowsApps\Microsoft.MicrosoftOfficeHub_19.2506.38011.0_x64__8wekyb3d8bbwe\WebViewHost.exe: 0f4949e8-cdda-4189-8410-c88a2738ff68.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Node.js\Node.js.lnk: 10b136c7-c47b-4dc2-8d55-c059f474a5d6.png
+  C:\Users\GormeryWanjiru\AppData\Local\Programs\Microsoft VS Code\Code.exe: 49f186fa-e65e-44b6-9bea-1ab567e05d0a.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Chrome Apps\Spotify.lnk: fb24720e-0862-49bc-a703-aa0c85b4abe7.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\System Tools\Control Panel.lnk: 6e35c7f1-fdad-494e-945b-00973897de36.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Windows PowerShell\Windows PowerShell ISE.lnk: 60101a88-2079-4a5d-90ee-f94b2556c0a2.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Citrix Enterprise Browser.lnk: b6f804d3-c3f9-44a8-9b38-9a06427dbac8.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk: cd66fe93-585d-4bc7-8850-2933bcaca681.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Remote Desktop Connection.lnk: de007a6a-38e2-496d-baaf-17ebd22cd581.png
+  ? C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Visual Studio 2022\Visual Studio Tools\Developer Command Prompt for VS 2022.lnk
+  : e0ae9869-0a6a-4188-874d-2fbad49a2cfa.png
+  uniFLOW.SmartClient: 149d7755-fae3-4bd4-b013-33b04a6189c8.png
+  Microsoft.Office.SPREADSHEETCOMPARE.EXE.15: bb3db0bf-24f9-48f7-8782-1350543088bc.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Ubuntu-24.04\Visual Studio Code (Ubuntu-24.04).lnk: 51cd10ba-be37-4c42-81dd-63d56fdcb6b1.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Git\Git CMD.lnk: af6f7ee8-5096-4919-846c-2541f2ce59dc.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Scoop Apps\Flow Launcher.lnk: 195b6c58-7403-4403-b9cc-0dcfe149e75d.png
+  Microsoft.Office.OneNote.MemoryPreview: 4f0b6ef3-63ba-4e97-a2f4-ae6474579e5c.png
+  MicrosoftWindows.Client.CBS_cw5n1h2txyewy!CortanaUI:
+    light: a22358a8-e900-4009-859d-185bd99baac3_light.png
+    dark: a22358a8-e900-4009-859d-185bd99baac3_dark.png
+    mask: null
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\PowerToys (Preview)\PowerToys (Preview).lnk: 873dfd49-5500-47de-8359-3cdce9addb23.png
+  Microsoft.WindowsTerminal_8wekyb3d8bbwe!App:
+    light: 65c7ee7d-c10d-4be5-b1af-15419f21ccec_light.png
+    dark: 65c7ee7d-c10d-4be5-b1af-15419f21ccec_dark.png
+    mask: null
+  C:\Program Files\uniFLOW SmartClient\momsmartclnt.exe: e29dbb73-ea0b-45df-af36-decf0e42b263.png
+  Microsoft.SkyDrive.Desktop: 974e2d10-ab04-4a9e-9bb0-edc0618c140a.png
+  C:\Users\GormeryWanjiru\AppData\Local\PowerToys\PowerToys.exe: 40e14cfd-5846-480e-975e-957a34cb1f36.png
+  Microsoft.Windows.AdministrativeTools: 19cc9c0e-89f1-47e3-ae1c-b318c0220274.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Windows PowerShell\Windows PowerShell ISE (x86).lnk: da272046-f866-40ec-b3e8-7773c6c78d48.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Print Management.lnk: e668e2de-206f-40e6-bfe2-32bfc4bebd2d.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\iSCSI Initiator.lnk: 917dab46-8d96-45a8-9078-38cf9aa22684.png
+  Microsoft.Windows.Explorer: fb5897d6-1df1-454c-b328-4c9517ec5192.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Outlook (classic).lnk: 98cc74ab-a6d8-42ce-ac56-4ecfa666c86d.png
+  Microsoft.Office.MSPUB.EXE.15: 96906a0a-027f-4ab8-8267-01fe6734aa9f.png
+  Microsoft.Windows.MediaPlayer32: fd4e80fd-731f-451b-9d51-abc65c1aaf74.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\komorebi.lnk: 3a614172-5715-4d7f-ad81-952b45604ac4.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Visual Studio 2022.lnk: a661f44e-3714-41c5-a738-c5bc7cbb97f0.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office Tools\Office Language Preferences.lnk: ad37b310-8660-4a3e-9db0-2bae2500a9fb.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Intel Driver & Support Assistant.lnk: 477628c1-8b7f-49a0-a003-92ff52f43d95.png
+  C:\Program Files\Microsoft Office\root\Office16\ONENOTEM.EXE: 782e922a-9f50-4da2-b577-d76b02f013da.png
+  ? C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Visual Studio 2022\Visual Studio Tools\VC\x86 Native Tools Command Prompt for VS 2022.lnk
+  : 964417ec-21f6-47f5-a0a9-27c98d44e402.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Publisher.lnk: 96906a0a-027f-4ab8-8267-01fe6734aa9f.png
+  Intel.Dsa.Tray: 477628c1-8b7f-49a0-a003-92ff52f43d95.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Resource Monitor.lnk: 6f5fef7b-7cb8-4bd0-9097-ec66848623d5.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Ubuntu-24.04\Ghostty (Ubuntu-24.04).lnk: 7b1cb679-7eba-4110-b2b9-6c84c1ad43d3.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Accessibility\On-Screen Keyboard.lnk: 4ab64675-0018-46cc-aacb-ea4989ae3259.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Windows PowerShell\Windows PowerShell.lnk: 07ecd0fb-b705-4fce-9dd2-1b0e402fb869.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Windows Kits\Application Verifier (X86)\Application Verifier (WOW).lnk: 8c17bded-0405-4bfd-9f6e-3af2c2b4eb8f.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Performance Monitor.lnk: 6ef9c536-c61b-4112-9f76-a285f2122ba8.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Visual Studio 2022\Visual Studio Tools\Developer PowerShell for VS 2022.lnk: 2ca633c1-4247-468b-95fd-005c26e99036.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Windows PowerShell\Windows PowerShell (x86).lnk: d6644422-069e-44c0-87cb-61048ebebd67.png
+  Microsoft.Office.EXCEL.EXE.15: b1dad3b1-1f41-4b67-b5d1-2deacf33d90e.png
+  Microsoft.Office.ONENOTE.EXE.15: 2de7ff84-11ec-45ec-8e70-e470a25bbb61.png
+  C:\WINDOWS\system32\SecurityHealthSystray.exe: 2409f15a-ced5-44b2-9472-61651a76738a.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Node.js\Install Additional Tools for Node.js.lnk: 7edfde85-b8a6-43d4-8d19-1b2dba2698e0.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Task Scheduler.lnk: 4da93acf-c62c-4c37-b19e-4ef4ad78ceb6.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Scoop Apps\AltSnap.lnk: 36eb8b5c-b96d-475f-8820-29d8fa909291.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Disk Cleanup.lnk: 1e46a600-1c35-4358-ada8-4986176f3944.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\Citrix Workspace.lnk: 3d56e889-6de3-4056-96f8-82c2e706e891.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Visual Studio Installer.lnk: b67171ca-fcea-4df7-8d94-ec1899ec418f.png
+  Citrix.Workspace: 97bd37e3-67f1-4c9e-b63b-f01b36eb8614.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Word.lnk: 4c545040-9155-4cfd-99b9-9d3d43da6d4a.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Security Configuration Management.lnk: c0a65e9a-bebd-4986-89b2-82359a66e09c.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Windows Kits\Windows App Certification Kit\Windows App Cert Kit.lnk: 26cda620-03c1-4f13-86aa-92ce1c0b9c5b.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Hyper-V Manager.lnk: 5782e65f-9fbf-4b4a-affb-8dbbbc03f866.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\PowerPoint.lnk: b38c0e9b-e357-4a86-b4a4-1246f7f83e35.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\System Information.lnk: fee56223-cde2-434b-b17e-0ef2da2ca264.png
+  Microsoft.Windows.Shell.RunDialog: a06b24ed-4b94-411e-8b0e-b8d978da1705.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Visio.lnk: 4331ecf0-8fea-4208-8d96-a3246215c600.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Windows Kits\Windows Performance Toolkit\Windows Performance Analyzer.lnk: ec639910-78ae-420c-bd8f-cd1834d0ba44.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Citrix Workspace.lnk: 97bd37e3-67f1-4c9e-b63b-f01b36eb8614.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Postman\Postman.lnk: b2c33590-c126-4d5c-ad01-a5bc85f0d5ec.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\OneNote.lnk: 2de7ff84-11ec-45ec-8e70-e470a25bbb61.png
+  ? C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Visual Studio 2022\Visual Studio Tools\VC\x64_x86 Cross Tools Command Prompt for VS 2022.lnk
+  : 115d83f8-057d-411e-86df-f2cc5797749c.png
+  C:\Program Files\WindowsApps\Microsoft.CommandPalette_0.2.1.0_x64__8wekyb3d8bbwe\Microsoft.CmdPal.UI.exe: 6aeb4878-1774-457a-a790-bb68a8acedb4.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Safe Exam Browser.lnk: 9f4f3639-a773-480b-b6a6-46514d703b7b.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\uniFLOW SmartClient\uniFLOW SmartClient.lnk: 5297633a-a359-4856-9429-7b690d803a23.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Windows Defender Firewall with Advanced Security.lnk: 5249dba6-44d3-44ed-8a18-e5bf43fd79cf.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office Tools\Spreadsheet Compare.lnk: bb3db0bf-24f9-48f7-8782-1350543088bc.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Node.js\Uninstall Node.js.lnk: 3e0890b5-62ca-4671-a185-784a3ca4c7ad.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Accessibility\VoiceAccess.lnk: b35714cd-8570-4575-9bb4-89745b562927.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\RecoveryDrive.lnk: 5171fa2f-449d-4025-92b2-1a6fe280f05e.png
+  Chrome: 694e681e-a6fe-4229-bf23-ffccf8148e4f.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\uniFLOW SmartClient.lnk: 149d7755-fae3-4bd4-b013-33b04a6189c8.png
+  MSEdge: cd66fe93-585d-4bc7-8850-2933bcaca681.png
+  Microsoft.RemoteDesktop.WPF: b12d0eba-6334-4ad7-899f-4ae0b2552d2a.png
+  Microsoft.Office.msoev.exe.15: 03ba4134-42c6-4270-92fd-633d4dd81d13.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Adobe Acrobat.lnk: ed8c4e86-c516-4a5a-8c3b-22ba2f760cbd.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.12\Python 3.12 Manuals (64-bit).lnk: 2eae08e7-77b3-458a-a328-f7de67bd0b84.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Windows Kits\Application Verifier (X64)\Application Verifier Help.lnk: ad1c570a-dca9-46a6-97f8-0390da0b74d3.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Event Viewer.lnk: b41003a4-566f-4199-843d-cf7a74ee1b88.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\services.lnk: 9e6231ff-b078-49da-b3ef-1d44155c29d6.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Memory Diagnostics Tool.lnk: e242f7c3-19d0-4440-81eb-94a7f3834fd2.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Python 3.12\IDLE (Python 3.12 64-bit).lnk: 22ee96e9-5b3c-460a-9815-09026230ec22.png
+  C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe: aaeda723-719b-4616-972d-d24cd8a34b09.png
+  com.squirrel.Postman.Postman: b2c33590-c126-4d5c-ad01-a5bc85f0d5ec.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\dfrgui.lnk: 5a2e172e-7d1b-46af-abfb-12b914b42a5a.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\ODBC Data Sources (64-bit).lnk: 54b60f11-13f2-402f-8aaf-dcf44ea7d847.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\File Explorer.lnk: fb5897d6-1df1-454c-b328-4c9517ec5192.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\7-Zip\7-Zip File Manager.lnk: 2f879c49-50ed-4061-af3b-8f47dcf7219f.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Sticky Notes (new).lnk: 4f0b6ef3-63ba-4e97-a2f4-ae6474579e5c.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\Send to OneNote.lnk: 24eb1075-df63-460e-8c1d-f4fc968e5911.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Steps Recorder.lnk: 532a7cb4-2233-418c-8054-7466d12f82dd.png
+  C:\Windows\explorer.exe: 1beb4e92-77b1-4eda-9a26-5597ebb51510.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\Visual Studio Code.lnk: ecf33e2d-7844-4bd5-b563-3034cfef3eb3.png
+  C:\Program Files\WindowsApps\MSTeams_25122.1412.3677.734_x64__8wekyb3d8bbwe\ms-teams.exe: 3003fae6-6e42-4fbc-9e75-09d4cde50c99.png
+  Microsoft.LockApp_cw5n1h2txyewy!WindowsDefaultLockScreen:
+    light: c8e25c7a-51bf-4437-9a89-9329d2b93fe8_light.png
+    dark: c8e25c7a-51bf-4437-9a89-9329d2b93fe8_dark.png
+    mask: null
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\WSL.lnk: 22e0bc15-ccf3-44be-bb39-8d59ac728201.png
+  ? C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Visual Studio 2022\Visual Studio Tools\VC\x64 Native Tools Command Prompt for VS 2022.lnk
+  : 23993496-be19-4caa-bcd1-f7a78392cdb1.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\VMCreate.lnk: 166bd8bf-9d37-4163-992a-1d2459c40c61.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Git\Git Bash.lnk: 320d9c5e-4b70-4790-911a-acd19fa77264.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Windows Fax and Scan.lnk: 74755d3d-f391-4458-842c-34d73e4fa0b4.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\ODBC Data Sources (32-bit).lnk: 1e3501a2-63a2-4001-88fd-9fe4f6b799ee.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\System Tools\Run.lnk: a06b24ed-4b94-411e-8b0e-b8d978da1705.png
+  Microsoft.VisualStudioCode: ecf33e2d-7844-4bd5-b563-3034cfef3eb3.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Accessibility\Narrator.lnk: f11d7ce2-a102-4396-abb3-b0c7c1682716.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office Tools\Database Compare.lnk: bee085ea-7cca-448c-82b2-9740216d4a86.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Git\Git GUI.lnk: 5eaa8223-1a6b-4e18-8747-d05274264df6.png
+  C:\Program Files (x86)\Intel\Driver and Support Assistant\x86\DSATray.exe: eececd4c-6adc-4414-8019-3f68ef256b87.png
+  Microsoft.Office.MSACCESS.EXE.15: 6727b007-e672-4f85-a101-2970b69ec175.png
+  Microsoft.Office.POWERPNT.EXE.15: b38c0e9b-e357-4a86-b4a4-1246f7f83e35.png
+  Microsoft.WSL: 22e0bc15-ccf3-44be-bb39-8d59ac728201.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Git\Git Release Notes.lnk: feaa3196-3c43-4c73-8865-c186255e1c23.png
+  MSTeams_8wekyb3d8bbwe!MSTeams:
+    light: a61f3d97-30ef-46ce-89b3-ceede1c54ad0_light.png
+    dark: a61f3d97-30ef-46ce-89b3-ceede1c54ad0_dark.png
+    mask: null
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\System Tools\Character Map.lnk: 1da47e18-8017-4d54-8da0-a3cc788253aa.png
+  Microsoft.Office.WINWORD.EXE.15: 4c545040-9155-4cfd-99b9-9d3d43da6d4a.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Accessibility\LiveCaptions.lnk: 78d400f0-dcc5-447c-94c6-4bd841dc4386.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Visual Studio 2022\Visual Studio Tools\Debuggable Package Manager.lnk: 5fd21f04-8916-407f-96fc-6eb24277ed1b.png
+  Microsoft.Office.SETLANG.EXE.15: ad37b310-8660-4a3e-9db0-2bae2500a9fb.png
+  Microsoft.Windows.ControlPanel: 6e35c7f1-fdad-494e-945b-00973897de36.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Excel.lnk: b1dad3b1-1f41-4b67-b5d1-2deacf33d90e.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Access.lnk: 6727b007-e672-4f85-a101-2970b69ec175.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Node.js\Node.js command prompt.lnk: 1e6f5df3-7542-4024-a5c6-5f80d7a6f651.png
+  C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Accessibility\Magnify.lnk: 84fb15e8-8d38-480a-a6df-835991af3e4e.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Windows Kits\Windows Performance Toolkit\GPUView.lnk: 8390649f-a019-4491-82a7-bd0993a4fc45.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\SafeExamBrowser\SEB Reset Utility.lnk: 3fa81768-6176-4a87-a2ef-a1c70020bc27.png
+  Microsoft.Office.DATABASECOMPARE.EXE.15: bee085ea-7cca-448c-82b2-9740216d4a86.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Remote Desktop.lnk: b12d0eba-6334-4ad7-899f-4ae0b2552d2a.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools\Computer Management.lnk: ae7d7866-352e-4493-a84a-2bf24bce26b6.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office Tools\Project Server Accounts.lnk: 29bd4f9c-013f-4a6e-8e9f-1c98a61782c3.png
+  C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Office Tools\Telemetry Log for Office.lnk: 03ba4134-42c6-4270-92fd-633d4dd81d13.png
+files:
+  ini: 4d8ffdd9-b2b3-4be2-b030-2696d7eb578b.png
+specific:
+  '@seelen/weg::start-menu':
+    light: start-menu-icon.svg
+    dark: start-menu-icon.svg
+    mask: start-menu-icon.svg
+  '@seelen/weg::folder':
+    light: folder-icon.svg
+    dark: folder-icon.svg
+    mask: folder-icon.svg

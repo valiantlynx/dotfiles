@@ -1,0 +1,4 @@
+RUN:
+  - ''
+  - cmd
+  - terminal
