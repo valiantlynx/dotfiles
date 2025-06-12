@@ -54,6 +54,10 @@ apps:
     mask: null
   ? C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Microsoft Intune Management Extension\Microsoft Intune Management Extension.lnk
   : f5d9bced-72ef-4891-a83d-2c985ac1dfdd.png
+  windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel:
+    light: 082ab2d2-bb06-4bac-b9af-ef0c92a30245_light.png
+    dark: 082ab2d2-bb06-4bac-b9af-ef0c92a30245_dark.png
+    mask: null
   ? C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Windows Kits\Windows Software Development Kit\Windows Software Development Kit.lnk
   : e137bf4c-47bf-47f4-8aff-f8b3df4da0e5.png
   C:\Users\GormeryWanjiru\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\System Tools\Command Prompt.lnk: b384fe0a-a837-4887-bb26-4d4d8f9cf22e.png
