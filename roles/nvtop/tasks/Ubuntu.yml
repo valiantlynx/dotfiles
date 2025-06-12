@@ -1,0 +1,6 @@
+---
+- name: "nvtop | Ubuntu | Install nvtop"
+  ansible.builtin.apt:
+    name: nvtop
+    state: present
+  become: true

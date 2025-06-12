@@ -1,0 +1,65 @@
+---
+- name: "Arduino Desktop | Detect any installed versions"
+  ansible.builtin.command:
+    cmd: which arduino
+  changed_when: false
+  failed_when: false
+  register: arduino_check
+
+- name: "Arduino Desktop | Register any installed versions"
+  ansible.builtin.set_fact:
+    arduino_installed: "{{ arduino_check.stdout|default('') }}"
+
+- name: "Arduino Desktop | Installed version"
+  ansible.builtin.debug:
+    var: arduino_installed
+
+- name: "Arduino Desktop | Install"
+  block:
+    - name: "Arduino Desktop | Install Dependencies"
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - ca-certificates
+        - wget
+        - libfuse2
+      become: true
+
+    - name: "Arduino Desktop | Create installation directory"
+      ansible.builtin.file:
+        path: "{{ arduino_install_dir|default('/opt/arduino') }}"
+        state: directory
+        owner: "{{ ansible_user_id }}"
+        mode: '0755'
+      become: true
+
+    - name: "Arduino Desktop | Download Arduino IDE 2 AppImage"
+      ansible.builtin.get_url:
+        url: "https://downloads.arduino.cc/arduino-ide/arduino-ide_2.3.6_Linux_64bit.AppImage"
+        dest: "{{ arduino_install_dir|default('/opt/arduino') }}/arduino-ide.AppImage"
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+        mode: '0755'
+      become: true
+
+    - name: "Arduino Desktop | Add udev rules for Arduino devices"
+      ansible.builtin.copy:
+        dest: /etc/udev/rules.d/99-arduino.rules
+        content: 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", GROUP="plugdev", MODE="0666"'
+        owner: root
+        group: root
+        mode: '0644'
+      become: true
+      notify:
+        - Reload udev rules
+
+    - name: "Arduino Desktop | Create desktop shortcut"
+      ansible.builtin.template:
+        src: arduino.desktop.j2
+        dest: "/home/{{ ansible_user_id }}/.local/share/applications/arduino.desktop"
+        owner: "{{ ansible_user_id }}"
+        mode: '0644'
+      when: arduino_create_desktop_shortcut|default(true)
+
+  when: arduino_installed | length < 1

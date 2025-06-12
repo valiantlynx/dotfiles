@@ -1,10 +1,7 @@
 ---
-- import_tasks: ubuntu.yml
+- name: Run Ubuntu Tasks
+  ansible.builtin.import_tasks: Ubuntu.yml
   when: ansible_os_family == 'Debian'
-
-- name: Run Arch Tasks
-  ansible.builtin.import_tasks: Archlinux.yml
-  when: ansible_os_family == 'Archlinux'
 
 - name: "Neovim | Config folder"
   ansible.builtin.file:

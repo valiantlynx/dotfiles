@@ -1,0 +1,90 @@
+---
+- name: "Unreal Engine | Install dependencies"
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  loop:
+    - wget
+    - unzip
+    - libglu1-mesa
+    - xdg-user-dirs
+    - libc++1
+    - libc++abi1
+
+- name: "Unreal Engine | Create installation directory"
+  ansible.builtin.file:
+    path: "/opt/UnrealEngine"
+    state: directory
+    mode: "0755"
+  become: true
+
+- name: "Unreal Engine | Download Unreal Engine zip file (using get_url with extended timeout)"
+  ansible.builtin.get_url:
+    url: "https://ucs-blob-store.s3-accelerate.amazonaws.com/blobs/9f/02/31b6-fe92-4ed1-a45c-3e378aadb63b?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA2SBBZFECCYQWRK6G%2F20250502%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250502T225814Z&X-Amz-Expires=3600&X-Amz-Signature=2fb6659fd53bfff05c7fc90c7b1152b922ff72efca1944d6b9f815ba399ce61d&X-Amz-SignedHeaders=host&response-content-disposition=inline%3Bfilename%3D%22file.zip%22%3Bfilename%2A%3DUTF-8%27%27Linux_Unreal_Engine_5.5.4.zip&x-id=GetObject"
+    dest: "/tmp/UnrealEngine.zip"
+    timeout: 14400  # 4 hours timeout
+  register: get_url_result
+  ignore_errors: true
+  become: true
+  async: 18000  # 5 hours for the task to complete in the background
+  poll: 30  # Check every 30 seconds
+
+- name: "Unreal Engine | Fall back to curl for download if get_url fails"
+  ansible.builtin.command:
+    cmd: >
+      curl -L -o /tmp/UnrealEngine.zip
+      "https://ucs-blob-store.s3-accelerate.amazonaws.com/blobs/9f/02/31b6-fe92-4ed1-a45c-3e378aadb63b?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIA2SBBZFECCYQWRK6G%2F20250502%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250502T225814Z&X-Amz-Expires=3600&X-Amz-Signature=2fb6659fd53bfff05c7fc90c7b1152b922ff72efca1944d6b9f815ba399ce61d&X-Amz-SignedHeaders=host&response-content-disposition=inline%3Bfilename%3D%22file.zip%22%3Bfilename%2A%3DUTF-8%27%27Linux_Unreal_Engine_5.5.4.zip&x-id=GetObject"
+      --progress-bar --retry 5 --retry-delay 10 --retry-max-time 300 --connect-timeout 60
+  register: curl_result
+  ignore_errors: true
+  become: true
+  when: get_url_result is failed
+  args:
+    creates: "/tmp/UnrealEngine.zip"
+
+- name: "Unreal Engine | Check if download was successful by either method"
+  ansible.builtin.stat:
+    path: "/tmp/UnrealEngine.zip"
+  register: download_file
+
+- name: "Unreal Engine | Set success flag based on file existence"
+  ansible.builtin.set_fact:
+    download_result:
+      failed: "{{ not download_file.stat.exists }}"
+
+- name: "Unreal Engine | Extract zip file"
+  ansible.builtin.unarchive:
+    src: "/tmp/UnrealEngine.zip"
+    dest: "/opt/UnrealEngine"
+    remote_src: true
+    creates: "/opt/UnrealEngine/Engine/Binaries/Linux/UnrealEditor"
+  become: true
+  when: download_result is succeeded
+
+- name: "Unreal Engine | Create symbolic link to launcher"
+  ansible.builtin.file:
+    src: "/opt/UnrealEngine/Engine/Binaries/Linux/UnrealEditor"
+    dest: "/usr/local/bin/UnrealEditor"
+    state: link
+  become: true
+  when: download_result is succeeded
+
+- name: "Unreal Engine | Create desktop entry"
+  ansible.builtin.template:
+    src: unreal-engine.desktop.j2
+    dest: "/usr/share/applications/unreal-engine.desktop"
+    mode: "0644"
+  become: true
+  when: download_result is succeeded
+
+- name: "Unreal Engine | Display message if download failed"
+  ansible.builtin.debug:
+    msg: |
+      Unreal Engine download failed. This is likely because:
+      1. The download link has expired (they typically expire after an hour)
+      2. You need to be logged into an Epic Games account to download
+      
+      Please manually download Unreal Engine from the Epic Games website:
+      https://www.unrealengine.com/en-US/linux
+  when: download_result is failed

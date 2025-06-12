@@ -1,0 +1,6 @@
+---
+- name: "blender | Arch | Install blender"
+  community.general.pacman:
+    name: blender
+    state: present
+  become: true

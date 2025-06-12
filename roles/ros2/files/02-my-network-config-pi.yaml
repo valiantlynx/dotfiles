@@ -1,0 +1,16 @@
+network:
+  version: 2
+  renderer: NetworkManager
+  
+  wifis:
+    wlan0:
+      dhcp4: no
+      addresses: [192.168.38.146/24]
+      routes:
+        - to: default
+          via: 192.168.38.1
+      nameservers:
+        addresses: [192.168.38.1]
+      access-points:
+        "AX1800_91FFF8":
+          password: "Replace with the actual Wi-Fi password"

@@ -1,0 +1,7 @@
+---
+- name: Chromium | Ubuntu | Install chromium via Snap
+  community.general.snap:
+    name: chromium
+    classic: yes
+    state: present
+  become: yes

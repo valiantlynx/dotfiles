@@ -1,0 +1,12 @@
+- name: "Neovim | Ubuntu | Dependencies"
+  ansible.builtin.apt:
+    name:
+      - python3-venv
+    state: present
+  become: true
+- name: neovim  | install neovim wtth the prebuilt archives 
+  ansible.builtin.shell: |
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+    sudo rm -rf /opt/nvim
+    sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+    rm nvim-linux-x86_64.tar.gz

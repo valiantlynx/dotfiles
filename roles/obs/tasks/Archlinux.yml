@@ -1,0 +1,6 @@
+---
+- name: "obs-studio | Arch | Install obs-studio"
+  community.general.pacman:
+    name: obs-studio
+    state: present
+  become: true

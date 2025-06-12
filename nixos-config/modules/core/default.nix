@@ -18,6 +18,7 @@
     ./xserver.nix
     ./network.nix
     ./nh.nix
+    ./nvidia.nix
     ./pipewire.nix
     ./program.nix
     ./security.nix

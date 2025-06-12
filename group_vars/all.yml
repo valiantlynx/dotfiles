@@ -1,43 +1,67 @@
 default_roles:
   - system
-  - 1password
-  # - alacritty
-  - asciiquarium
+  #- 1password
+  #- alacritty
+  #- arduino
+  #- asciiquarium
   - bash
   - bat
+  - blender
+  - bluetooth
+  - btop
   - docker
+  - eduvpn 
   - flatpak
   - fonts
+  - nerdfont
   - fzf
+  - ghostty
+  - gimp
   - git
-  - go
-  # - helm
-  # - k8s
-  # - k9s
+  #- go
+  - iio-hyprland
+  #- helm
+  #- k8s
+  #- k9s
   - lazygit
   - lsd
   - lua
   - nala
-  - neofetch
+  - unity
+  #- unrealengine
+  - uv
+  - nvidia
+  - vscode
+  - chromium
+  #- ros2
+  #- waypaper
+  #- kitty
+  - hyprland
+  - rofi
+  - swww
+  - swaync
+  - swayosd # at least ubuntu 25.04 
+  - waybar
   - neovim
-  - npm
+  #- npm
   - nvm
+  - nvtop
   - pwsh
-  - python
-  - ruby
-  - rust
+  #- ruby
+  #- rust
   - ssh
   - sshfs
-  - terraform
-  - tldr
-  - tmate
+  #- terraform
+  #- tldr
+  #- tmate
   - tmux
-  - zellij
-  - spotify
+  - yazi
+  #- zellij
+  - logseq
+  #- spotify
   - zoxide
-  
 
-nixos_host: "L" # D-desktop or L-laptop or V-virtualmachine
+nixos_host: "D" # D-desktop or L-laptop or V-virtualmachine
 nixos_username: "valiantlynx"
 skip_confirm: true
 

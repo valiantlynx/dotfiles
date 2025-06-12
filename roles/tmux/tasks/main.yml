@@ -1,13 +1,51 @@
 ---
+- import_tasks: Ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Run Arch Tasks
+  ansible.builtin.import_tasks: Archlinux.yml
+  when: ansible_os_family == 'Archlinux'
+
+- name: "tmux | Ensure role tmux config directory exists"
+  ansible.builtin.file:
+    path: "{{ role_path }}/files/tmux"
+    state: directory
+    mode: "0755"
+  delegate_to: localhost
+  become: false
+
+- name: "tmux | Create .config directory if it doesn't exist"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config"
+    state: directory
+    mode: "0755"
+
+- name: "tmux | Create plugins directory"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.tmux/plugins"
+    state: directory
+    mode: "0755"
+
 - name: "tmux | Install TPM"
   ansible.builtin.git:
     repo: https://github.com/tmux-plugins/tpm
-    dest: ~/.tmux/plugins/tpm
+    dest: "{{ ansible_user_dir }}/.tmux/plugins/tpm"
 
-- name: "tmux | Configure tmux"
-  ansible.builtin.copy:
-    src: tmux
-    dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.config/"
-    mode: 0644
-    directory_mode: 0755
+- name: "tmux | Remove existing tmux config directory if it's not a symlink"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/tmux"
+    state: absent
+  when: 
+    - ansible_stat.stat.exists is defined 
+    - ansible_stat.stat.exists 
+    - not ansible_stat.stat.islnk
+  vars:
+    ansible_stat: "{{ lookup('file', '{{ ansible_user_dir }}/.config/tmux', errors='ignore') | default({'stat':{'exists':false}}, true) }}"
+
+- name: "tmux | Create symlink for tmux config directory"
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/tmux"
+    dest: "{{ ansible_user_dir }}/.config/tmux"
+    state: link
     force: true
+    follow: false

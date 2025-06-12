@@ -1,9 +1,16 @@
 ---
+- name: Helm | Create keyrings directory
+  ansible.builtin.file:
+    path: /usr/share/keyrings
+    state: directory
+    mode: '0755'
+  become: true
+
 - name: Helm | Add Helm GPG key
-  ansible.builtin.apt_key:
-    url: https://baltocdn.com/helm/signing.asc
-    state: present
-    keyring: /usr/share/keyrings/helm.gpg
+  ansible.builtin.shell: |
+    curl -fsSL https://baltocdn.com/helm/signing.asc | gpg --dearmor -o /usr/share/keyrings/helm.gpg
+  args:
+    creates: /usr/share/keyrings/helm.gpg
   become: true
 
 - name: Helm | Install apt-transport-https

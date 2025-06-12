@@ -37,8 +37,9 @@
     ./starship.nix # shell prompt
     ./swaylock.nix
     ./tmux.nix # lock screen
+    ./uv.nix # python virtual env manager and version manager
     ./viewnior.nix # image viewer
-    ./vscodium.nix # vscode forck
+    ./vscode.nix # vscode
     ./waybar # status bar
     ./waypaper.nix # GUI wallpaper picker
     ./xdg-mimes.nix # xdg config

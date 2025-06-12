@@ -9,7 +9,7 @@ export OSH="$HOME/.oh-my-bash"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
-OSH_THEME="axin"
+OSH_THEME="cupcake"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -148,6 +148,8 @@ fi
 # Example aliases
 # alias bashconfig="mate ~/.bashrc"
 # alias ohmybash="mate ~/.oh-my-bash"
+export XDG_CURRENT_DESKTOP=Hyprland
+export XDG_ICON_THEME="Papirus"
 
 if [[ -f "$HOME/.config/bash/.bash_private" ]]; then
     source "$HOME/.config/bash/.bash_private"
@@ -157,16 +159,63 @@ for file in $HOME/.config/bash/*.sh; do
   source "$file"
 done
 
-[ -f ~/.bash_lumen ] && source ~/.bash_lumen
-[ -f ~/.fzf.bash ]   && source ~/.fzf.bash
+[ -f $HOME/.bash_lumen ] && source ~/.bash_lumen
+[ -f $HOME/.fzf.bash ]   && source ~/.fzf.bash
 
+# Check if NVM is installed before sourcing
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# if neofetch exists, run it
-if [[ -z "$TMUX" ]]; then
-  if command -v neofetch &> /dev/null; then neofetch; fi
+# Check if bat is installed before changing the alias for cat
+if command -v bat &> /dev/null; then
+  alias cat='bat'
 fi
-#toilet "valiantlynx" -F border:gay -f emboss2
 
+
+# Check if the ROS 2 setup script exists before sourcing it
+if [ -f "/opt/ros/jazzy/setup.bash" ]; then
+  source /opt/ros/jazzy/setup.bash
+fi
+if [ -f "$HOME/gazebo_ws/install/setup.bash" ]; then
+  source $HOME/gazebo_ws/install/setup.bash
+fi
+
+# Check if the .cargo/env file exists before sourcing it
+if [ -f "$HOME/.cargo/env" ]; then
+  . "$HOME/.cargo/env"
+fi
+
+# check if neovim is installed
+if [ -f "/opt/nvim-linux-x86_64/bin/nvim" ]; then
+  export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+fi
+
+# Check if zoxide is installed, then map cd to z
+if command -v zoxide &> /dev/null; then
+  alias cd='z'
+else
+  echo "zoxide is not installed, cd will work as usual."
+fi
+
+# Check if lsd is installed, then map ls to lsd
+if command -v lsd &> /dev/null; then
+  alias ls='lsd'
+  alias l='ls -l'
+  alias la='ls -a'
+  alias lla='ls -la'
+  alias lt='ls --tree'
+fi
+# Check if yazi is installed, then map y to yazi
+if command -v yazi &> /dev/null; then
+  alias y='yazi'
+fi
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/valiantlynx/.lmstudio/bin"
+
+# Check if kitty is not installed
+if ! command -v kitty &> /dev/null; then
+  export TERM=xterm-256color
+  echo "kitty is not installed, TERM set to xterm-256color"
+fi

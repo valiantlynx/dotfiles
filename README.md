@@ -1,3 +1,15 @@
+# My dotfiles. 
+it is inspired by and to look like this (minus ze BLOAT). but for ubuntu mainly. since thats what i daily drive.
+
+### 🖼️ Gallery
+
+<p align="center">
+   <img src="./.github/assets/screenshots/1.png" style="margin-bottom: 10px;"/> <br>
+   <img src="./.github/assets/screenshots/2.png" style="margin-bottom: 10px;"/> <br>
+   <img src="./.github/assets/screenshots/3.png" style="margin-bottom: 10px;"/> <br>
+   <img src="./.github/assets/screenshots/hyprlock.png" style="margin-bottom: 10px;" /> <br>
+</p>
+
 ### System Upgrade
 Verify your `Ubuntu` installation has all latest packages installed before running the playbook.
 
@@ -138,6 +150,7 @@ bash_private:
 The `vault.secret` file allows you to encrypt values with `Ansible vault` and store them securely in source control. Create a file located at `~/.config/dotfiles/vault.secret` with a secure password in it.
 
 ```bash
+mkdir ~/.ansible-vault/
 vim ~/.ansible-vault/vault.secret
 ```
 
@@ -151,7 +164,6 @@ $ cat myfile.conf | ansible-vault encrypt_string --vault-password-file $HOME/.an
 > NOTE: This file will automatically be detected by the playbook when running `dotfiles` command to decrypt values. Read more on Ansible Vault [here](https://docs.ansible.com/ansible/latest/user_guide/vault.html).
 
 ## Usage
-
 ### Install
 
 This playbook includes a custom shell script located at `bin/dotfiles`. This script is added to your $PATH after installation and can be run multiple times while making sure any Ansible dependencies are installed and updated.
@@ -167,7 +179,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/mai
 If you want to run only a specific role, you can specify the following bash command:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles | bash -s -- --tags bash,docker,git,nala,npm,pwsh,ssh  
+curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles | bash -s -- --tags bash,system,bat,btop,flatpak,fonts,nerdfont,fzf,ghostty,git,lazygit,lsd,lua,uv,neovim,nvm,ssh,sshfs,tmux,zoxide  
 ```
 
 ### Update
@@ -220,7 +232,6 @@ git subtree pull --prefix=packages/scripts/dotfiles https://github.com/valiantly
 
 ```bash
 git subtree push --prefix=packages/scripts/dotfiles https://github.com/valiantlynx/dotfiles.git main
-
 # make a test linux
 docker run --rm -it ubuntu bash 
 apt-get update && apt-get upgrade -y && apt-get install sudo curl -y

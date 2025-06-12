@@ -1,6 +1,12 @@
 .dist/
+.vscode/
+.ansible/
 vault-password.txt
 /callback_plugins/__pycache__
 
 roles/neovim/files/lazy-lock.json
-*.swp
+
+Install-Logs/
+
+
+roles/bash/files/wallpapers/wallpaper

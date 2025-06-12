@@ -1,0 +1,6 @@
+---
+- name: "blender | Ubuntu | Install blender"
+  ansible.builtin.apt:
+    name: blender
+    state: present
+  become: true

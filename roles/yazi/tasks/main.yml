@@ -1,0 +1,21 @@
+---
+- name: Run Ubuntu Tasks
+  ansible.builtin.import_tasks: Ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Run Arch Tasks
+  ansible.builtin.import_tasks: Archlinux.yml
+  when: ansible_os_family == 'Archlinux'
+
+- name: "yazi | Config folder"
+  ansible.builtin.file:
+    mode: "0755"
+    path: "{{ ansible_user_dir }}/.config/yazi"
+    state: directory
+
+- name: "yazi | Create symlink to role files directory"
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/yazi"
+    dest: "{{ ansible_user_dir }}/.config/yazi"
+    state: link
+    force: true

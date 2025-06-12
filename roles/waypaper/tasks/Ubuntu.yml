@@ -1,0 +1,42 @@
+---
+- name: "waypaper | Check if waypaper is installed and version is correct"
+  ansible.builtin.shell: waypaper -V 2>/dev/null || echo "not installed"
+  register: waypaper_version_check
+  changed_when: false
+  failed_when: false
+
+- name: "waypaper | Register waypaper installation state"
+  ansible.builtin.set_fact:
+    waypaper_is_installed: "{{ waypaper_version_check.stdout is search('0.9.5') }}"
+
+- name: "waypaper | Debug waypaper_is_installed"
+  ansible.builtin.debug:
+    var: waypaper_is_installed
+
+- name: "waypaper | Install waypaper using bash script"
+  when: not waypaper_is_installed
+  block:
+    - name: "waypaper | Create directory for script"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/waypaper_temp"
+        state: directory
+        mode: "0755"
+
+    - name: "waypaper | Copy installation script"
+      ansible.builtin.copy:
+        src: "waypaper.sh"
+        dest: "{{ ansible_user_dir }}/waypaper_temp/waypaper.sh"
+        mode: "0755"
+
+    - name: "waypaper | Run the installation script"
+      ansible.builtin.shell: "{{ ansible_user_dir }}/waypaper_temp/waypaper.sh"
+      register: script_output
+
+    - name: "waypaper | Show installation output"
+      ansible.builtin.debug:
+        var: script_output.stdout_lines
+
+    - name: "waypaper | Clean up temporary directory"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/waypaper_temp"
+        state: absent

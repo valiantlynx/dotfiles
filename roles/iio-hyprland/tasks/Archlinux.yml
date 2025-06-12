@@ -1,0 +1,6 @@
+---
+- name: "iio-hyprland | Arch | Install iio-hyprland"
+  community.general.pacman:
+    name: iio-hyprland-git
+    state: present
+  become: true

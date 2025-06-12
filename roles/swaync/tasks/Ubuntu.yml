@@ -1,0 +1,6 @@
+---
+- name: "swaync | Ubuntu | Install swaync"
+  ansible.builtin.apt:
+    name: sway-notification-center
+    state: present
+  become: true

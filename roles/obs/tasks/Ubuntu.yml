@@ -1,0 +1,6 @@
+---
+- name: "obs-studio | Ubuntu | Install obs-studio"
+  ansible.builtin.apt:
+    name: obs-studio
+    state: present
+  become: true

@@ -1,0 +1,6 @@
+---
+- name: "waypaper | Arch | Install waypaper"
+  community.general.pacman:
+    name: waypaper
+    state: present
+  become: true

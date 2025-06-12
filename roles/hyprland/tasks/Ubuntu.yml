@@ -1,0 +1,91 @@
+---
+- name: "hyprland | Ubuntu | Install dependencies"
+  ansible.builtin.apt:
+    name:
+      - network-manager
+      - network-manager-gnome 
+    state: latest
+  become: true
+
+- name: "Hyprland | Ubuntu | Install hyprland"
+  ansible.builtin.apt:
+    name: hyprland
+    state: present
+  become: true
+
+- name: "Hyprland | Ubuntu | Install xdg-desktop-portal-wlr"
+  ansible.builtin.apt:
+    name: xdg-desktop-portal-wlr
+    state: present
+  become: true
+
+- name: "Hyprlock | Check if Hyprlock is installed"
+  ansible.builtin.shell: which hyprlock 2>/dev/null || echo "not installed"
+  register: hyprlock_check
+  changed_when: false
+  failed_when: false
+
+- name: "Hyprlock | Register Hyprlock installation state"
+  ansible.builtin.set_fact:
+    hyprlock_is_installed: "{{ hyprlock_check.stdout != 'not installed' }}"
+
+- name: "Hyprlock | Debug hyprlock_is_installed"
+  ansible.builtin.debug:
+    var: hyprlock_is_installed
+
+- name: "Hyprlock | Install Hyprlock using bash script"
+  when: not hyprlock_is_installed
+  block:
+    - name: "Hyprlock | Create temporary directory"
+      ansible.builtin.tempfile:
+        state: directory
+        suffix: hyprlock
+      register: hyprlock_temp_dir
+
+    - name: "Hyprlock | Copy installation script"
+      ansible.builtin.copy:
+        src: "{{ role_path }}/files/hyprlock.sh"
+        dest: "{{ hyprlock_temp_dir.path }}/hyprlock.sh"
+        mode: "0755"
+
+    - name: "Hyprlock | Install required build dependencies"
+      ansible.builtin.apt:
+        name:
+          - libpam0g-dev
+          - libgbm-dev
+          - libdrm-dev
+          - libmagic-dev
+          - libhyprlang-dev
+          - libhyprutils-dev
+          - libgl1-mesa-dev
+          - libglx-dev
+          - cmake
+          - gcc
+          - libcairo2-dev
+          - libxkbcommon-dev
+          - libwayland-dev
+          - libjpeg-dev
+          - libwebp-dev
+          - libpango1.0-dev
+          - git
+          - wayland-protocols  # Added this package
+          - libwayland-dev     # Ensure this is installed
+          - libwayland-egl-backend-dev  # Additional dependency
+        state: present
+      become: true
+
+    - name: "Hyprlock | Run the installation script"
+      ansible.builtin.shell: "./hyprlock.sh"
+      args:
+        chdir: "{{ hyprlock_temp_dir.path }}"
+      register: script_output
+      become: true
+
+    - name: "Hyprlock | Show installation output"
+      ansible.builtin.debug:
+        var: script_output.stdout_lines
+
+    - name: "Hyprlock | Clean up temporary directory"
+      ansible.builtin.file:
+        path: "{{ hyprlock_temp_dir.path }}"
+        state: absent

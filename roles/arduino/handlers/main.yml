@@ -1,0 +1,12 @@
+---
+- name: Remove arduino archive
+  ansible.builtin.file:
+    path: /tmp/arduino.tar.xz
+    state: absent
+  become: true
+
+- name: Remove extracted files
+  ansible.builtin.file:
+    path: "/tmp/arduino-{{ arduino_version|default('latest') }}"
+    state: absent
+  become: true

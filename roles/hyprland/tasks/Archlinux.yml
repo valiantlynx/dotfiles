@@ -1,0 +1,6 @@
+---
+- name: "Hyprland | Arch | Install hyprland"
+  community.general.pacman:
+    name: hyprland
+    state: present
+  become: true

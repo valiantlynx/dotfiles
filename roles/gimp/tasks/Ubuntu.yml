@@ -1,0 +1,6 @@
+---
+- name: "gimp | Ubuntu | Install gimp"
+  ansible.builtin.apt:
+    name: gimp
+    state: present
+  become: true
