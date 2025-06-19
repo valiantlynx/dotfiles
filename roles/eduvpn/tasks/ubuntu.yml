@@ -1,8 +1,11 @@
 ---
+
 - name: "EduVPN | Update apt cache"
   ansible.builtin.apt:
     update_cache: true
   become: true
+
+
 - name: "EduVPN | Install dependencies"
   ansible.builtin.apt:
     name: "{{ item }}"
