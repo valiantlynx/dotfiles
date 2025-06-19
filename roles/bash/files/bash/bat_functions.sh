@@ -28,7 +28,7 @@ alias dsize="du -hs"
 # alias pdf="tdf"
 # alias open="xdg-open"
 # alias space="ncdu"
-alias man="BAT_THEME='default' batman"
+# alias man="BAT_THEME='default' batman"
 # alias l="eza --icons -a --group-directories-first -1" # EZA_ICON_SPACING=2
 # alias ll="eza --icons -a --group-directories-first -1 --no-user --long"
 # alias tree="eza --icons --tree --group-directories-first"
