@@ -1,4 +1,8 @@
 ---
+- name: "EduVPN | Update apt cache"
+  ansible.builtin.apt:
+    update_cache: true
+  become: true
 - name: "EduVPN | Install dependencies"
   ansible.builtin.apt:
     name: "{{ item }}"
@@ -18,17 +22,15 @@
 
 - name: "EduVPN | Download and Add EduVPN Key"
   ansible.builtin.shell: |
-    wget -O- https://app.eduvpn.org/linux/v4/deb/app+linux@eduvpn.org.asc | gpg --dearmor > /usr/share/keyrings/eduvpn-v4.gpg
+    wget -O- https://app.eduvpn.org/linux/v4/deb/app+linux@eduvpn.org.asc | gpg --dearmor | sudo tee /usr/share/keyrings/eduvpn-v4.gpg >/dev/null
   args:
     creates: /usr/share/keyrings/eduvpn-v4.gpg
-  become: true
 
 - name: "EduVPN | Add EduVPN Repository"
   ansible.builtin.shell: |
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/eduvpn-v4.gpg] https://app.eduvpn.org/linux/v4/deb/ plucky main" > /etc/apt/sources.list.d/eduvpn-v4.list
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/eduvpn-v4.gpg] https://app.eduvpn.org/linux/v4/deb/ focal main" | sudo tee /etc/apt/sources.list.d/eduvpn-v4.list
   args:
     creates: /etc/apt/sources.list.d/eduvpn-v4.list
-  become: true
 
 - name: "EduVPN | Update apt cache"
   ansible.builtin.apt:
