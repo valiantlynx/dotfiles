@@ -33,6 +33,7 @@ alias dsize="du -hs"
 # alias ll="eza --icons -a --group-directories-first -1 --no-user --long"
 # alias tree="eza --icons --tree --group-directories-first"
 alias cddot="cd ~/.dotfiles && tmux attach-session -t dot 2>/dev/null || tmux new-session -s dot"
+alias t='tmux new-session -A -s'
 # NixOS
 # alias ns="nom-shell --run zsh"
 # alias nix-switch="nh os switch"
