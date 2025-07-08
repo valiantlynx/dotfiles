@@ -32,6 +32,7 @@ default_roles:
   - uv
   - nvidia
   - vscode
+  - vivaldi
   - chromium
   #- ros2
   #- waypaper
