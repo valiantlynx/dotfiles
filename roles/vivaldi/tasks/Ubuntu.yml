@@ -5,14 +5,14 @@
 
 - name: "Vivaldi | Getting current version information"
   ansible.builtin.command:
-    cmd: vivaldi --version
+    cmd: dpkg-query -W -f='${Version}' vivaldi-stable
   register: current_vivaldi_version
   changed_when: false
   failed_when: false
 
 - name: "Vivaldi | Extract current version"
   ansible.builtin.set_fact:
-    current_vivaldi_version: "{{ current_vivaldi_version.stdout.split(' ')[-1] | default('0.0.0') }}"
+    current_vivaldi_version: "{{ current_vivaldi_version.stdout | default('0.0.0') }}"
 
 - name: "Vivaldi | Show current version debug"
   ansible.builtin.debug:
@@ -23,7 +23,7 @@
     var: vivaldi_target_version
 
 - name: "Vivaldi | Install"
-  when: vivaldi_target_version not in current_vivaldi_version|default('')
+  when: vivaldi_target_version not in current_vivaldi_version|default('0.0.0')
   block:
     - name: "Vivaldi | Define architecture"
       ansible.builtin.set_fact:
