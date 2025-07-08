@@ -1,55 +1,56 @@
 ---
-- name: "Vivaldi | Download Latest Version JSON"
-  ansible.builtin.uri:
-    url: https://api.github.com/repos/vivaldi/vivaldi-browser/releases/latest
-  register: vivaldi_latest_version_json
-  changed_when: false
-- name: "Vivaldi | Registering Vivaldi Latest Release"
+- name: "Vivaldi | Set target version"
   ansible.builtin.set_fact:
-    vivaldi_latest_release: "{{ vivaldi_latest_version_json.json.tag_name }}"
-- name: "Vivaldi | Registering Vivaldi Latest Version"
-  ansible.builtin.set_fact:
-    vivaldi_latest_version: "{{ vivaldi_latest_release.stdout | default('') }}"
-- name: "Vivaldi | Getting version information"
+    vivaldi_target_version: "7.5.3735.44"
+
+- name: "Vivaldi | Getting current version information"
   ansible.builtin.command:
     cmd: vivaldi --version
   register: current_vivaldi_version
   changed_when: false
   failed_when: false
-- name: "Vivaldi | Edit current_vivaldi_version"
+
+- name: "Vivaldi | Extract current version"
   ansible.builtin.set_fact:
-    current_vivaldi_version: "{{ current_vivaldi_version.stdout.split(' ')[-1] | default('') }}"
-- name: "Vivaldi | Show current_vivaldi_version debug"
+    current_vivaldi_version: "{{ current_vivaldi_version.stdout.split(' ')[-1] | default('0.0.0') }}"
+
+- name: "Vivaldi | Show current version debug"
   ansible.builtin.debug:
     var: current_vivaldi_version
-- name: "Vivaldi | Show vivaldi_latest_release debug"
+
+- name: "Vivaldi | Show target version debug"
   ansible.builtin.debug:
-    var: vivaldi_latest_release
+    var: vivaldi_target_version
+
 - name: "Vivaldi | Install"
-  when: vivaldi_latest_release | regex_replace('^.', '') not in current_vivaldi_version|default('')
+  when: vivaldi_target_version not in current_vivaldi_version|default('')
   block:
-    - name: "Vivaldi | Define ARCH"
+    - name: "Vivaldi | Define architecture"
       ansible.builtin.set_fact:
         vivaldiarch: "{{ ansible_machine | replace('x86_64', 'amd64') | replace('aarch64', 'arm64') }}"
-    - name: "Vivaldi | Define vivaldi_file"
+
+    - name: "Vivaldi | Define filename"
       ansible.builtin.set_fact:
-        vivaldi_file: "vivaldi-stable_{{ vivaldi_latest_release | replace('v', '') }}-1_{{ vivaldiarch }}"
+        vivaldi_filename: "vivaldi-stable_{{ vivaldi_target_version }}-1_{{ vivaldiarch }}.deb"
+
     - name: "Vivaldi | Ensure clean download destination"
       ansible.builtin.file:
-        path: "/tmp/{{ vivaldi_file }}.deb"
+        path: "/tmp/{{ vivaldi_filename }}"
         state: absent
       become: true
-    - name: "Vivaldi | Downloading Vivaldi Release"
+
+    - name: "Vivaldi | Download Vivaldi"
       ansible.builtin.get_url:
-        url: "https://downloads.vivaldi.com/stable/{{ vivaldi_file }}.deb"
-        dest: /tmp/
+        url: "https://downloads.vivaldi.com/stable/{{ vivaldi_filename }}"
+        dest: "/tmp/{{ vivaldi_filename }}"
         mode: "0644"
         force: true
       notify:
         - Cleanup Vivaldi downloaded deb
+
     - name: "Vivaldi | Install Vivaldi"
       ansible.builtin.apt:
-        deb: "/tmp/{{ vivaldi_file }}.deb"
+        deb: "/tmp/{{ vivaldi_filename }}"
         state: present
         update_cache: true
       become: true
