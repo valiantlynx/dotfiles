@@ -1,5 +1,5 @@
 ---
-- name: Cleanup Vivaldi downloaded tar
+- name: Cleanup Vivaldi downloaded deb
   ansible.builtin.file:
     path: "/tmp/{{ vivaldi_file }}.deb"
     state: absent
