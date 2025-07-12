@@ -19,21 +19,21 @@
 - name: Download Logseq artifacts
   ansible.builtin.get_url:
     url: "{{ logseq_download_url }}"
-    dest: "{{ logseq_temp_dir }}/logseq-linux-arm64-builds.zip"
+    dest: "{{ logseq_temp_dir }}/logseq-linux-x64-builds.zip"
     mode: '0644'
     timeout: 300
   become: true
 
 - name: Extract outer zip file
   ansible.builtin.unarchive:
-    src: "{{ logseq_temp_dir }}/logseq-linux-arm64-builds.zip"
+    src: "{{ logseq_temp_dir }}/logseq-linux-x64-builds.zip"
     dest: "{{ logseq_temp_dir }}"
     remote_src: yes
   become: true
 
 - name: Extract inner Logseq zip file
   ansible.builtin.unarchive:
-    src: "{{ logseq_temp_dir }}/logseq-linux-arm64-builds/Logseq-linux-arm64-{{ logseq_version }}.zip"
+    src: "{{ logseq_temp_dir }}/logseq-linux-x64-builds/Logseq-linux-x64-{{ logseq_version }}.zip"
     dest: "{{ logseq_temp_dir }}"
     remote_src: yes
   become: true
@@ -49,7 +49,7 @@
 
 - name: Copy Logseq files to installation directory
   ansible.builtin.copy:
-    src: "{{ logseq_temp_dir }}/Logseq-linux-arm64/"
+    src: "{{ logseq_temp_dir }}/Logseq-linux-x64/"
     dest: "{{ logseq_install_dir }}/"
     owner: root
     group: root
