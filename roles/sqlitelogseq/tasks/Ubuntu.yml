@@ -72,14 +72,17 @@
     find {{ logseq_install_dir }} -type f -name "Logseq" -exec chmod 755 {} \;
     find {{ logseq_install_dir }} -type f -name "chrome-sandbox" -exec chmod 4755 {} \;
     find {{ logseq_install_dir }} -type f -executable -exec chmod 755 {} \;
+    chmod 755 {{ logseq_install_dir }}
   become: true
   ignore_errors: true
 
 - name: Create symbolic link in PATH
-  ansible.builtin.file:
-    src: "{{ logseq_install_dir }}/Logseq"
+  ansible.builtin.copy:
     dest: "{{ logseq_bin_dir }}/logseq"
-    state: link
+    content: |
+      #!/bin/bash
+      exec {{ logseq_install_dir }}/Logseq --no-sandbox "$@"
+    mode: '0755'
   become: true
 
 - name: Create desktop entry
@@ -89,7 +92,7 @@
       [Desktop Entry]
       Name=Logseq
       Comment=A privacy-first, open-source platform for knowledge management and collaboration
-      Exec={{ logseq_install_dir }}/Logseq %U
+      Exec={{ logseq_install_dir }}/Logseq --no-sandbox %U
       Terminal=false
       Type=Application
       Icon=logseq
