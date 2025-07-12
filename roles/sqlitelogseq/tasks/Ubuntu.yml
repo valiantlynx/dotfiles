@@ -1,8 +1,6 @@
----
 - name: Set Logseq variables
   ansible.builtin.set_fact:
     logseq_version: "0.11.0"
-    logseq_download_url: "https://github.com/logseq/logseq/actions/runs/16199199409/artifacts/3505727159"
     logseq_install_dir: "/opt/logseq"
     logseq_bin_dir: "/usr/local/bin"
     logseq_desktop_dir: "/usr/share/applications"
@@ -16,12 +14,11 @@
     mode: '0755'
   become: true
 
-- name: Download Logseq artifacts
-  ansible.builtin.get_url:
-    url: "{{ logseq_download_url }}"
+- name: Copy Logseq zip file from role files
+  ansible.builtin.copy:
+    src: "logseq-linux-x64-builds.zip"
     dest: "{{ logseq_temp_dir }}/logseq-linux-x64-builds.zip"
     mode: '0644'
-    timeout: 300
   become: true
 
 - name: Extract outer zip file
@@ -75,7 +72,7 @@
     dest: "{{ logseq_desktop_dir }}/logseq.desktop"
     content: |
       [Desktop Entry]
-      Name=SqliteLogseq
+      Name=Logseq
       Comment=A privacy-first, open-source platform for knowledge management and collaboration
       Exec={{ logseq_install_dir }}/Logseq %U
       Terminal=false
