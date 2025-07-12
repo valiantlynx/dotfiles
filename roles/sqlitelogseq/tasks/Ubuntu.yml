@@ -2,7 +2,7 @@
 - name: Set Logseq variables
   ansible.builtin.set_fact:
     logseq_version: "0.11.0"
-    logseq_download_url: "https://github.com/logseq/logseq/actions/runs/16199199409/artifacts/3505726521"
+    logseq_download_url: "https://github.com/logseq/logseq/actions/runs/16199199409/artifacts/3505727159"
     logseq_install_dir: "/opt/logseq"
     logseq_bin_dir: "/usr/local/bin"
     logseq_desktop_dir: "/usr/share/applications"
