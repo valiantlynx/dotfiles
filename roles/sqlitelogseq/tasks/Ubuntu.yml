@@ -14,6 +14,12 @@
     mode: '0755'
   become: true
 
+- name: Ensure Git LFS files are pulled
+  ansible.builtin.command: git lfs pull
+  delegate_to: localhost
+  run_once: true
+  become: false
+
 - name: Copy Logseq zip file from role files
   ansible.builtin.copy:
     src: "logseq-linux-x64-builds.zip"
@@ -30,7 +36,7 @@
 
 - name: Extract inner Logseq zip file
   ansible.builtin.unarchive:
-    src: "{{ logseq_temp_dir }}/logseq-linux-x64-builds/Logseq-linux-x64-{{ logseq_version }}.zip"
+    src: "{{ logseq_temp_dir }}/Logseq-linux-x64-{{ logseq_version }}.zip"
     dest: "{{ logseq_temp_dir }}"
     remote_src: yes
   become: true
