@@ -148,6 +148,7 @@
     force: yes
   become: false
 
+## Personal notes
 - name: Clone valiantlynx_logseq repository
   ansible.builtin.git:
     repo: "git@github.com:valiantlynx/sqlite_valiantlynx_logseq.git"
@@ -163,6 +164,24 @@
     group: "{{ ansible_user_id }}"
     recurse: yes
   become: false
+
+## common notes
+- name: Clone GG-Mac repository
+  ansible.builtin.git:
+    repo: "git@github.com:samletnorge/GG-Mac.git"
+    dest: "{{ ansible_user_dir }}/logseq/graphs/GG-Mac"
+    version: main
+    force: yes
+  become: false
+
+- name: Set proper ownership for cloned repository
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/logseq/graphs/GG-Mac"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    recurse: yes
+  become: false
+
 
 - name: Clean up temporary files
   ansible.builtin.file:
