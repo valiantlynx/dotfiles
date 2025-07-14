@@ -238,13 +238,18 @@
           git reset --hard origin/main
       }
       
-      # Step 4: Push any new local changes
+      # Step 4: Commit any new changes and push everything
       git add .
-      if git diff --cached --quiet; then
-          log "No new changes to push"
-      else
+      if ! git diff --cached --quiet; then
           git commit -m "Auto-sync from $HOSTNAME at $TIMESTAMP" || log "No new changes to commit"
+      fi
+      
+      # Check if there are commits to push (local ahead of remote)
+      if [ $(git rev-list --count HEAD ^origin/main) -gt 0 ]; then
+          log "Found $(git rev-list --count HEAD ^origin/main) commits to push"
           git push origin main || log "Failed to push to origin"
+      else
+          log "No commits to push"
       fi
       
       log "Sync completed successfully for sqlite_valiantlynx_logseq"
@@ -302,13 +307,18 @@
           git reset --hard origin/main
       }
       
-      # Step 4: Push any new local changes
+      # Step 4: Commit any new changes and push everything
       git add .
-      if git diff --cached --quiet; then
-          log "No new changes to push"
-      else
+      if ! git diff --cached --quiet; then
           git commit -m "Auto-sync from $HOSTNAME at $TIMESTAMP" || log "No new changes to commit"
+      fi
+      
+      # Check if there are commits to push (local ahead of remote)
+      if [ $(git rev-list --count HEAD ^origin/main) -gt 0 ]; then
+          log "Found $(git rev-list --count HEAD ^origin/main) commits to push"
           git push origin main || log "Failed to push to origin"
+      else
+          log "No commits to push"
       fi
       
       log "Sync completed successfully for GG-Mac"
