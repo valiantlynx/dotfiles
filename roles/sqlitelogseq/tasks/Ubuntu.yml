@@ -126,6 +126,57 @@
     group: root
   become: true
 
+# New tasks for symlink and git repository setup
+- name: Create Logseq directories in user home
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+  loop:
+    - "{{ ansible_user_dir }}/.logseq"
+    - "{{ ansible_user_dir }}/logseq"
+    - "{{ ansible_user_dir }}/logseq/graphs"
+  become: false
+
+- name: Create symlink from files/dot-logseq to ~/.logseq
+  ansible.builtin.file:
+    src: "{{ playbook_dir }}/files/dot-logseq"
+    dest: "{{ ansible_user_dir }}/.logseq"
+    state: link
+    force: yes
+  become: false
+
+- name: Clone valiantlynx_logseq repository
+  ansible.builtin.git:
+    repo: "git@github.com:valiantlynx/sqlite_valiantlynx_logseq.git"
+    dest: "{{ ansible_user_dir }}/logseq/graphs/sqlite_valiantlynx_logseq"
+    version: main
+    force: yes
+  become: false
+  vars:
+    ansible_ssh_private_key_file: "{{ ansible_user_dir }}/.ssh/id_rsa"
+
+- name: Ensure SSH key exists for git clone
+  ansible.builtin.stat:
+    path: "{{ ansible_user_dir }}/.ssh/id_rsa"
+  register: ssh_key_stat
+  become: false
+
+- name: Warning if SSH key doesn't exist
+  ansible.builtin.debug:
+    msg: "Warning: SSH key not found at {{ ansible_user_dir }}/.ssh/id_rsa. Git clone may fail."
+  when: not ssh_key_stat.stat.exists
+
+- name: Set proper ownership for cloned repository
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/logseq/graphs/sqlite_valiantlynx_logseq"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    recurse: yes
+  become: false
+
 - name: Clean up temporary files
   ansible.builtin.file:
     path: "{{ logseq_temp_dir }}"
