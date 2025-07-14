@@ -142,7 +142,7 @@
 
 - name: Create symlink from files/dot-logseq to ~/.logseq
   ansible.builtin.file:
-    src: "{{ playbook_dir }}/files/dot-logseq"
+    src: "{{ role_path }}/files/dot-logseq"
     dest: "{{ ansible_user_dir }}/.logseq"
     state: link
     force: yes
