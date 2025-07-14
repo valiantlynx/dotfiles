@@ -155,19 +155,6 @@
     version: main
     force: yes
   become: false
-  vars:
-    ansible_ssh_private_key_file: "{{ ansible_user_dir }}/.ssh/id_rsa"
-
-- name: Ensure SSH key exists for git clone
-  ansible.builtin.stat:
-    path: "{{ ansible_user_dir }}/.ssh/id_rsa"
-  register: ssh_key_stat
-  become: false
-
-- name: Warning if SSH key doesn't exist
-  ansible.builtin.debug:
-    msg: "Warning: SSH key not found at {{ ansible_user_dir }}/.ssh/id_rsa. Git clone may fail."
-  when: not ssh_key_stat.stat.exists
 
 - name: Set proper ownership for cloned repository
   ansible.builtin.file:
