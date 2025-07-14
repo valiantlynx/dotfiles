@@ -131,8 +131,8 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     mode: '0755'
   loop:
     - "{{ ansible_user_dir }}/.logseq"
@@ -172,8 +172,8 @@
 - name: Set proper ownership for cloned repository
   ansible.builtin.file:
     path: "{{ ansible_user_dir }}/logseq/graphs/sqlite_valiantlynx_logseq"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     recurse: yes
   become: false
 
