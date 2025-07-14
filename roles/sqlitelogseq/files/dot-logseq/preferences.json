@@ -1,9 +1,15 @@
 {
   "theme": null,
   "themes": {
-    "mode": "light",
+    "mode": "dark",
     "light": null,
-    "dark": null
+    "dark": {
+      "name": "OddBox",
+      "url": "lsp://logseq.io/gruvbox-theme/gruvbox.css",
+      "description": "A theme based on the popular Gruvbox color palette.",
+      "mode": "dark",
+      "pid": "gruvbox-theme"
+    }
   },
   "externals": []
 }

@@ -1,0 +1,169 @@
+/* OddBox - An opinionated Gruvbox theme for LogSeq */
+@import "https://codemirror.net/5/theme/gruvbox-dark.css";
+
+.dark-theme,
+html[data-theme=dark] {
+  /* Gruvbox Colors */
+  /* Background Colors */
+  --color-bg-0-5-muted: #282828;
+  --color-bg-0-5-strong: #928374;
+
+  /* Red Colors */
+  --color-red-muted: #CC241D;
+  --color-red-strong: #FB4934;
+
+  /* Green Colors */
+  --color-green-muted: #98971A;
+  --color-green-strong: #B8BB26;
+
+  /* Yellow Colors */
+  --color-yellow-muted: #D79921;
+  --color-yellow-strong: #FABD2F;
+
+  /* Blue Colors */
+  --color-blue-muted: #458588;
+  --color-blue-strong: #83A598;
+
+  /* Purple Colors */
+  --color-purple-muted: #B16286;
+  --color-purple-strong: #D3869B;
+
+  /* Aqua Colors */
+  --color-aqua-muted: #689D6A;
+  --color-aqua-strong: #8EC07C;
+
+  /* Orange Colors */
+  --color-orange-muted: #D65D0E;
+  --color-orange-strong: #FE8019;
+  --color-orange-strong-hsl: 27,99.1%,54.7%;
+
+  /* Foreground Colors */
+  --color-fg-0-4-muted: #A89984;
+  --color-fg-0-4-strong: #EBDBB2;
+
+  /* Background/Foreground Combinations */
+  --color-bg-fg-0-hard-bg: #1D2021;
+  --color-bg-fg-0-hard-bg-hsl: 195,6.5%,12.2%;
+  --color-bg-fg-0-hard-fg: #FBF1C7;
+
+  --color-bg-fg-0-soft-bg: #32302F;
+  --color-bg-fg-0-soft-fg: #FBF1C7;
+
+  --color-bg-fg-1-bg: #3C3836;
+  --color-bg-fg-1-fg: #EBDBB2;
+
+  --color-bg-fg-2-bg: #504945;
+  --color-bg-fg-2-bg-hsl: 22,7.4%,29.2%;
+  --color-bg-fg-2-fg: #D5C4A1;
+  --color-bg-fg-2-fg-hsl: 40,38.2%,73.3%;
+
+  --color-bg-fg-3-bg: #665C54;
+  --color-bg-fg-3-fg: #BDAE93;
+
+  --color-bg-fg-4-bg: #7C6F64;
+  --color-bg-fg-4-fg: #A89984;
+  
+  
+  --ls-primary-background-color: var(--color-bg-fg-0-hard-bg);
+  --ls-secondary-background-color: var(--color-bg-0-5-muted); 
+  --ls-tertiary-background-color: var(--color-bg-fg-1-bg);
+  --ls-quaternary-background-color: var(--color-bg-fg-2-bg); 
+  --ls-table-tr-even-background-color: var(--color-bg-fg-3-bg);
+  --ls-active-primary-color: fuchsia;
+  --ls-active-secondary-color: fuchsia;
+  --ls-block-properties-background-color: var(--ls-secondary-background-color);
+  --ls-page-properties-background-color: var(--ls-secondary-background-color);
+  --ls-block-ref-link-text-color: var(--color-blue-strong);
+  --ls-search-background-color: var(--ls-primary-background-color);
+  --ls-border-color: var(--color-bg-fg-2-fg);
+  --ls-secondary-border-color: var(--color-bg-fg-3-fg);
+  --ls-tertiary-border-color: fuchsia;
+  --ls-guideline-color: var(--color-purple-muted);
+  --ls-menu-hover-color: var(--ls-secondary-background-color);
+  --ls-primary-text-color: var(--color-bg-fg-0-hard-fg);
+  --ls-secondary-text-color: var(--color-fg-0-4-muted);
+  --ls-title-text-color:var(--color-fg-0-4-strong); 
+  --ls-link-text-color: var(--color-blue-muted);
+  --ls-link-text-hover-color: var(--color-purple-strong);
+  --ls-link-ref-text-color: var(--ls-link-text-color);
+  --ls-link-ref-text-hover-color: var(--ls-link-text-hover-color);
+  --ls-tag-text-color: var(--ls-link-text-color);
+  --ls-tag-text-hover-color: var(--ls-link-text-hover-color);
+  --ls-slide-background-color: var(--ls-primary-background-color);
+  --ls-block-bullet-border-color: var(--color-orange-muted);
+  --ls-block-bullet-color: var(--color-yellow-strong);
+  --ls-block-highlight-color: var(--color-bg-fg-0-soft-bg);
+  --ls-selection-background-color: var(--color-bg-fg-3-bg);
+  --ls-selection-text-color: var(--color-bg-fg-3-fg);
+  --ls-page-checkbox-color: var(--color-aqua-muted);
+  --ls-page-checkbox-border-color: var(--ls-primary-background-color);
+  --ls-page-blockquote-color: var(--color-bg-fg-1-fg);
+  --ls-page-blockquote-bg-color: var(--color-bg-fg-1-bg);
+  --ls-page-blockquote-border-color: var(--ls-border-color);
+  --ls-page-mark-color: var(--color-bg-fg-0-hard-bg);
+  --ls-page-mark-bg-color: var(--color-purple-strong);
+  --ls-page-inline-code-color: var(--color-orange-strong);
+  --ls-page-inline-code-bg-color: var(--color-bg-fg-1-bg);
+  --ls-scrollbar-foreground-color: rgba(255, 255, 255, 0.2);
+  --ls-scrollbar-background-color: var(--color-bg-0-5-muted);
+  --ls-scrollbar-thumb-hover-color: rgba(255, 255, 255, 0.4);
+  --ls-head-text-color: fuchsia;
+  --ls-cloze-text-color: fuchsia;
+  --ls-icon-color: var(--ls-link-text-color);
+  --ls-search-icon-color: var(--ls-primary-text-color);
+  --ls-search-icon-hover-color: var(--ls-secondary-text-color);
+  --ls-a-chosen-bg: var(--ls-secondary-background-color);
+  --ls-right-sidebar-code-bg-color: fuchsia;
+  --ls-pie-bg-color: var(--color-blue-muted);
+  --ls-pie-fg-color: var(--color-blue-strong);
+  --ls-error-text-color: var(--color-red-muted);
+  --ls-warning-text-color: var(--color-yellow-muted);
+  --ls-success-text-color: var(--color-green-muted);
+  --ls-header-button-background: var(--ls-primary-text-color);
+  --ls-left-sidebar-text-color: var(--ls-primary-text-color);
+  --ls-left-sidebar-active-item-color: var(--color-bg-fg-1-fg); 
+  --ls-left-sidebar-active-item-bg-color: var(--color-bg-fg-1-bg);
+  --color-level-1: var(--ls-secondary-background-color);
+  --color-level-2: var(--ls-tertiary-background-color);
+  --color-level-3: var(--ls-quaternary-background-color);
+  --color-level-4: var(--color-bg-fg-3-bg);
+  --color-level-5: var(--color-bg-fg-4-bg);
+  --color-level-6: var(--color-bg-0-5-strong);
+  --popover: var(--color-bg-fg-0-hard-bg-hsl); 
+  --border: var(--color-bg-fg-2-fg-hsl); 
+  --accent: var(--color-bg-fg-2-bg-hsl); 
+  --accent-foreground: var(--color-bg-fg-2-fg-hsl); 
+  --primary: var(--color-orange-strong-hsl);
+  --background: var(--color-bg-fg-0-hard-bg-hsl);
+  --lx-accent-01: var(--color-bg-fg-2-fg);
+  --lx-accent-02: var(--color-bg-fg-3-bg);
+}
+
+.left-sidebar-inner a.item.active,.left-sidebar-inner a.item:hover {
+    color: var(--ls-left-sidebar-active-item-color) ;
+    background-color: var(--ls-left-sidebar-active-item-bg-color); 
+}
+
+.ui__toggle .switcher {
+  background-color: var(--color-fg-0-4-strong);
+}
+
+.ui__toggle-background-off {
+  background-color: var(--color-bg-0-5-strong);
+}
+
+a.tag {
+  color: var(--ls-tag-text-color);
+}
+
+a {
+  color: var(--ls-link-text-color);
+}
+
+a:hover {
+  color: var(--ls-link-text-hover-color);
+}
+
+html[data-theme=dark][data-color=logseq] .tippy-tooltip {
+  border-color: hsl(var(--border));
+}
