@@ -6,6 +6,8 @@
     logseq_desktop_dir: "/usr/share/applications"
     logseq_icon_dir: "/usr/share/icons/hicolor/256x256/apps"
     logseq_temp_dir: "/tmp/logseq-install"
+    logseq_sync_script_dir: "{{ ansible_user_dir }}/.local/bin"
+    logseq_graphs_dir: "{{ ansible_user_dir }}/logseq/graphs"
 
 - name: Create temporary directory
   ansible.builtin.file:
@@ -138,6 +140,7 @@
     - "{{ ansible_user_dir }}/.logseq"
     - "{{ ansible_user_dir }}/logseq"
     - "{{ ansible_user_dir }}/logseq/graphs"
+    - "{{ logseq_sync_script_dir }}"
   become: false
 
 - name: Create symlink from files/dot-logseq to ~/.logseq
@@ -182,6 +185,360 @@
     recurse: yes
   become: false
 
+# ================================
+# SYNC WORKFLOW SETUP
+# ================================
+
+- name: Create sync script for sqlite_valiantlynx_logseq
+  ansible.builtin.copy:
+    dest: "{{ logseq_sync_script_dir }}/sync-valiantlynx-logseq.sh"
+    content: |
+      #!/bin/bash
+      set -e
+      
+      REPO_DIR="{{ ansible_user_dir }}/logseq/graphs/sqlite_valiantlynx_logseq"
+      HOSTNAME=$(hostname)
+      TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+      
+      # Function to log messages
+      log() {
+          echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$HOME/.logseq-sync.log"
+      }
+      
+      # Check if repository exists
+      if [ ! -d "$REPO_DIR" ]; then
+          log "ERROR: Repository directory $REPO_DIR does not exist"
+          exit 1
+      fi
+      
+      cd "$REPO_DIR"
+      
+      # Check if it's a git repository
+      if [ ! -d ".git" ]; then
+          log "ERROR: $REPO_DIR is not a git repository"
+          exit 1
+      fi
+      
+      log "Starting sync for sqlite_valiantlynx_logseq"
+      
+      # Step 1: Commit local changes to prevent data loss
+      git add .
+      if git diff --cached --quiet; then
+          log "No local changes to commit"
+      else
+          git commit -m "Auto-save local changes before sync from $HOSTNAME at $TIMESTAMP" || log "Failed to commit local changes"
+      fi
+      
+      # Step 2: Fetch and merge remote changes
+      git fetch origin main || log "Failed to fetch from origin"
+      
+      # Step 3: Merge remote changes (this handles conflicts by favoring remote)
+      git merge origin/main --no-edit || {
+          log "Merge conflict detected, resolving by favoring remote changes"
+          git reset --hard origin/main
+      }
+      
+      # Step 4: Push any new local changes
+      git add .
+      if git diff --cached --quiet; then
+          log "No new changes to push"
+      else
+          git commit -m "Auto-sync from $HOSTNAME at $TIMESTAMP" || log "No new changes to commit"
+          git push origin main || log "Failed to push to origin"
+      fi
+      
+      log "Sync completed successfully for sqlite_valiantlynx_logseq"
+    mode: '0755'
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+  become: false
+
+- name: Create sync script for GG-Mac
+  ansible.builtin.copy:
+    dest: "{{ logseq_sync_script_dir }}/sync-gg-mac.sh"
+    content: |
+      #!/bin/bash
+      set -e
+      
+      REPO_DIR="{{ ansible_user_dir }}/logseq/graphs/GG-Mac"
+      HOSTNAME=$(hostname)
+      TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+      
+      # Function to log messages
+      log() {
+          echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$HOME/.logseq-sync.log"
+      }
+      
+      # Check if repository exists
+      if [ ! -d "$REPO_DIR" ]; then
+          log "ERROR: Repository directory $REPO_DIR does not exist"
+          exit 1
+      fi
+      
+      cd "$REPO_DIR"
+      
+      # Check if it's a git repository
+      if [ ! -d ".git" ]; then
+          log "ERROR: $REPO_DIR is not a git repository"
+          exit 1
+      fi
+      
+      log "Starting sync for GG-Mac"
+      
+      # Step 1: Commit local changes to prevent data loss
+      git add .
+      if git diff --cached --quiet; then
+          log "No local changes to commit"
+      else
+          git commit -m "Auto-save local changes before sync from $HOSTNAME at $TIMESTAMP" || log "Failed to commit local changes"
+      fi
+      
+      # Step 2: Fetch and merge remote changes
+      git fetch origin main || log "Failed to fetch from origin"
+      
+      # Step 3: Merge remote changes (this handles conflicts by favoring remote)
+      git merge origin/main --no-edit || {
+          log "Merge conflict detected, resolving by favoring remote changes"
+          git reset --hard origin/main
+      }
+      
+      # Step 4: Push any new local changes
+      git add .
+      if git diff --cached --quiet; then
+          log "No new changes to push"
+      else
+          git commit -m "Auto-sync from $HOSTNAME at $TIMESTAMP" || log "No new changes to commit"
+          git push origin main || log "Failed to push to origin"
+      fi
+      
+      log "Sync completed successfully for GG-Mac"
+    mode: '0755'
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+  become: false
+
+- name: Create master sync script
+  ansible.builtin.copy:
+    dest: "{{ logseq_sync_script_dir }}/sync-all-logseq.sh"
+    content: |
+      #!/bin/bash
+      
+      SCRIPT_DIR="{{ logseq_sync_script_dir }}"
+      
+      # Function to log messages
+      log() {
+          echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$HOME/.logseq-sync.log"
+      }
+      
+      log "Starting sync for all Logseq repositories"
+      
+      # Sync sqlite_valiantlynx_logseq
+      if [ -f "$SCRIPT_DIR/sync-valiantlynx-logseq.sh" ]; then
+          log "Syncing sqlite_valiantlynx_logseq..."
+          "$SCRIPT_DIR/sync-valiantlynx-logseq.sh"
+      else
+          log "WARNING: sync-valiantlynx-logseq.sh not found"
+      fi
+      
+      # Sync GG-Mac
+      if [ -f "$SCRIPT_DIR/sync-gg-mac.sh" ]; then
+          log "Syncing GG-Mac..."
+          "$SCRIPT_DIR/sync-gg-mac.sh"
+      else
+          log "WARNING: sync-gg-mac.sh not found"
+      fi
+      
+      log "All repositories sync completed"
+    mode: '0755'
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+  become: false
+
+- name: Create pre-logseq sync script
+  ansible.builtin.copy:
+    dest: "{{ logseq_sync_script_dir }}/pre-logseq-sync.sh"
+    content: |
+      #!/bin/bash
+      
+      # Function to log messages
+      log() {
+          echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$HOME/.logseq-sync.log"
+      }
+      
+      log "Running pre-Logseq sync"
+      
+      # Sync repositories before starting Logseq
+      "{{ logseq_sync_script_dir }}/sync-all-logseq.sh"
+      
+      log "Pre-Logseq sync completed"
+    mode: '0755'
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+  become: false
+
+- name: Create post-logseq sync script
+  ansible.builtin.copy:
+    dest: "{{ logseq_sync_script_dir }}/post-logseq-sync.sh"
+    content: |
+      #!/bin/bash
+      
+      # Function to log messages
+      log() {
+          echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$HOME/.logseq-sync.log"
+      }
+      
+      log "Running post-Logseq sync"
+      
+      # Sync repositories after Logseq closes
+      "{{ logseq_sync_script_dir }}/sync-all-logseq.sh"
+      
+      log "Post-Logseq sync completed"
+    mode: '0755'
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+  become: false
+
+- name: Create enhanced logseq wrapper script
+  ansible.builtin.copy:
+    dest: "{{ logseq_bin_dir }}/logseq"
+    content: |
+      #!/bin/bash
+      
+      # Run pre-sync
+      if [ -f "{{ logseq_sync_script_dir }}/pre-logseq-sync.sh" ]; then
+          "{{ logseq_sync_script_dir }}/pre-logseq-sync.sh"
+      fi
+      
+      # Start Logseq
+      exec {{ logseq_install_dir }}/Logseq --no-sandbox "$@" &
+      LOGSEQ_PID=$!
+      
+      # Wait for Logseq to finish
+      wait $LOGSEQ_PID
+      
+      # Run post-sync
+      if [ -f "{{ logseq_sync_script_dir }}/post-logseq-sync.sh" ]; then
+          "{{ logseq_sync_script_dir }}/post-logseq-sync.sh"
+      fi
+    mode: '0755'
+  become: true
+
+- name: Update desktop entry with sync wrapper
+  ansible.builtin.copy:
+    dest: "{{ logseq_desktop_dir }}/logseq.desktop"
+    content: |
+      [Desktop Entry]
+      Name=Logseq
+      Comment=A privacy-first, open-source platform for knowledge management and collaboration
+      Exec={{ logseq_bin_dir }}/logseq %U
+      Terminal=false
+      Type=Application
+      Icon=logseq
+      Categories=Office;TextEditor;
+      MimeType=x-scheme-handler/logseq;
+      StartupNotify=true
+      StartupWMClass=Logseq
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+
+- name: Set up cron job for periodic sync
+  ansible.builtin.cron:
+    name: "Logseq repositories sync"
+    minute: "*/5"
+    job: "{{ logseq_sync_script_dir }}/sync-all-logseq.sh"
+    user: "{{ ansible_user_id }}"
+  become: false
+
+- name: Create logseq sync status checker
+  ansible.builtin.copy:
+    dest: "{{ logseq_sync_script_dir }}/logseq-sync-status.sh"
+    content: |
+      #!/bin/bash
+      
+      echo "=== Logseq Sync Status ==="
+      echo "Date: $(date)"
+      echo
+      
+      # Check if repositories exist and are git repos
+      repos=("sqlite_valiantlynx_logseq" "GG-Mac")
+      
+      for repo in "${repos[@]}"; do
+          repo_path="{{ ansible_user_dir }}/logseq/graphs/$repo"
+          echo "Repository: $repo"
+          echo "Path: $repo_path"
+          
+          if [ -d "$repo_path" ]; then
+              if [ -d "$repo_path/.git" ]; then
+                  cd "$repo_path"
+                  echo "Status: Git repository ✓"
+                  echo "Branch: $(git branch --show-current)"
+                  echo "Last commit: $(git log -1 --format='%h %s (%cr)')"
+                  
+                  # Check if there are uncommitted changes
+                  if ! git diff --quiet || ! git diff --cached --quiet; then
+                      echo "Uncommitted changes: YES ⚠️"
+                  else
+                      echo "Uncommitted changes: NO ✓"
+                  fi
+                  
+                  # Check remote status
+                  git fetch origin main 2>/dev/null
+                  local_commit=$(git rev-parse HEAD)
+                  remote_commit=$(git rev-parse origin/main)
+                  
+                  if [ "$local_commit" = "$remote_commit" ]; then
+                      echo "Sync status: UP TO DATE ✓"
+                  else
+                      echo "Sync status: OUT OF SYNC ⚠️"
+                  fi
+              else
+                  echo "Status: NOT A GIT REPOSITORY ❌"
+              fi
+          else
+              echo "Status: DIRECTORY NOT FOUND ❌"
+          fi
+          echo "---"
+      done
+      
+      # Show recent sync log entries
+      echo
+      echo "=== Recent Sync Log ==="
+      if [ -f "$HOME/.logseq-sync.log" ]; then
+          tail -n 20 "$HOME/.logseq-sync.log"
+      else
+          echo "No sync log found"
+      fi
+    mode: '0755'
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+  become: false
+
+- name: Run initial sync
+  ansible.builtin.command: "{{ logseq_sync_script_dir }}/sync-all-logseq.sh"
+  become: false
+  ignore_errors: true
+
+- name: Display sync setup information
+  ansible.builtin.debug:
+    msg: |
+      Logseq sync workflow has been set up successfully!
+      
+      Available commands:
+      - sync-all-logseq.sh: Sync both repositories
+      - sync-valiantlynx-logseq.sh: Sync personal notes only
+      - sync-gg-mac.sh: Sync common notes only
+      - logseq-sync-status.sh: Check sync status
+      
+      Features:
+      - Auto-sync before and after Logseq starts/closes
+      - Periodic sync every 5 minutes via cron
+      - Conflict resolution favors remote changes
+      - All sync activity logged to ~/.logseq-sync.log
+      
+      To manually sync: {{ logseq_sync_script_dir }}/sync-all-logseq.sh
+      To check status: {{ logseq_sync_script_dir }}/logseq-sync-status.sh
 
 - name: Clean up temporary files
   ansible.builtin.file:
