@@ -14,6 +14,121 @@
 #     dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.ssh/config"
 #     src: "config.j2"
 
+- name: "SSH | Add SSH keys to agent"
+  shell: |
+    # Start SSH agent if not running
+    if [ -z "$SSH_AUTH_SOCK" ] || ! kill -0 "$SSH_AGENT_PID" 2>/dev/null; then
+        eval $(ssh-agent -s)
+    fi
+    
+    # Add common SSH keys
+    for key in id_rsa id_ed25519 id_ecdsa; do
+        if [ -f ~/.ssh/$key ]; then
+            ssh-add ~/.ssh/$key 2>/dev/null || true
+        fi
+    done
+    
+    # Verify keys are loaded
+    ssh-add -l
+  register: ssh_add_result
+  changed_when: false
+
+- name: "SSH | Add SSH agent startup to shell configuration"
+  blockinfile:
+    path: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.{{ item }}"
+    block: |
+      # SSH Agent Setup - Added by Ansible
+      if [ -z "$SSH_AUTH_SOCK" ] || ! kill -0 "$SSH_AGENT_PID" 2>/dev/null; then
+          eval $(ssh-agent -s) > /dev/null
+          
+          # Add common SSH keys
+          for key in id_rsa id_ed25519 id_ecdsa; do
+              if [ -f ~/.ssh/$key ]; then
+                  ssh-add ~/.ssh/$key 2>/dev/null || true
+              fi
+          done
+      fi
+      
+      # SSH management aliases
+      alias ssh-restart="killall ssh-agent 2>/dev/null; eval \$(ssh-agent -s) && ssh-add ~/.ssh/id_* 2>/dev/null"
+      alias ssh-status="ssh-add -l 2>/dev/null || echo 'No SSH keys loaded'"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - SSH Agent"
+    create: yes
+  loop:
+    - bashrc
+    - zshrc
+  ignore_errors: true
+
+- name: Check if dotfiles directory exists
+  stat:
+    path: "{{ ansible_user_dir }}/.dotfiles"
+  register: dotfiles_dir
+
+- name: Change Git remote from HTTPS to SSH
+  command: git remote set-url origin git@github.com:valiantlynx/dotfiles.git
+  args:
+    chdir: "{{ ansible_user_dir }}/.dotfiles"
+  when: dotfiles_dir.stat.exists and dotfiles_dir.stat.isdir---
+- name: "SSH | Copy SSH keys"
+  copy:
+    dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.ssh/{{ ssh_key_item.key }}"
+    content: "{{ ssh_key_item.value }}"
+    mode: 0600
+  no_log: true
+  loop_control:
+    loop_var: ssh_key_item
+  with_items: "{{ ssh_key | default({}) | dict2items }}"
+
+# - name: Copy config
+#   ansible.builtin.template:
+#     dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.ssh/config"
+#     src: "config.j2"
+
+- name: "SSH | Add SSH keys to agent"
+  shell: |
+    # Start SSH agent if not running
+    if [ -z "$SSH_AUTH_SOCK" ] || ! kill -0 "$SSH_AGENT_PID" 2>/dev/null; then
+        eval $(ssh-agent -s)
+    fi
+    
+    # Add common SSH keys
+    for key in id_rsa id_ed25519 id_ecdsa; do
+        if [ -f ~/.ssh/$key ]; then
+            ssh-add ~/.ssh/$key 2>/dev/null || true
+        fi
+    done
+    
+    # Verify keys are loaded
+    ssh-add -l
+  register: ssh_add_result
+  changed_when: false
+
+- name: "SSH | Add SSH agent startup to shell configuration"
+  blockinfile:
+    path: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.{{ item }}"
+    block: |
+      # SSH Agent Setup - Added by Ansible
+      if [ -z "$SSH_AUTH_SOCK" ] || ! kill -0 "$SSH_AGENT_PID" 2>/dev/null; then
+          eval $(ssh-agent -s) > /dev/null
+          
+          # Add common SSH keys
+          for key in id_rsa id_ed25519 id_ecdsa; do
+              if [ -f ~/.ssh/$key ]; then
+                  ssh-add ~/.ssh/$key 2>/dev/null || true
+              fi
+          done
+      fi
+      
+      # SSH management aliases
+      alias ssh-restart="killall ssh-agent 2>/dev/null; eval \$(ssh-agent -s) && ssh-add ~/.ssh/id_* 2>/dev/null"
+      alias ssh-status="ssh-add -l 2>/dev/null || echo 'No SSH keys loaded'"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - SSH Agent"
+    create: yes
+  loop:
+    - bashrc
+    - zshrc
+  ignore_errors: true
+
 - name: Check if dotfiles directory exists
   stat:
     path: "{{ ansible_user_dir }}/.dotfiles"
