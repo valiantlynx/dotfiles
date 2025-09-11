@@ -195,11 +195,8 @@ function macos_setup() {
 function windows_setup() {
   # 1) Install uv
   ensure_uv_installed
-  ensure_komorebi_installed
-  symlink_komorebi_config
-  configure_and_start_komorebi
 
-    exit 1 #TODO: remove this line and finish the setup for windows. this just stops the script from running the rest of the setup cause im done for now
+    # exit 1 #TODO: remove this line and finish the setup for windows. this just stops the script from running the rest of the setup cause im done for now
 
     # Check and install Ansible
   _task "Checking if Ansible is installed"
