@@ -36,7 +36,7 @@
     # regex_replace('^.', '') removes the first character from the string (the 'v' in the version number)
     - name: "LAZYGIT | Define lazygit_file"
       ansible.builtin.set_fact:
-        lazygit_file: "lazygit_{{ lazygit_latest_release | regex_replace('^.', '') }}_Linux_x86_64"
+        lazygit_file: "lazygit_{{ lazygit_latest_release | regex_replace('^.', '') }}_linux_x86_64"
 
     - name: "LAZYGIT | Ensure clean download destination"
       ansible.builtin.file:
