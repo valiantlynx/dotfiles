@@ -1,0 +1,10 @@
+---
+- name: "GCC | Ubuntu | Install build-essential (includes GCC)"
+  ansible.builtin.apt:
+    name:
+      - build-essential
+      - gcc
+      - g++
+      - make
+    state: present
+  become: true

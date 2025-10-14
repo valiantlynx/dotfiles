@@ -196,13 +196,23 @@ function windows_setup() {
   # 1) Install uv
   ensure_uv_installed
 
-    # exit 1 #TODO: remove this line and finish the setup for windows. this just stops the script from running the rest of the setup cause im done for now
+  # 2) Install Chocolatey (needed for gcc/mingw)
+  ensure_chocolatey_installed
 
-    # Check and install Ansible
+  # 3) Install neovim via Chocolatey
+  ensure_neovim_installed
+
+  # 4) Install nvm-windows
+  ensure_nvm_windows_installed
+
+  # 5) Install gcc (mingw) and build tools
+  ensure_gcc_installed
+
+  # Check and install Ansible
   _task "Checking if Ansible is installed"
   if ! command -v ansible >/dev/null 2>&1; then
     _task "Installing Ansible with uv"
-    _cmd " uv pip install ansible --system"
+    _cmd "uv pip install ansible --system"
   else
     _task_done
   fi
@@ -229,6 +239,70 @@ function ensure_uv_installed() {
     echo "uv installed successfully."
   fi
 }
+
+# Function to ensure Chocolatey is installed
+function ensure_chocolatey_installed() {
+  _task "Checking Chocolatey installation"
+
+  if command -v choco &>/dev/null; then
+    _task_done
+    echo "Chocolatey is already installed."
+  else
+    _task "Installing Chocolatey"
+    _cmd 'powershell -ExecutionPolicy Bypass -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString(\"https://community.chocolatey.org/install.ps1\"))"'
+    _task_done
+    
+    # Refresh environment variables
+    echo "Please close and reopen your terminal to use Chocolatey commands, or run 'refreshenv' in PowerShell."
+  fi
+}
+
+# Function to install Neovim via Chocolatey
+function ensure_neovim_installed() {
+  _task "Checking Neovim installation"
+
+  if command -v nvim &>/dev/null; then
+    _task_done
+    echo "Neovim is already installed."
+  else
+    _task "Installing Neovim via Chocolatey"
+    _cmd "choco install -y neovim"
+    _task_done
+    echo "Neovim installed successfully."
+  fi
+}
+
+# Function to install nvm-windows
+function ensure_nvm_windows_installed() {
+  _task "Checking NVM for Windows installation"
+
+  # Check if nvm command exists
+  if command -v nvm &>/dev/null; then
+    _task_done
+    echo "NVM for Windows is already installed."
+  else
+    _task "Installing NVM for Windows via Chocolatey"
+    _cmd "choco install -y nvm"
+    _task_done
+    echo "NVM for Windows installed successfully."
+  fi
+}
+
+# Function to install GCC (MinGW) and build tools
+function ensure_gcc_installed() {
+  _task "Checking GCC installation"
+
+  if command -v gcc &>/dev/null; then
+    _task_done
+    echo "GCC is already installed."
+  else
+    _task "Installing MinGW (GCC) and build tools via Chocolatey"
+    _cmd "choco install -y mingw make git ripgrep wget fd unzip gzip"
+    _task_done
+    echo "GCC and build tools installed successfully."
+  fi
+}
+
 
 # 2) Ensure Komorebi is installed via Scoop (example approach)
 function ensure_komorebi_installed() {

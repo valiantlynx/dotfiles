@@ -1,0 +1,9 @@
+---
+- name: "GCC | Arch | Install GCC and build tools"
+  community.general.pacman:
+    name:
+      - gcc
+      - make
+      - base-devel
+    state: present
+  become: true

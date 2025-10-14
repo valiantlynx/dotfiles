@@ -1,0 +1,22 @@
+---
+- name: "Neovim | Windows | Check if Chocolatey is installed"
+  ansible.builtin.win_shell: |
+    $ChocoInstalled = $false
+    if (Get-Command choco -ErrorAction SilentlyContinue) {
+      $ChocoInstalled = $true
+    }
+    $ChocoInstalled
+  register: choco_check
+  changed_when: false
+
+- name: "Neovim | Windows | Install Chocolatey"
+  ansible.builtin.win_shell: |
+    Set-ExecutionPolicy Bypass -Scope Process -Force
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+    iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+  when: choco_check.stdout | trim == "False"
+
+- name: "Neovim | Windows | Install Neovim via Chocolatey"
+  ansible.windows.win_chocolatey:
+    name: neovim
+    state: present

@@ -1,0 +1,21 @@
+---
+- name: "UV | Windows | Check if UV is installed"
+  ansible.builtin.win_shell: |
+    $UvInstalled = $false
+    if (Get-Command uv -ErrorAction SilentlyContinue) {
+      $UvInstalled = $true
+    }
+    $UvInstalled
+  register: uv_check
+  changed_when: false
+
+- name: "UV | Windows | Install UV"
+  ansible.builtin.win_shell: |
+    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+  when: uv_check.stdout | trim == "False"
+  register: install_output
+
+- name: "UV | Windows | Show installation output"
+  ansible.builtin.debug:
+    var: install_output.stdout_lines
+  when: install_output is defined and install_output.changed

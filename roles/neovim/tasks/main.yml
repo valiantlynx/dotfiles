@@ -3,11 +3,16 @@
   ansible.builtin.import_tasks: Ubuntu.yml
   when: ansible_os_family == 'Debian'
 
+- name: Run Windows Tasks
+  ansible.builtin.import_tasks: Win32NT.yml
+  when: ansible_os_family == 'Windows'
+
 - name: "Neovim | Config folder"
   ansible.builtin.file:
     mode: "0755"
     path: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.config/nvim"
     state: directory
+  when: ansible_os_family != 'Windows'
 
 - name: "Neovim | Create symlink to role files directory"
   ansible.builtin.file:
@@ -15,3 +20,10 @@
     dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.config/nvim"
     state: link
     force: true
+  when: ansible_os_family != 'Windows'
+
+- name: "Neovim | Windows | Config folder"
+  ansible.windows.win_file:
+    path: "{{ ansible_env.LOCALAPPDATA }}\\nvim"
+    state: directory
+  when: ansible_os_family == 'Windows'

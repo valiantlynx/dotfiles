@@ -1,0 +1,26 @@
+---
+- name: "NVM | Windows | Download Latest Version JSON"
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/coreybutler/nvm-windows/releases/latest
+  register: nvm_windows_latest_version_json
+  changed_when: false
+
+- name: "NVM | Windows | Registering NVM Latest Release"
+  ansible.builtin.set_fact:
+    nvm_windows_latest_release: "{{ nvm_windows_latest_version_json.json.tag_name }}"
+
+- name: "NVM | Windows | Show nvm_windows_latest_release"
+  ansible.builtin.debug:
+    var: nvm_windows_latest_release
+
+- name: "NVM | Windows | Download NVM for Windows installer"
+  ansible.builtin.win_get_url:
+    url: "https://github.com/coreybutler/nvm-windows/releases/download/{{ nvm_windows_latest_release }}/nvm-setup.exe"
+    dest: "{{ ansible_env.TEMP }}\\nvm-setup.exe"
+
+- name: "NVM | Windows | Install NVM for Windows"
+  ansible.windows.win_package:
+    path: "{{ ansible_env.TEMP }}\\nvm-setup.exe"
+    arguments: /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-
+    state: present
+    creates_path: "{{ ansible_env.APPDATA }}\\nvm"
