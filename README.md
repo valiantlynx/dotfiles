@@ -10,6 +10,23 @@ it is inspired by and to look like this (minus ze BLOAT). but for ubuntu mainly.
    <img src="./.github/assets/screenshots/hyprlock.png" style="margin-bottom: 10px;" /> <br>
 </p>
 
+## Supported Operating Systems
+
+This dotfiles configuration supports:
+- **Ubuntu/Debian** (primary development environment)
+- **Arch Linux**
+- **NixOS**
+- **macOS**
+- **Windows** (via Git Bash with Chocolatey package manager)
+
+### Windows Support
+
+The Windows installation script automatically sets up essential development tools:
+- **Neovim** - Modern text editor
+- **NVM for Windows** - Node.js version manager
+- **UV** - Fast Python package installer
+- **GCC (MinGW)** - GNU Compiler Collection with build tools (make, git, ripgrep, etc.)
+
 ### System Upgrade
 Verify your `Ubuntu` installation has all latest packages installed before running the playbook.
 
@@ -172,14 +189,38 @@ This shell script is also used to initialize your environment after installing `
 
 > NOTE: You must follow required steps before running this command or things may become unusable until fixed.
 
+#### Linux/macOS Installation
+
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles)"
 ```
 
+#### Windows Installation
+
+For Windows, you need to run this in **Git Bash** (comes with Git for Windows):
+
+1. Install [Git for Windows](https://git-scm.com/download/win) if not already installed
+2. Open **Git Bash** as Administrator
+3. Run the installation command:
+
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles)"
+```
+
+The script will automatically:
+- Install UV (Python package installer)
+- Install Chocolatey (Windows package manager)
+- Install Neovim
+- Install NVM for Windows
+- Install GCC (MinGW) and build tools
+- Install Ansible via UV
+
+> **Note**: After installation, you may need to restart your terminal or run `refreshenv` in PowerShell to update PATH variables.
+
 If you want to run only a specific role, you can specify the following bash command:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles | bash -s -- --tags bash,system,bat,btop,flatpak,fonts,nerdfont,fzf,ghostty,git,lazygit,lsd,lua,uv,neovim,nvm,ssh,sshfs,tmux,zoxide  
+curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles | bash -s -- --tags bash,system,bat,btop,flatpak,fonts,nerdfont,fzf,gcc,ghostty,git,lazygit,lsd,lua,uv,neovim,nvm,ssh,sshfs,tmux,zoxide  
 ```
 
 ### Update
