@@ -386,8 +386,30 @@ update_ansible_galaxy() {
   _cmd "ansible-galaxy install -r $DOTFILES_DIR/requirements/common.yml $os_requirements"
 }
 
-source /etc/os-release
-_task "Loading Setup for detected OS: $ID"
+# Detect OS
+_task "Detecting Operating System"
+if [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "win32" ]] || [[ -n "$WINDIR" ]]; then
+  # Windows (Git Bash/MSYS)
+  ID="windows"
+  _task "Loading Setup for detected OS: Windows (Git Bash)"
+elif [ -f /etc/os-release ]; then
+  # Linux with os-release file
+  source /etc/os-release
+  _task "Loading Setup for detected OS: $ID"
+else
+  # Fallback to uname-based detection
+  case "$(uname -s)" in
+    Darwin*)
+      ID="darwin"
+      _task "Loading Setup for detected OS: macOS"
+      ;;
+    *)
+      ID="unknown"
+      _task "Unknown OS"
+      ;;
+  esac
+fi
+
 case $ID in
   ubuntu|pop|debian|kali)
     ubuntu_setup
