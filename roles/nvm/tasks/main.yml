@@ -1,26 +1,35 @@
 ---
-- name: "NVM | Download Latest Version JSON"
+- name: "NVM | Unix | Download Latest Version JSON"
   ansible.builtin.uri:
     url: https://api.github.com/repos/nvm-sh/nvm/releases/latest
   register: nvm_latest_version_json
   changed_when: false
+  when: ansible_os_family != 'Windows'
 
-- name: "NVM | Registering NVM Latest Release"
+- name: "NVM | Unix | Registering NVM Latest Release"
   ansible.builtin.set_fact:
     nvm_latest_release: "{{ nvm_latest_version_json.json.tag_name }}"
+  when: ansible_os_family != 'Windows'
 
-- name: "NVM | Registering NVM Latest Version"
+- name: "NVM | Unix | Registering NVM Latest Version"
   ansible.builtin.set_fact:
     nvm_latest_version: "{{ nvm_latest_release.stdout | default('') }}"
+  when: ansible_os_family != 'Windows'
 
-- name: NVM | Show nvm_latest_release debug
+- name: NVM | Unix | Show nvm_latest_release debug
   ansible.builtin.debug:
     var: nvm_latest_release
+  when: ansible_os_family != 'Windows'
 
-- name: Install nvm
+- name: Install nvm (Unix)
   ansible.builtin.shell: >
     set -o pipefail && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_latest_release }}/install.sh | bash
   args:
     creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
     executable: /bin/bash
+  when: ansible_os_family != 'Windows'
+
+- name: Run Windows Tasks
+  ansible.builtin.import_tasks: Win32NT.yml
+  when: ansible_os_family == 'Windows'
 

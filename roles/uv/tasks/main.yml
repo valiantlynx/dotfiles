@@ -5,3 +5,7 @@
 - name: Run Arch Tasks
   ansible.builtin.import_tasks: Archlinux.yml
   when: ansible_os_family == 'Archlinux'
+
+- name: Run Windows Tasks
+  ansible.builtin.import_tasks: Win32NT.yml
+  when: ansible_os_family == 'Windows'
