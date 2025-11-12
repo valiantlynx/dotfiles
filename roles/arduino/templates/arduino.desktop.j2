@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Arduino IDE 2
 Comment=Open-source electronics platform
-Exec={{ arduino_install_dir|default('/opt/arduino') }}/arduino-ide.AppImage
+Exec={{ arduino_install_dir|default('/opt/arduino') }}/arduino-ide.AppImage --no-sandbox
 Icon=arduino-ide
 Terminal=false
 Type=Application

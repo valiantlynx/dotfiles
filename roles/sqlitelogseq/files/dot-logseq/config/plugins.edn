@@ -1,3 +1,4 @@
 {:logseq-bullet-threading {:version "v1.1.4", :repo "pengx17/logseq-plugin-bullet-threading", :effect false, :theme false}
  :logseq-tabs {:version "v1.19.4", :repo "pengx17/logseq-plugin-tabs", :effect true, :theme false}
- :gruvbox-theme {:version "v0.1.9", :repo "OddDev/oddbox", :effect false, :theme true}}
+ :gruvbox-theme {:version "v0.1.9", :repo "OddDev/oddbox", :effect false, :theme true}
+ :logseq-git {:version "v1.7.0", :repo "haydenull/logseq-plugin-git", :effect true, :theme false}}
