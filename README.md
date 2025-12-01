@@ -4,8 +4,6 @@ it is inspired by and to look like this (minus ze BLOAT). but for ubuntu mainly.
 ### 🖼️ Gallery
 
 <p align="center">
-   <img src="./.github/assets/screenshots/1.png" style="margin-bottom: 10px;"/> <br>
-   <img src="./.github/assets/screenshots/2.png" style="margin-bottom: 10px;"/> <br>
    <img src="./.github/assets/screenshots/3.png" style="margin-bottom: 10px;"/> <br>
    <img src="./.github/assets/screenshots/hyprlock.png" style="margin-bottom: 10px;" /> <br>
 </p>
