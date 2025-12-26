@@ -33,7 +33,6 @@
     append: true
   become: true
   when: ansible_os_family != 'Darwin'
-  when: ansible_os_family != 'Darwin'
 
 - name: "System | Set hosts"
   ansible.builtin.template:
