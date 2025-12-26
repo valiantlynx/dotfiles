@@ -18,7 +18,7 @@
     - name: "Bash | Darwin | Download oh-my-bash Install Script"
       ansible.builtin.get_url:
         url: https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh
-        dest: /{{ ansible_user_dir | default(ansible_env.HOME) }}/oh-my-bash.install.sh
+        dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/oh-my-bash.install.sh"
         force: true
         mode: "0755"
       notify:
@@ -26,7 +26,7 @@
 
     - name: "Bash | Darwin | Run the install script"
       ansible.builtin.script:
-        cmd: /{{ ansible_user_dir | default(ansible_env.HOME) }}/oh-my-bash.install.sh
+        cmd: "{{ ansible_user_dir | default(ansible_env.HOME) }}/oh-my-bash.install.sh"
 
 - name: "Bash | Darwin | Copy .bashrc"
   ansible.builtin.copy:
