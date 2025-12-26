@@ -171,8 +171,26 @@ function arch_setup() {
 function macos_setup() {
   # Check if Homebrew is installed
   if ! command -v brew >/dev/null 2>&1; then
+    # Check if we're running as root (which Homebrew doesn't allow)
+    if [[ $EUID -eq 0 ]]; then
+      echo -e "${LRED}Error: This script should not be run with sudo.${NC}"
+      echo -e "${LYELLOW}Homebrew installation requires running as a regular user.${NC}"
+      echo -e "${LYELLOW}Please run the script without sudo:${NC}"
+      echo -e "${LCYAN}  bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles)\"${NC}"
+      exit 1
+    fi
+    
     _task "Installing Homebrew"
-    _cmd '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+    echo -e "${LYELLOW}Note: Homebrew installation will prompt for your password.${NC}"
+    # Use NONINTERACTIVE mode but allow sudo prompt
+    if ! /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; then
+      echo -e "${LRED}Homebrew installation failed.${NC}"
+      echo -e "${LYELLOW}Please install Homebrew manually first:${NC}"
+      echo -e "${LCYAN}  /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"${NC}"
+      echo -e "${LYELLOW}Then run this script again.${NC}"
+      exit 1
+    fi
+    
     # Add Homebrew to PATH for Apple Silicon Macs
     if [[ -f /opt/homebrew/bin/brew ]]; then
       eval "$(/opt/homebrew/bin/brew shellenv)"

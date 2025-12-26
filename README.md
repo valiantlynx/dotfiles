@@ -199,9 +199,18 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/mai
 
 On macOS, the installation script will:
 1. Automatically detect the Darwin platform
-2. Install Homebrew if not already installed
+2. Install Homebrew if not already installed (requires user password)
 3. Install Ansible via Homebrew
 4. Run the Ansible playbook with macOS-compatible roles
+
+**Important:** 
+- Do **NOT** run the script with `sudo` - it should be run as your regular user
+- The Homebrew installation will prompt for your password when needed
+- If the script is unable to install Homebrew automatically, install it manually first:
+  ```bash
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
+  Then run the dotfiles installation script again.
 
 #### Run Specific Roles
 
