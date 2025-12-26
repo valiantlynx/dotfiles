@@ -176,6 +176,9 @@ function macos_setup() {
     # Add Homebrew to PATH for Apple Silicon Macs
     if [[ -f /opt/homebrew/bin/brew ]]; then
       eval "$(/opt/homebrew/bin/brew shellenv)"
+    # Add Homebrew to PATH for Intel Macs
+    elif [[ -f /usr/local/bin/brew ]]; then
+      eval "$(/usr/local/bin/brew shellenv)"
     fi
   fi
 

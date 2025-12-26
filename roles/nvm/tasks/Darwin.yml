@@ -6,7 +6,7 @@
 
 - name: "NVM | Darwin | Install NVM"
   ansible.builtin.shell: >
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_latest_release }}/install.sh | bash
   when: not nvm_installed.stat.exists
   args:
     creates: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.nvm/nvm.sh"

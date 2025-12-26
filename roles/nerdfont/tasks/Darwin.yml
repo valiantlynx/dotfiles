@@ -18,8 +18,8 @@
   failed_when: false
 
 - name: "Nerd Fonts | Darwin | Verify Installation"
-  ansible.builtin.shell: 
-    cmd: fc-list | grep -E "FiraCode|JetBrainsMono|Hack"
+  ansible.builtin.find:
+    paths: "{{ ansible_user_dir }}/Library/Fonts/NerdFonts"
+    patterns: "*.ttf,*.otf"
   register: nerd_fonts_installed
   changed_when: false
-  ignore_errors: true
