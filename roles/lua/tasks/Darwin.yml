@@ -1,0 +1,5 @@
+---
+- name: "Lua | Darwin | Install lua"
+  community.general.homebrew:
+    name: lua
+    state: present

@@ -1,0 +1,5 @@
+---
+- name: "BAT | Darwin | Install bat"
+  community.general.homebrew:
+    name: bat
+    state: present

@@ -1,0 +1,11 @@
+---
+- name: "Neovim | Darwin | Install dependencies"
+  community.general.homebrew:
+    name:
+      - python3
+    state: present
+
+- name: "Neovim | Darwin | Install Neovim"
+  community.general.homebrew:
+    name: neovim
+    state: present

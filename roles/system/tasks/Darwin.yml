@@ -1,0 +1,7 @@
+---
+- name: "System | Darwin | Install essential utilities"
+  community.general.homebrew:
+    name:
+      - jq
+      - unzip
+    state: present

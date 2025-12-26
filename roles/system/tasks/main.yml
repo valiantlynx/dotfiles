@@ -7,6 +7,10 @@
   ansible.builtin.import_tasks: Archlinux.yml
   when: ansible_os_family == 'Archlinux'
 
+- name: Run Darwin Tasks
+  ansible.builtin.import_tasks: Darwin.yml
+  when: ansible_os_family == 'Darwin'
+
 - name: "System | Set sudo"
   ansible.builtin.template:
     src: user-sudo.j2

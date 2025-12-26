@@ -1,0 +1,12 @@
+---
+- name: "NVM | Darwin | Check if NVM is installed"
+  ansible.builtin.stat:
+    path: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.nvm"
+  register: nvm_installed
+
+- name: "NVM | Darwin | Install NVM"
+  ansible.builtin.shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  when: not nvm_installed.stat.exists
+  args:
+    creates: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.nvm/nvm.sh"

@@ -6,6 +6,10 @@
   ansible.builtin.import_tasks: Archlinux.yml
   when: ansible_os_family == 'Archlinux'
 
+- name: Run Darwin Tasks
+  ansible.builtin.import_tasks: Darwin.yml
+  when: ansible_os_family == 'Darwin'
+
 - name: "ghostty | Config folder"
   ansible.builtin.file:
     mode: "0755"
