@@ -169,24 +169,39 @@ function arch_setup() {
 }
 
 function macos_setup() {
-  # Check if niv is installed
+  # Check if Homebrew is installed
   if ! command -v brew >/dev/null 2>&1; then
     _task "Installing Homebrew"
-    _cmd 'sh <(curl -L https://nixos.org/nix/install)'
+    _cmd '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+    # Add Homebrew to PATH for Apple Silicon Macs
+    if [[ -f /opt/homebrew/bin/brew ]]; then
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
   fi
 
-  # Check if niv-darwin is installed
-  if ! command -v brew >/dev/null 2>&1; then
-    _task "Installing Homebrew"
-    _cmd 'nix run nix-darwin --extra-experimental-features  "nix-command flakes" -- switch --flake ~/.dotfiles/nix/darwin#macbook'
+  # Check and install Git
+  _task "Checking if Git is installed"
+  if ! command -v git >/dev/null 2>&1; then
+    _task "Installing Git"
+    _cmd "brew install git"
+  else
+    _task_done
   fi
 
+  # Check and install Python3
+  _task "Checking if Python3 is installed"
+  if ! command -v python3 >/dev/null 2>&1; then
+    _task "Installing Python3"
+    _cmd "brew install python3"
+  else
+    _task_done
+  fi
 
   # Check and install Ansible
   _task "Checking if Ansible is installed"
   if ! command -v ansible >/dev/null 2>&1; then
-    _task "Installing Ansible with nix"
-    _cmd "nix-env -iA nixos.ansible"
+    _task "Installing Ansible"
+    _cmd "brew install ansible"
   else
     _task_done
   fi
@@ -312,7 +327,17 @@ update_ansible_galaxy() {
   _cmd "ansible-galaxy install -r $DOTFILES_DIR/requirements/common.yml $os_requirements"
 }
 
-source /etc/os-release
+# Detect OS
+if [[ -f /etc/os-release ]]; then
+  source /etc/os-release
+elif [[ "$(uname -s)" == "Darwin" ]]; then
+  ID="darwin"
+elif [[ "$(uname -s)" == MINGW* ]] || [[ "$(uname -s)" == MSYS* ]] || [[ "$(uname -s)" == CYGWIN* ]]; then
+  ID="windows"
+else
+  ID="unknown"
+fi
+
 _task "Loading Setup for detected OS: $ID"
 case $ID in
   ubuntu|pop|debian|kali)
