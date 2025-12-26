@@ -182,8 +182,12 @@ function macos_setup() {
     
     _task "Installing Homebrew"
     echo -e "${LYELLOW}Note: Homebrew installation will prompt for your password.${NC}"
-    # Use NONINTERACTIVE mode but allow sudo prompt
+    echo -e "${ARROW} Executing: Homebrew installation script"
+    echo -e "Command: /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"" >> $DOTFILES_LOG
+    
+    # Run Homebrew installation
     if ! /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; then
+      echo -e "${X_MARK} Homebrew installation failed" >> $DOTFILES_LOG
       echo -e "${LRED}Homebrew installation failed.${NC}"
       echo -e "${LYELLOW}Please install Homebrew manually first:${NC}"
       echo -e "${LCYAN}  /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"${NC}"
