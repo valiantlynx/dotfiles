@@ -1,0 +1,5 @@
+---
+- name: "Zoxide | Darwin | Install zoxide"
+  community.general.homebrew:
+    name: zoxide
+    state: present

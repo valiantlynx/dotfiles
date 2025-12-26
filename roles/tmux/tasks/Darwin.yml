@@ -1,0 +1,5 @@
+---
+- name: "Tmux | Darwin | Install tmux"
+  community.general.homebrew:
+    name: tmux
+    state: present

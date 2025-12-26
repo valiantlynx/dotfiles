@@ -1,0 +1,6 @@
+---
+- name: "Fonts | Darwin | Install font utilities"
+  community.general.homebrew:
+    name:
+      - fontconfig
+    state: present

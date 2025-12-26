@@ -1,0 +1,11 @@
+---
+- name: "Ghostty | Darwin | Check if Ghostty is installed"
+  ansible.builtin.stat:
+    path: /Applications/Ghostty.app
+  register: ghostty_installed
+
+- name: "Ghostty | Darwin | Install Ghostty via Homebrew Cask"
+  community.general.homebrew_cask:
+    name: ghostty
+    state: present
+  when: not ghostty_installed.stat.exists

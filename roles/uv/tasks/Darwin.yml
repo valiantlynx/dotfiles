@@ -1,0 +1,5 @@
+---
+- name: "UV | Darwin | Install uv"
+  community.general.homebrew:
+    name: uv
+    state: present

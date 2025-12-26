@@ -169,24 +169,64 @@ function arch_setup() {
 }
 
 function macos_setup() {
-  # Check if niv is installed
+  # Check if Homebrew is installed
   if ! command -v brew >/dev/null 2>&1; then
+    # Check if we're running as root (which Homebrew doesn't allow)
+    if [[ $EUID -eq 0 ]]; then
+      echo -e "${LRED}Error: This script should not be run with sudo.${NC}"
+      echo -e "${LYELLOW}Homebrew installation requires running as a regular user.${NC}"
+      echo -e "${LYELLOW}Please run the script without sudo:${NC}"
+      echo -e "${LCYAN}  bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles)\"${NC}"
+      exit 1
+    fi
+    
     _task "Installing Homebrew"
-    _cmd 'sh <(curl -L https://nixos.org/nix/install)'
+    echo -e "${LYELLOW}Note: Homebrew installation will prompt for your password.${NC}"
+    echo -e "${ARROW} Executing: Homebrew installation script"
+    echo -e "Command: /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"" >> $DOTFILES_LOG
+    
+    # Run Homebrew installation
+    if ! /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; then
+      echo -e "${X_MARK} Homebrew installation failed" >> $DOTFILES_LOG
+      echo -e "${LRED}Homebrew installation failed.${NC}"
+      echo -e "${LYELLOW}Please install Homebrew manually first:${NC}"
+      echo -e "${LCYAN}  /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"${NC}"
+      echo -e "${LYELLOW}Then run this script again.${NC}"
+      exit 1
+    fi
+    
+    # Add Homebrew to PATH for Apple Silicon Macs
+    if [[ -f /opt/homebrew/bin/brew ]]; then
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    # Add Homebrew to PATH for Intel Macs
+    elif [[ -f /usr/local/bin/brew ]]; then
+      eval "$(/usr/local/bin/brew shellenv)"
+    fi
   fi
 
-  # Check if niv-darwin is installed
-  if ! command -v brew >/dev/null 2>&1; then
-    _task "Installing Homebrew"
-    _cmd 'nix run nix-darwin --extra-experimental-features  "nix-command flakes" -- switch --flake ~/.dotfiles/nix/darwin#macbook'
+  # Check and install Git
+  _task "Checking if Git is installed"
+  if ! command -v git >/dev/null 2>&1; then
+    _task "Installing Git"
+    _cmd "brew install git"
+  else
+    _task_done
   fi
 
+  # Check and install Python3
+  _task "Checking if Python3 is installed"
+  if ! command -v python3 >/dev/null 2>&1; then
+    _task "Installing Python3"
+    _cmd "brew install python3"
+  else
+    _task_done
+  fi
 
   # Check and install Ansible
   _task "Checking if Ansible is installed"
   if ! command -v ansible >/dev/null 2>&1; then
-    _task "Installing Ansible with nix"
-    _cmd "nix-env -iA nixos.ansible"
+    _task "Installing Ansible"
+    _cmd "brew install ansible"
   else
     _task_done
   fi
@@ -312,7 +352,17 @@ update_ansible_galaxy() {
   _cmd "ansible-galaxy install -r $DOTFILES_DIR/requirements/common.yml $os_requirements"
 }
 
-source /etc/os-release
+# Detect OS
+if [[ -f /etc/os-release ]]; then
+  source /etc/os-release
+elif [[ "$(uname -s)" == "Darwin" ]]; then
+  ID="darwin"
+elif [[ "$(uname -s)" == MINGW* ]] || [[ "$(uname -s)" == MSYS* ]] || [[ "$(uname -s)" == CYGWIN* ]]; then
+  ID="windows"
+else
+  ID="unknown"
+fi
+
 _task "Loading Setup for detected OS: $ID"
 case $ID in
   ubuntu|pop|debian|kali)

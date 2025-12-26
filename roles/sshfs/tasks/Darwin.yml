@@ -1,0 +1,10 @@
+---
+- name: "SSHFS | Darwin | Install macFUSE"
+  community.general.homebrew_cask:
+    name: macfuse
+    state: present
+
+- name: "SSHFS | Darwin | Install sshfs"
+  community.general.homebrew:
+    name: gromgit/fuse/sshfs-mac
+    state: present

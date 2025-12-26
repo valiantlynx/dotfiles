@@ -3,6 +3,10 @@
   ansible.builtin.import_tasks: ubuntu.yml
   when: ansible_os_family == 'Debian'
 
+- name: Run Darwin Tasks
+  ansible.builtin.import_tasks: Darwin.yml
+  when: ansible_os_family == 'Darwin'
+
 - name: "bat | Config folder"
   ansible.builtin.file:
     mode: "0755"

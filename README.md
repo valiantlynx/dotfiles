@@ -1,5 +1,5 @@
 # My dotfiles. 
-it is inspired by and to look like this (minus ze BLOAT). but for ubuntu mainly. since thats what i daily drive.
+it is inspired by and to look like this (minus ze BLOAT). Supports Ubuntu, Arch Linux, NixOS, and macOS.
 
 ### 🖼️ Gallery
 
@@ -8,11 +8,28 @@ it is inspired by and to look like this (minus ze BLOAT). but for ubuntu mainly.
    <img src="./.github/assets/screenshots/hyprlock.png" style="margin-bottom: 10px;" /> <br>
 </p>
 
-### System Upgrade
-Verify your `Ubuntu` installation has all latest packages installed before running the playbook.
+## Supported Platforms
 
-```
+- **Ubuntu/Debian** - Primary development platform
+- **Arch Linux** - Full support
+- **NixOS** - Full support with Nix flakes
+- **macOS** - Full support via Homebrew
+- **Windows** - Experimental support via WSL
+
+### System Upgrade
+
+#### Ubuntu/Debian
+Verify your installation has all latest packages installed before running the playbook.
+
+```bash
 sudo apt-get update && sudo apt-get upgrade -y
+```
+
+#### macOS
+Ensure you have the latest system updates:
+
+```bash
+softwareupdate --install --all
 ```
 
 > NOTE: This will take some time.
@@ -166,19 +183,64 @@ $ cat myfile.conf | ansible-vault encrypt_string --vault-password-file $HOME/.an
 
 This playbook includes a custom shell script located at `bin/dotfiles`. This script is added to your $PATH after installation and can be run multiple times while making sure any Ansible dependencies are installed and updated.
 
-This shell script is also used to initialize your environment after installing `Ubuntu` and performing a full system upgrade as mentioned above.
+This shell script is also used to initialize your environment after installing your OS and performing a full system upgrade as mentioned above.
 
 > NOTE: You must follow required steps before running this command or things may become unusable until fixed.
+
+#### One-line Installation
+
+**All platforms (Ubuntu, Arch, macOS, NixOS):**
 
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles)"
 ```
 
+#### macOS-specific Notes
+
+On macOS, the installation script will:
+1. Automatically detect the Darwin platform
+2. Install Homebrew if not already installed (requires user password)
+3. Install Ansible via Homebrew
+4. Run the Ansible playbook with macOS-compatible roles
+
+**Important:** 
+- Do **NOT** run the script with `sudo` - it should be run as your regular user
+- The Homebrew installation will prompt for your password when needed
+- If the script is unable to install Homebrew automatically, install it manually first:
+  ```bash
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  ```
+  Then run the dotfiles installation script again.
+
+#### Run Specific Roles
+
 If you want to run only a specific role, you can specify the following bash command:
 
+**Example for macOS:**
 ```bash
-curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles | bash -s -- --tags bash,system,bat,btop,flatpak,fonts,nerdfont,fzf,ghostty,git,lazygit,lsd,lua,uv,neovim,nvm,ssh,sshfs,tmux,zoxide  
+curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles | bash -s -- --tags bash,system,bat,btop,fonts,nerdfont,fzf,ghostty,git,lazygit,lsd,lua,uv,neovim,nvm,ssh,sshfs,tmux,zoxide  
 ```
+
+**All supported roles on macOS:**
+- bash - Bash shell configuration with oh-my-bash
+- system - System utilities (jq, unzip, etc.)
+- bat - Modern cat replacement
+- btop - Resource monitor
+- fonts - Font utilities
+- nerdfont - Nerd Fonts installation
+- fzf - Fuzzy finder
+- ghostty - Terminal emulator
+- git - Git configuration
+- lazygit - Terminal UI for git
+- lsd - Modern ls replacement
+- lua - Lua language
+- uv - Python package installer
+- neovim - Neovim editor
+- nvm - Node Version Manager
+- ssh - SSH configuration
+- sshfs - SSH filesystem
+- tmux - Terminal multiplexer
+- zoxide - Smart cd command
 
 ### Update
 

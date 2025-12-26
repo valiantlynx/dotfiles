@@ -1,0 +1,5 @@
+---
+- name: "FZF | Darwin | Install fzf"
+  community.general.homebrew:
+    name: fzf
+    state: present
