@@ -12,8 +12,7 @@
 
     - name: Detect wsl variable
       ansible.builtin.debug:
-        var: ansible_host_environment_is_wsl
-        var: ansible_host_environment_is_docker
+        msg: "WSL: {{ ansible_host_environment_is_wsl }}, Docker: {{ ansible_host_environment_is_docker }}"
       tags:
         - always
 

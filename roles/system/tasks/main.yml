@@ -17,13 +17,14 @@
     dest: "/etc/sudoers.d/{{ host_user }}"
     mode: "0644"
   become: true
-  # when: ansible_host_environment_is_wsl or ansible_host_environment_is_ubuntu
+  when: ansible_os_family != 'Darwin'
 
 - name: "System | Ensure group exists for current user"
   ansible.builtin.group:
     name: "{{ host_user }}"
     state: present
   become: true
+  when: ansible_os_family != 'Darwin'
 
 - name: "System | Ensure user is in group {{ host_user }}"
   ansible.builtin.user:
@@ -31,6 +32,8 @@
     groups: "{{ host_user }}"
     append: true
   become: true
+  when: ansible_os_family != 'Darwin'
+  when: ansible_os_family != 'Darwin'
 
 - name: "System | Set hosts"
   ansible.builtin.template:
