@@ -1,0 +1,6 @@
+---
+- name: "Neovim | Darwin | Install go"
+  community.general.homebrew:
+    name:
+      - go
+    state: present
