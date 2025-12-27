@@ -1,0 +1,5 @@
+---
+- name: "Vivaldi | Darwin | Install vivaldi"
+  community.general.homebrew:
+    name: vivaldi
+    state: present
