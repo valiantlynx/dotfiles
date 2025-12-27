@@ -87,12 +87,3 @@
       when: ansible_os_family == "NixOS"
       tags:
         - always
-
-    - name: Run the Macos Nix configuration script
-      ansible.builtin.shell: |
-        nix run nix-darwin --extra-experimental-features  "nix-command flakes" -- switch --flake ~/.dotfiles/nix/darwin#macbook
-      args:
-        chdir: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.dotfiles/nix/darwin"
-      when: ansible_os_family == "Darwin"
-      tags:
-        - always
