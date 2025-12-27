@@ -11,14 +11,17 @@
   ansible.builtin.import_tasks: Darwin.yml
   when: ansible_os_family == 'Darwin'
 
-- name: "System | Set sudo"
+- name: "System | Set hosts"
   ansible.builtin.template:
-    src: user-sudo.j2
-    dest: "/etc/sudoers.d/{{ host_user }}"
+    dest: "/etc/hosts"
+    src: hosts.j2
     mode: "0644"
   become: true
-  when: ansible_os_family != 'Darwin'
-
+  when: >
+    not (ansible_host_environment_is_docker or 
+         ansible_host_environment_is_wsl or 
+         ansible_os_family == 'Darwin')
+         
 - name: "System | Ensure group exists for current user"
   ansible.builtin.group:
     name: "{{ host_user }}"
