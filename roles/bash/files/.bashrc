@@ -217,5 +217,4 @@ export PATH="$PATH:/home/valiantlynx/.lmstudio/bin"
 # Check if kitty is not installed
 if ! command -v kitty &> /dev/null; then
   export TERM=xterm-256color
-  echo "kitty is not installed, TERM set to xterm-256color"
 fi
