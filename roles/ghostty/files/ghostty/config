@@ -35,7 +35,7 @@ custom-shader = shaders/cursor_smear.glsl
 # # part of the value. For example, this will have a value of "#123abc":
 # background = #123abc
 theme = Gruvbox Dark
-window-decoration = false
+window-decoration = true
 confirm-close-surface=false
 # # Empty values are used to reset config keys to default.
 # key =
