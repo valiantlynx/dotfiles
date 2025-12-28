@@ -210,6 +210,10 @@ fi
 if command -v yazi &> /dev/null; then
   alias y='yazi'
 fi
+# Check if yazi is installed, then map y to yazi
+if command -v code-insiders &> /dev/null; then
+  alias code='code-insiders'
+fi
 
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/valiantlynx/.lmstudio/bin"
