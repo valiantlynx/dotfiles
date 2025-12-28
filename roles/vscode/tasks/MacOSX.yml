@@ -1,0 +1,5 @@
+---
+- name: "VSCode Insiders | Darwin | Install visual studio code insiders"
+  community.general.homebrew:
+    name: visual-studio-code@insiders
+    state: present
