@@ -4,3 +4,4 @@
     name:
       - docker-desktop
     state: present
+  become: true
