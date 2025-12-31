@@ -2,5 +2,5 @@
 - name: "Docker | Darwin | Install docker"
   community.general.homebrew:
     name:
-      - docker-desktop
-    state: present
+      - docker
+    state: absent
