@@ -3,4 +3,4 @@
   community.general.homebrew:
     name:
       - docker-desktop
-    state: absent
+    state: present
