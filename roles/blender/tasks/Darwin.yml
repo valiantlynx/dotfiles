@@ -1,0 +1,6 @@
+---
+- name: "Blender | Darwin | Install blender"
+  community.general.homebrew:
+    name:
+      - blender
+    state: present

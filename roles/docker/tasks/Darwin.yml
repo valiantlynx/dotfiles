@@ -1,0 +1,6 @@
+---
+- name: "Docker | Darwin | Install docker"
+  community.general.homebrew:
+    name:
+      - docker
+    state: present
