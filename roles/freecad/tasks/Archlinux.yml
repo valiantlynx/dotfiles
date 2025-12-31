@@ -1,0 +1,6 @@
+---
+- name: "FreeCAD | Arch | Install freecad"
+  community.general.pacman:
+    name: freecad
+    state: present
+  become: true

@@ -1,0 +1,6 @@
+---
+- name: "FreeCAD | Ubuntu | Install freecad"
+  ansible.builtin.apt:
+    name: freecad
+    state: present
+  become: true

@@ -1,0 +1,6 @@
+---
+- name: "FreeCAD | Darwin | Install freecad"
+  community.general.homebrew:
+    name:
+      - freecad
+    state: present
