@@ -1,0 +1,6 @@
+---
+- name: "Yazi | Darwin | Install yazi"
+  community.general.homebrew:
+    name:
+      - yazi
+    state: present
