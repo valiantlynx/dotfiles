@@ -1,0 +1,7 @@
+---
+- name: "Logseq | Darwin | Install logseq"
+  community.general.homebrew:
+    name:
+      - logseq
+    state: present
+  become: true
