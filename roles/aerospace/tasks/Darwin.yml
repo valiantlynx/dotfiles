@@ -1,6 +1,12 @@
 ---
-- name: "aerospace | Darwin | Install aerospace"
-  community.general.homebrew:
-    name:
-      - "nikitabobko/tap/aerospace"
+- name: Ensure the tap is present
+  community.general.homebrew_tap:
+    name: nikitabobko/tap
     state: present
+
+- name: aerospace | Darwin | Install aerospace
+  community.general.homebrew:
+    name: aerospace
+    state: present
+    # aerospace is a GUI app, so 'cask: true' may be required
+    cask: true 
