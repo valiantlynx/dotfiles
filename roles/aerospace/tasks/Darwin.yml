@@ -2,5 +2,5 @@
 - name: "aerospace | Darwin | Install aerospace"
   community.general.homebrew:
     name:
-      - nikitabobko/tap/aerospace
+      - "nikitabobko/tap/aerospace"
     state: present
