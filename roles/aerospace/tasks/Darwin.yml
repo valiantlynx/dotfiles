@@ -1,12 +1,10 @@
 ---
-- name: Ensure the tap is present
+- name: aerospace | Darwin | Add nikitabobko tap
   community.general.homebrew_tap:
     name: nikitabobko/tap
     state: present
 
-- name: aerospace | Darwin | Install aerospace
-  community.general.homebrew:
+- name: aerospace | Darwin | Install aerospace cask
+  community.general.homebrew_cask:
     name: aerospace
     state: present
-    # aerospace is a GUI app, so 'cask: true' may be required
-    cask: true 
