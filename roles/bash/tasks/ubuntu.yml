@@ -108,3 +108,11 @@
 #     create: true
 #     mode: "0600"
 #     state: present
+
+- name: "Bash | Add bat->batcat alias on Ubuntu"
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.bashrc"
+    regexp: '^alias bat='
+    line: 'alias bat="batcat" # simplest fix for ubuntu apt installs this sometimes as batcat'
+    create: true
+    state: present
