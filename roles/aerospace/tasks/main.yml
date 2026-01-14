@@ -3,12 +3,6 @@
   ansible.builtin.import_tasks: Darwin.yml
   when: ansible_os_family == 'Darwin'
 
-- name: "aerospace | Config file"
-  ansible.builtin.file:
-    mode: "0755"
-    path: "{{ ansible_user_dir }}/.aerospace.toml"
-    state: file
-    
 - name: "aerospace | Create symlink to role files directory"
   ansible.builtin.file:
     src: "{{ role_path }}/files/aerospace/.aerospace.toml"
