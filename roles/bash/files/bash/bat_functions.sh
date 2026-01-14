@@ -14,7 +14,6 @@
 # alias c="clear"
 # alias cd="z"
 # alias tt="gtrash put"
-alias bat="batcat" # simplest fix for ubuntu apt installs this sometimes as batcat
 alias cat="bat"
 # alias nano="micro"
 # alias diff="delta --diff-so-fancy --side-by-side"
