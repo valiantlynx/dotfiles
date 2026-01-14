@@ -1,0 +1,11 @@
+---
+- name: Run Darwin Tasks
+  ansible.builtin.import_tasks: Darwin.yml
+  when: ansible_os_family == 'Darwin'
+
+- name: "raycast | Create symlink to role files directory"
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/raycast/.aerospace.toml"
+    dest: "{{ ansible_user_dir }}/.config/raycast/aerospace.toml"
+    state: link
+    force: true
