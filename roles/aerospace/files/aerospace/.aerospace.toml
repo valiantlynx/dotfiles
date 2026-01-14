@@ -104,6 +104,7 @@ on-mode-changed = []
     # You can uncomment the following lines to open up terminal with alt + enter shortcut
     # (like in i3)
     alt-enter = 'exec-and-forget open -n "/Applications/Ghostty.app"'
+    alt-r = 'exec-and-forget open -n "/Applications/Raycast.app"'
 
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
