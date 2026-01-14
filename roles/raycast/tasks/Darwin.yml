@@ -1,0 +1,5 @@
+---
+- name: Raycast | Darwin | Add raycast
+  community.general.homebrew:
+    name: raycast
+    state: present
