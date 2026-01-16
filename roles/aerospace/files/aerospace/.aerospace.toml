@@ -6,6 +6,8 @@
 # Config version for compatibility and deprecations
 # Fallback value (if you omit the key): config-version = 1
 config-version = 2
+# Enable mouse follows focus (moves mouse to the center of a window when you switch focus via keyboard)
+on-focus-changed = ['move-mouse window-lazy-center']
 
 # You can use it to add commands that run after AeroSpace startup.
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
@@ -48,7 +50,7 @@ automatically-unhide-macos-hidden-apps = false
 # This config version is only available since 'config-version = 2'
 # Fallback value (if you omit the key): persistent-workspaces = []
 persistent-workspaces = [
-    "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"
+    "I", "II", "III", "IV", "V"
 ]
 
 # A callback that runs every time binding mode changes
@@ -142,24 +144,13 @@ on-mode-changed = []
     alt-3 = 'workspace III'
     alt-4 = 'workspace IV'
     alt-5 = 'workspace V'
-    alt-6 = 'workspace VI'
-    alt-7 = 'workspace VII'
-    alt-8 = 'workspace VIII'
-    alt-9 = 'workspace IX'
-    alt-0 = 'workspace X' 
-
-    # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
+     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
     alt-shift-1 = 'move-node-to-workspace I'
     alt-shift-2 = 'move-node-to-workspace II'
     alt-shift-3 = 'move-node-to-workspace III'
     alt-shift-4 = 'move-node-to-workspace IV'
     alt-shift-5 = 'move-node-to-workspace V'
-    alt-shift-6 = 'move-node-to-workspace VI'
-    alt-shift-7 = 'move-node-to-workspace VII'
-    alt-shift-8 = 'move-node-to-workspace VIII'
-    alt-shift-9 = 'move-node-to-workspace IX'
-    alt-shift-0 = 'move-node-to-workspace X'
-  
+ 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
@@ -204,3 +195,4 @@ on-mode-changed = []
 [[on-window-detected]]
     if.app-id = 'com.jetbrains.code-insiders'
     run = 'move-node-to-workspace III' # mnemonics III - IDE
+
