@@ -10,3 +10,7 @@ Install-Logs/
 
 
 roles/bash/files/wallpapers/wallpaper
+
+# API keys
+.env
+**/.env
