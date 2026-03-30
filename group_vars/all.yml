@@ -48,6 +48,7 @@ default_roles:
   - swayosd # at least ubuntu 25.04 
   - waybar
   - neovim
+  - opencode
   #- npm
   - nvm
   - nvtop
