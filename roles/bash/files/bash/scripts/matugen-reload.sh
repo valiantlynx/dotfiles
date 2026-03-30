@@ -2,6 +2,13 @@
 # matugen_reload.sh — Hot-reload all apps after matugen generates new colors
 # Called by wall-change.sh after matugen finishes
 
+# Ensure nvim and other tools are on PATH (quickshell/hyprland may not source .bashrc)
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:/opt/nvim-linux-x86_64/bin:$PATH"
+
+# Ensure session bus is available (quickshell may not inherit these)
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=$XDG_RUNTIME_DIR/bus}"
+
 # --- Waybar ---
 if pgrep -x "waybar" > /dev/null; then
     killall -SIGUSR2 waybar  # reload in-place
@@ -93,9 +100,16 @@ if [ -f /tmp/matugen-tmux-colors.conf ] && command -v tmux &>/dev/null; then
     fi
 fi
 
+# --- OpenCode ---
+# OpenCode theme is written directly to ~/.config/opencode/themes/matugen.json
+# by matugen. No hot-reload needed — new sessions pick up the updated theme
+# automatically, and the TUI reads the theme file on startup.
+
 # --- Neovim ---
+# Use --remote-expr with luaeval for reliable reload regardless of current editor mode.
+# --remote-send with <C-\><C-n>: can fail if nvim is in certain states (insert, cmdline, etc.).
 for server in $(find "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}" -name "nvim*" -type s 2>/dev/null); do
-    nvim --server "$server" --remote-send '<C-\><C-n>:lua if _G.reload_matugen_colors then _G.reload_matugen_colors() end<CR>' 2>/dev/null &
+    nvim --server "$server" --remote-expr 'luaeval("_G.reload_matugen_colors()")' 2>/dev/null &
 done
 
 wait

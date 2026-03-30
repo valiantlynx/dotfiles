@@ -1,0 +1,4 @@
+---
+- name: opencode | install opencode with the official install script
+  ansible.builtin.shell: |
+    curl -fsSL https://opencode.ai/install | bash

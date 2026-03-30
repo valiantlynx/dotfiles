@@ -57,3 +57,7 @@ output_path = "/tmp/matugen-tmux-colors.conf"
 [templates.neovim]
 input_path = "~/.config/matugen/templates/nvim-colors.lua.template"
 output_path = "~/.config/nvim/matugen_colors.lua"
+
+[templates.opencode]
+input_path = "~/.config/matugen/templates/opencode-colors.json.template"
+output_path = "~/.config/opencode/themes/matugen.json"

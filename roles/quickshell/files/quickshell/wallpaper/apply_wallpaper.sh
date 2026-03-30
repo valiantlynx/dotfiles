@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Debug wrapper for wallpaper apply - logs everything
-export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:/opt/nvim-linux-x86_64/bin:$PATH"
 
 WALL_FILE="$1"
 THUMB_FILE="$2"

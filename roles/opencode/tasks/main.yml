@@ -1,0 +1,27 @@
+---
+- import_tasks: Ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- name: "opencode | Config folder"
+  ansible.builtin.file:
+    mode: "0755"
+    path: "{{ ansible_user_dir }}/.config/opencode"
+    state: directory
+
+- name: "opencode | Themes folder"
+  ansible.builtin.file:
+    mode: "0755"
+    path: "{{ ansible_user_dir }}/.config/opencode/themes"
+    state: directory
+
+- name: "opencode | Deploy tui.json"
+  ansible.builtin.copy:
+    src: "opencode/tui.json"
+    dest: "{{ ansible_user_dir }}/.config/opencode/tui.json"
+    mode: "0644"
+
+- name: "opencode | Deploy matugen theme"
+  ansible.builtin.copy:
+    src: "opencode/themes/matugen.json"
+    dest: "{{ ansible_user_dir }}/.config/opencode/themes/matugen.json"
+    mode: "0644"

@@ -39,26 +39,26 @@ confirm-close-surface=false
 
 # --- MATUGEN_START ---
 # Dynamic Material You colors (spliced by matugen-reload.sh)
-palette = 0=#121318
+palette = 0=#181115
 palette = 1=#ffb4ab
-palette = 2=#c0c6dd
-palette = 3=#e1bbdc
-palette = 4=#b2c5ff
-palette = 5=#5a3d59
-palette = 6=#404659
-palette = 7=#e3e2e9
-palette = 8=#33343a
+palette = 2=#e0bdcc
+palette = 3=#f3bb9a
+palette = 4=#fcb0d5
+palette = 5=#643d25
+palette = 6=#58404b
+palette = 7=#eedfe3
+palette = 8=#3b3236
 palette = 9=#93000a
-palette = 10=#c0c6dd
-palette = 11=#e1bbdc
-palette = 12=#304578
-palette = 13=#5a3d59
-palette = 14=#404659
-palette = 15=#e3e2e9
-background = #0d0e13
-foreground = #e3e2e9
-cursor-color = #b2c5ff
-selection-background = #292a2f
-selection-foreground = #e3e2e9
+palette = 10=#e0bdcc
+palette = 11=#f3bb9a
+palette = 12=#6c3353
+palette = 13=#643d25
+palette = 14=#58404b
+palette = 15=#eedfe3
+background = #130c0f
+foreground = #eedfe3
+cursor-color = #fcb0d5
+selection-background = #30282b
+selection-foreground = #eedfe3
 # --- MATUGEN_END ---
 

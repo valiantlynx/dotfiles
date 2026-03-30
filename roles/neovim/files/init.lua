@@ -1095,12 +1095,14 @@ local function apply_matugen_colors()
   return true
 end
 
--- Register global reload function (called by matugen-reload.sh via --remote-send)
+-- Register global reload function (called by matugen-reload.sh via --remote-expr)
 _G.reload_matugen_colors = function()
-  -- Clear cached module so dofile re-reads the file
-  if apply_matugen_colors() then
-    vim.notify('matugen colors reloaded', vim.log.levels.INFO)
-  end
+  vim.schedule(function()
+    if apply_matugen_colors() then
+      vim.cmd 'redraw'
+      vim.notify('matugen colors reloaded', vim.log.levels.INFO)
+    end
+  end)
 end
 
 -- Apply on startup if colors file exists
