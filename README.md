@@ -1,298 +1,158 @@
-# My dotfiles. 
-it is inspired by and to look like this (minus ze BLOAT). Supports Ubuntu, Arch Linux, NixOS, and macOS.
+# dotfiles
 
-### 🖼️ Gallery
+Ansible-managed dotfiles for Ubuntu, Arch, NixOS, macOS, and Windows.
 
 <p align="center">
-   <img src="./.github/assets/screenshots/3.png" style="margin-bottom: 10px;"/> <br>
-   <img src="./.github/assets/screenshots/hyprlock.png" style="margin-bottom: 10px;" /> <br>
+   <img src="./.github/assets/screenshots/3.png" width="80%" /> <br>
+   <img src="./.github/assets/screenshots/hyprlock.png" width="80%" />
 </p>
 
-## Supported Platforms
+## Architecture
 
-- **Ubuntu/Debian** - Primary development platform
-- **Arch Linux** - Full support
-- **NixOS** - Full support with Nix flakes
-- **macOS** - Full support via Homebrew
-- **Windows** - Experimental support via WSL
-
-### System Upgrade
-
-#### Ubuntu/Debian
-Verify your installation has all latest packages installed before running the playbook.
-
-```bash
-sudo apt-get update && sudo apt-get upgrade -y
+```
+ curl bootstrap ──> bin/dotfiles
+                        │
+          ┌─────────────┼─────────────────┐
+          ▼             ▼                  ▼
+    OS Detection    Install Ansible    Clone Repo
+          │             │                  │
+          └─────────────┼──────────────────┘
+                        ▼
+               ansible-playbook main.yml
+                        │
+          ┌─────────────┼──────────────┐
+          ▼             ▼              ▼
+      pre_tasks/    group_vars/    roles/ (78)
+     (detect OS,     all.yml      (each role =
+      detect user)  (config)      one tool/app)
+          │
+          ├── Ubuntu/Debian ──> apt + roles
+          ├── Arch ──────────> pacman + roles
+          ├── NixOS ─────────> neovim + bash roles ──> nixos-config/install.sh
+          ├── macOS ─────────> brew + roles + nix/darwin/
+          └── Windows ───────> winget + uv + komorebi (win/)
 ```
 
-#### macOS
-Ensure you have the latest system updates:
-
-```bash
-softwareupdate --install --all
-```
-
-> NOTE: This will take some time.
-
-## Setup
-
-### all.yaml values file
-
-The `all.yaml` file allows you to personalize your setup to your needs. This file will be created in the file located at `~/.dotfiles/group_vars/all.yaml` after you [Install this dotfiles](#install) and include your desired settings.
-
-Below is a list of all available values. Not all are required but incorrect values will break the playbook if not properly set.
-
-
-| Name           | Type                           | Required |
-| -------------- | ------------------------------ | -------- |
-| git_user_email | string                         | yes      |
-| git_user_name  | string                         | yes      |
-| exclude_roles  | array`(see group_vars/all)`    | no       |
-| ssh_key        | dict`(see SSH Keys below)`     | no       |
-| system_host    | dict`(see System Hosts below)` | no       |
-| bash_public    | dict`(see Environment below)`  | no       |
-| bash_private   | dict`(see Environment below)`  | no       |
-
-#### Environment
-
-Manage environment variables by configuring the `bash_public` and `bash_private` values in `values.yaml`. See both values usecase below.
-
-##### bash_public
-
-The `bash_public` value allows you to include a dictionary of generic and unsecure key-value pairs that will be stored in a `~/.bash_public`.
-
-```yaml
-
----
-bash_public:
-  MY_ENV_VAR: something
-```
-
-#### bash_private
-
-The `bash_private` value allows you to include a dictionary of secure key-value pairs that will be stored in a `~/.bash_private`.
-
-```yaml
-
----
-bash_private:
-  MY_ENV_VAR_SECRET: !vault |
-    $ANSIBLE_VAULT;1.1;AES256
-    62333533626436313366316235626561626635396233303730343332666466393561346462303163
-    3666636638613437353663356563656537323136646137630a336332303030323031376164316562
-    65333963633339323382938472963766303966643035303234376163616239663539366564396166
-    3830376265316231630a623834333061393138306331653164626437623337366165636163306237
-    3437
-```
-
-### SSH Keys
-
-Manage SSH keys by setting the `ssh_key` value in `values.yaml` shown as example below:
-
-```yaml
-
----
-ssh_key:
-  <filename>: !vault |
-    $ANSIBLE_VAULT;1.1;AES256
-    62333533626436313366316235626561626635396233303730343332666466393561346462303163
-    3666636638613437483928376563656537323136646137630a336332303030323031376164316562
-    65333963633339323762663865363766303966643035303234376163616239663539366564396166
-    3830376265316231630a623834333061393138306331653164626437623337366165636163306237
-    3437
-```
-
-> NOTE: All ssh keys will be stored at `$HOME/.ssh/<filename>`.
-
-### System Hosts
-
-Manage `/etc/hosts` by setting the `system_host` value in `values.yaml`.
-
-```yaml
-
----
-system_host:
-  127.0.0.1: foobar.localhost
-```
-
-### Examples
-
-Below includes minimal and advanced configuration examples. If you would like to see a more real world example take a look at [blackglasses public configuration](https://github.com/valiantlynx/dotfiles-erikreinert) repository.
-
-#### Minimal
-
-Below is a minimal example of `values.yaml` file:
-
-```yaml
----
-git_user_email: foo@bar.com
-git_user_name: Foo Bar
-```
-
-#### Advanced
-
-Below is a more advanced example of `values.yaml` file:
-
-```yaml
----
-git_user_email: foo@bar.com
-git_user_name: Foo Bar
-exclude_roles:
-  - slack
-ssh_key: !vault |
-  $ANSIBLE_VAULT;1.1;AES256
-  62333533626436313366316235626561626635396233303730343332666466393561346462303163
-  3666636638613437353663356563656537323136646137630a336332303030323031376164316562
-  65333963633339323762663865363766303966643035303234376163616239663539366564396166
-  3830376265316231630a623834333061393138306331653164626437623337366165636163306237
-  3437
-system_host:
-  127.0.0.1: foobar.localhost
-bash_public:
-  MY_PUBLIC_VAR: foobar
-bash_private:
-  MY_SECRET_VAR: !vault |
-    $ANSIBLE_VAULT;1.1;AES256
-    62333533626436313366316235626561626635396233303730343332666466393561346462303163
-    3666636638613437353663356563656537323136646137630a336332303030323031376164316562
-    65333963633339323762663865363766303966643035303234376163616239663539366564396166
-    3830376265316231630a623834333061393138306331653164626437623337366165636163306237
-    3437
-```
-
-### vault.secret
-
-The `vault.secret` file allows you to encrypt values with `Ansible vault` and store them securely in source control. Create a file located at `~/.config/dotfiles/vault.secret` with a secure password in it.
-
-```bash
-mkdir ~/.ansible-vault/
-vim ~/.ansible-vault/vault.secret
-```
-
-To then encrypt values with your vault password use the following:
-
-```bash
-$ ansible-vault encrypt_string --vault-password-file $HOME/.ansible-vault/vault.secret "mynewsecret" --name "MY_SECRET_VAR"
-$ cat myfile.conf | ansible-vault encrypt_string --vault-password-file $HOME/.ansible-vault/vault.secret --stdin-name "myfile"
-```
-
-> NOTE: This file will automatically be detected by the playbook when running `dotfiles` command to decrypt values. Read more on Ansible Vault [here](https://docs.ansible.com/ansible/latest/user_guide/vault.html).
-
-## Usage
-### Install
-
-This playbook includes a custom shell script located at `bin/dotfiles`. This script is added to your $PATH after installation and can be run multiple times while making sure any Ansible dependencies are installed and updated.
-
-This shell script is also used to initialize your environment after installing your OS and performing a full system upgrade as mentioned above.
-
-> NOTE: You must follow required steps before running this command or things may become unusable until fixed.
-
-#### One-line Installation
-
-**All platforms (Ubuntu, Arch, macOS, NixOS):**
+## Install
 
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles)"
 ```
 
-#### macOS-specific Notes
-
-On macOS, the installation script will:
-1. Automatically detect the Darwin platform
-2. Install Homebrew if not already installed (requires user password)
-3. Install Ansible via Homebrew
-4. Run the Ansible playbook with macOS-compatible roles
-
-**Important:** 
-- Do **NOT** run the script with `sudo` - it should be run as your regular user
-- The Homebrew installation will prompt for your password when needed
-- If the script is unable to install Homebrew automatically, install it manually first:
-  ```bash
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  ```
-  Then run the dotfiles installation script again.
-
-#### Run Specific Roles
-
-If you want to run only a specific role, you can specify the following bash command:
-
-**Example for macOS:**
+Run specific roles only:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles | bash -s -- --tags bash,system,bat,btop,fonts,nerdfont,fzf,ghostty,git,lazygit,lsd,lua,uv,neovim,nvm,ssh,sshfs,tmux,zoxide  
+dotfiles -t bash,neovim,git
 ```
 
-**All supported roles on macOS:**
-- bash - Bash shell configuration with oh-my-bash
-- system - System utilities (jq, unzip, etc.)
-- bat - Modern cat replacement
-- btop - Resource monitor
-- fonts - Font utilities
-- nerdfont - Nerd Fonts installation
-- fzf - Fuzzy finder
-- ghostty - Terminal emulator
-- git - Git configuration
-- lazygit - Terminal UI for git
-- lsd - Modern ls replacement
-- lua - Lua language
-- uv - Python package installer
-- neovim - Neovim editor
-- nvm - Node Version Manager
-- ssh - SSH configuration
-- sshfs - SSH filesystem
-- tmux - Terminal multiplexer
-- zoxide - Smart cd command
-
-### Update
-
-This repository is continuously updated with new features and settings which become available to you when updating.
-
-To update your environment run the `dotfiles` command in your shell:
-
+Update later:
 ```bash
 dotfiles
 ```
 
-This will handle the following tasks:
+## What's Included
 
-- Verify Ansible is up-to-date
-- Generate SSH keys and add to `~/.ssh/authorized_keys`
-- Clone this repository locally to `~/.dotfiles`
-- Verify any `ansible-galaxy` plugins are updated
-- Run this playbook with the values in `~/.config/dotfiles/group_vars/all.yaml`
+### Active Roles (default)
 
-This `dotfiles` command is available to you after the first use of this repo, as it adds this repo's `bin` directory to your path, allowing you to call `dotfiles` from anywhere.
+| Category | Tools |
+|---|---|
+| Shell | bash (oh-my-bash), pwsh |
+| Terminal | ghostty |
+| Editor | neovim (kickstart), vscode |
+| VCS | git, lazygit |
+| Files | yazi, lsd |
+| Browser | vivaldi, chromium |
+| Monitor | btop, nvtop |
+| Containers | docker |
+| Packages | flatpak, nala, nvm, uv |
+| CLI Tools | bat, fzf, zoxide, lua, ssh, sshfs, tmux |
+| Desktop (Wayland) | hyprland, waybar, rofi, swaync, swayosd, swww, iio-hyprland |
+| GPU | nvidia |
+| Network | eduvpn, bluetooth |
+| Apps | blender, gimp, logseq |
+| Fonts | fonts, nerdfont |
+| System | system (jq, unzip, curl, etc.) |
 
-Any flags or arguments you pass to the `dotfiles` command are passed as-is to the `ansible-playbook` command.
+### Disabled Roles (uncomment in `group_vars/all.yml`)
 
-For Example: Running the tmux tag with verbosity
+1password, alacritty, arduino, asciiquarium, go, helm, k8s, k9s,
+kitty, npm, ruby, rust, spotify, terraform, tldr, tmate, unity,
+unrealengine, waypaper, zellij, ros2
 
-```bash
-dotfiles -t tmux -vvv
+### NixOS
+
+Full NixOS config lives in `nixos-config/` with Nix flakes + home-manager.
+Supports 3 hosts: `desktop`, `laptop`, `vm`.
+
+### macOS
+
+Uses Homebrew + Ansible roles. Optional nix-darwin flake in `nix/darwin/`.
+
+### Windows
+
+Komorebi tiling WM config in `win/`. WSL support via the main Ansible playbook.
+
+## Configuration
+
+Edit `group_vars/all.yml`:
+
+```yaml
+# Required
+git_user_name: "you"
+git_user_email: "you@example.com"
+
+# Optional
+exclude_roles: [blender, gimp]        # skip roles
+bash_public:                           # -> ~/.bash_public
+  MY_VAR: value
+bash_private:                          # -> ~/.bash_private (use ansible-vault)
+  SECRET: !vault |
+    $ANSIBLE_VAULT;1.1;AES256 ...
+ssh_key:                               # -> ~/.ssh/<filename>
+  id_ed25519: !vault |
+    $ANSIBLE_VAULT;1.1;AES256 ...
+system_host:                           # -> /etc/hosts
+  127.0.0.1: myapp.localhost
 ```
 
-## bonus for myself
-
-for connecting  this project to a monorepo
-
-### make a brach on the main repo named the same as the monorepo
-
-### add this as a subtree to the main repo
+### Ansible Vault
 
 ```bash
-git subtree add --prefix=packages/scripts/dotfiles https://github.com/valiantlynx/dotfiles.git main --squash
+mkdir -p ~/.ansible-vault
+echo 'your-password' > ~/.ansible-vault/vault.secret
+ansible-vault encrypt_string --vault-password-file ~/.ansible-vault/vault.secret "secret" --name "KEY"
 ```
 
-### pull the subtree
+Auto-detected by `dotfiles` command at runtime.
 
-```bash
-git subtree pull --prefix=packages/scripts/dotfiles https://github.com/valiantlynx/dotfiles.git main --squash
+## Repo Structure
+
+```
+.dotfiles/
+├── bin/dotfiles          # bootstrap + update script
+├── main.yml              # ansible playbook entrypoint
+├── ansible.cfg
+├── group_vars/all.yml    # config values + role selection
+├── pre_tasks/            # OS/user detection
+├── requirements/         # ansible-galaxy deps
+├── roles/                # 78 ansible roles (one per tool)
+│   ├── bash/             #   each has tasks/, files/, templates/
+│   ├── neovim/
+│   ├── git/
+│   └── ...
+├── nixos-config/         # full NixOS flake config
+│   ├── flake.nix
+│   ├── hosts/            #   desktop, laptop, vm
+│   ├── modules/          #   core/ + home/
+│   └── wallpapers/
+├── nix/darwin/           # macOS nix-darwin flake
+├── win/                  # Windows komorebi config
+└── callback_plugins/     # custom ansible output plugin
 ```
 
-### push the subtree
+## Testing
 
 ```bash
-git subtree push --prefix=packages/scripts/dotfiles https://github.com/valiantlynx/dotfiles.git main
-# make a test linux
-docker run --rm -it ubuntu bash 
+docker run --rm -it ubuntu bash
 apt-get update && apt-get upgrade -y && apt-get install sudo curl -y
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/valiantlynx/dotfiles/main/bin/dotfiles)"
 ```
