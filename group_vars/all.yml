@@ -38,6 +38,10 @@ default_roles:
   #- waypaper
   #- kitty
   - hyprland
+  - matugen
+  - quickshell
+  - cava
+  - mpvpaper
   - rofi
   - swww
   - swaync
