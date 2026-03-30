@@ -1,0 +1,20 @@
+---
+- import_tasks: Ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Run Arch Tasks
+  ansible.builtin.import_tasks: Archlinux.yml
+  when: ansible_os_family == 'Archlinux'
+
+- name: "quickshell | Remove existing config directory if not a symlink"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/quickshell"
+    state: absent
+  when: not (ansible_user_dir + '/.config/quickshell') is link
+
+- name: "quickshell | Create symlink to QML config files"
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/quickshell"
+    dest: "{{ ansible_user_dir }}/.config/quickshell"
+    state: link
+    force: true

@@ -1,0 +1,59 @@
+[config]
+reload_apps = false
+prefer = "darkness"
+
+[templates.quickshell]
+input_path = "~/.config/matugen/templates/quickshell-colors.json.template"
+output_path = "/tmp/qs_colors.json"
+
+[templates.ghostty]
+input_path = "~/.config/matugen/templates/ghostty-colors.conf.template"
+output_path = "/tmp/matugen-ghostty-colors.conf"
+
+[templates.waybar]
+input_path = "~/.config/matugen/templates/waybar-colors.css.template"
+output_path = "/tmp/matugen-waybar-colors.css"
+
+[templates.rofi]
+input_path = "~/.config/matugen/templates/rofi-colors.rasi.template"
+output_path = "/tmp/matugen-rofi-colors.rasi"
+
+[templates.swaync]
+input_path = "~/.config/matugen/templates/swaync-colors.css.template"
+output_path = "/tmp/matugen-swaync-colors.css"
+
+[templates.swayosd]
+input_path = "~/.config/matugen/templates/swayosd-colors.css.template"
+output_path = "/tmp/matugen-swayosd-colors.css"
+
+[templates.hyprland]
+input_path = "~/.config/matugen/templates/hyprland-colors.conf.template"
+output_path = "~/.config/hypr/matugen-colors.conf"
+
+[templates.hyprlock]
+input_path = "~/.config/matugen/templates/hyprlock-colors.conf.template"
+output_path = "~/.config/hypr/matugen-hyprlock-colors.conf"
+
+[templates.youtube]
+input_path = "~/.config/matugen/templates/youtube-colors.css.template"
+output_path = "/tmp/matugen-youtube.css"
+
+[templates.github]
+input_path = "~/.config/matugen/templates/github-colors.css.template"
+output_path = "/tmp/matugen-github.css"
+
+[templates.vivaldi]
+input_path = "~/.config/matugen/templates/vivaldi-colors.json.template"
+output_path = "/tmp/matugen-vivaldi-colors.json"
+
+[templates.cava]
+input_path = "~/.config/matugen/templates/cava-colors.ini.template"
+output_path = "~/.config/cava/colors"
+
+[templates.tmux]
+input_path = "~/.config/matugen/templates/tmux-colors.conf.template"
+output_path = "/tmp/matugen-tmux-colors.conf"
+
+[templates.neovim]
+input_path = "~/.config/matugen/templates/nvim-colors.lua.template"
+output_path = "~/.config/nvim/matugen_colors.lua"

@@ -1,0 +1,38 @@
+---
+- name: "mpvpaper | Check if mpvpaper is installed"
+  ansible.builtin.shell: mpvpaper --version 2>/dev/null && echo "installed" || echo "not installed"
+  register: mpvpaper_check
+  changed_when: false
+  failed_when: false
+
+- name: "mpvpaper | Register installation state"
+  ansible.builtin.set_fact:
+    mpvpaper_is_installed: "{{ mpvpaper_check.stdout is search('installed') and mpvpaper_check.stdout is not search('not installed') }}"
+
+- name: "mpvpaper | Install mpvpaper from source"
+  when: not mpvpaper_is_installed
+  block:
+    - name: "mpvpaper | Create temp directory"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/mpvpaper_temp"
+        state: directory
+        mode: "0755"
+
+    - name: "mpvpaper | Copy build script"
+      ansible.builtin.copy:
+        src: "mpvpaper.sh"
+        dest: "{{ ansible_user_dir }}/mpvpaper_temp/mpvpaper.sh"
+        mode: "0755"
+
+    - name: "mpvpaper | Run the build script"
+      ansible.builtin.shell: "{{ ansible_user_dir }}/mpvpaper_temp/mpvpaper.sh"
+      register: mpvpaper_output
+
+    - name: "mpvpaper | Show build output"
+      ansible.builtin.debug:
+        var: mpvpaper_output.stdout_lines
+
+    - name: "mpvpaper | Clean up temporary directory"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/mpvpaper_temp"
+        state: absent

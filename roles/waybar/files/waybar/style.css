@@ -1,3 +1,6 @@
+/* Import matugen-generated colors (falls back gracefully if not yet generated) */
+@import url("/tmp/matugen-waybar-colors.css");
+
 * {
   border: none;
   border-radius: 0px;
@@ -10,18 +13,18 @@
 }
 
 window#waybar {
-  background: #282828;
-  border-top: 1px solid #928374;
+  background: @bg;
+  border-top: 1px solid @border;
 }
 
 tooltip {
-  background: #282828;
-  border: 1px solid #928374;
+  background: @bg;
+  border: 1px solid @border;
 }
 
 tooltip label {
   margin: 5px;
-  color: #FBF1C7;
+  color: @text;
 }
 
 #workspaces {
@@ -29,32 +32,32 @@ tooltip label {
 }
 
 #workspaces button {
-  color: #FABD2F;
+  color: @accent;
   padding-left: 5px;
   padding-right: 5px;
   margin-right: 10px;
 }
 
 #workspaces button.empty {
-  color: #FBF1C7;
+  color: @text;
 }
 
 #workspaces button.active {
-  color: #FE8019;
+  color: @orange;
 }
 
 #clock {
-  color: #FBF1C7;
+  color: @text;
 }
 
 #tray {
   margin-left: 10px;
-  color: #FBF1C7;
+  color: @text;
 }
 
 #tray menu {
-  background: #282828;
-  border: 1px solid #928374;
+  background: @bg;
+  border: 1px solid @border;
   padding: 8px;
 }
 
@@ -72,7 +75,7 @@ tooltip label {
   padding-left: 5px;
   padding-right: 5px;
   margin-right: 10px;
-  color: #FBF1C7;
+  color: @text;
 }
 
 #pulseaudio {
@@ -87,7 +90,7 @@ tooltip label {
 
 #custom-launcher {
   font-size: 20px;
-  color: #FBF1C7;
+  color: @text;
   font-weight: bold;
   margin-left: 15px;
   padding-right: 10px;

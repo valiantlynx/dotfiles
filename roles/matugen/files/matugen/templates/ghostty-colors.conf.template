@@ -1,0 +1,24 @@
+# Matugen-generated Ghostty colors — sourced dynamically
+# These map Material You colors to Ghostty's palette
+
+palette = 0={{colors.surface.default.hex}}
+palette = 1={{colors.error.default.hex}}
+palette = 2={{colors.secondary.default.hex}}
+palette = 3={{colors.tertiary.default.hex}}
+palette = 4={{colors.primary.default.hex}}
+palette = 5={{colors.tertiary_container.default.hex}}
+palette = 6={{colors.secondary_container.default.hex}}
+palette = 7={{colors.on_surface.default.hex}}
+palette = 8={{colors.surface_container_highest.default.hex}}
+palette = 9={{colors.error_container.default.hex}}
+palette = 10={{colors.secondary.default.hex}}
+palette = 11={{colors.tertiary.default.hex}}
+palette = 12={{colors.primary_container.default.hex}}
+palette = 13={{colors.tertiary_container.default.hex}}
+palette = 14={{colors.secondary_container.default.hex}}
+palette = 15={{colors.on_surface.default.hex}}
+background = {{colors.surface_container_lowest.default.hex}}
+foreground = {{colors.on_surface.default.hex}}
+cursor-color = {{colors.primary.default.hex}}
+selection-background = {{colors.surface_container_high.default.hex}}
+selection-foreground = {{colors.on_surface.default.hex}}

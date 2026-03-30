@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-wallpaper_path=$HOME/.dotfiles/roles/bash/files/wallpapers
-wallpapers_folder=$HOME/.dotfiles/roles/bash/files/wallpapers/others
-wallpaper_name="$(ls $wallpapers_folder | rofi -dmenu || pkill rofi)"
+wallpapers_folder=$HOME/.dotfiles/shell-wallpapers
+wallpaper_name="$(ls "$wallpapers_folder" | rofi -dmenu -p "Wallpaper" || pkill rofi)"
 
-if [[ -f $wallpapers_folder/$wallpaper_name ]]; then
-    ln -sf "$wallpapers_folder/$wallpaper_name" "$wallpaper_path/wallpaper"
-    wall-change "$wallpaper_path/wallpaper"
+if [[ -n "$wallpaper_name" && -f "$wallpapers_folder/$wallpaper_name" ]]; then
+    wall-change "$wallpapers_folder/$wallpaper_name"
 else
     exit 1
 fi

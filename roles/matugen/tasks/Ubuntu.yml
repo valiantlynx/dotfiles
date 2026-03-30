@@ -1,0 +1,12 @@
+---
+- name: "matugen | Check if matugen is installed"
+  ansible.builtin.shell: matugen --version 2>/dev/null || echo "not installed"
+  register: matugen_version_check
+  changed_when: false
+  failed_when: false
+
+- name: "matugen | Install matugen via cargo"
+  ansible.builtin.shell: cargo install matugen
+  when: matugen_version_check.stdout is search('not installed')
+  environment:
+    PATH: "{{ ansible_user_dir }}/.cargo/bin:{{ ansible_env.PATH }}"

@@ -1,8 +1,17 @@
+/* Gruvbox fallback colors */
+@define-color bg alpha(#111111, 0.99);
+@define-color fg #FBF1C7;
+@define-color accent #FBF1C7;
+@define-color progress_bg alpha(#CCCCCC, 0.1);
+
+/* Matugen dynamic colors — overrides the above when generated */
+@import url("/tmp/matugen-swayosd-colors.css");
+
 window {
     padding: 0px 10px;
     border-radius: 30px;
     border: 10px;
-    background: alpha(#111111, 0.99);
+    background: alpha(@bg, 0.99);
 }
 
 #container {
@@ -10,7 +19,7 @@ window {
 }
 
 image, label {
-    color: #FBF1C7;
+    color: @fg;
 }
 
 progressbar:disabled,
@@ -28,11 +37,11 @@ trough {
     min-height: inherit;
     border-radius: inherit;
     border: none;
-    background: alpha(#CCCCCC, 0.1);
+    background: @progress_bg;
 }
 progress {
     min-height: inherit;
     border-radius: inherit;
     border: none;
-    background: #FBF1C7;
+    background: @accent;
 }

@@ -1,0 +1,6 @@
+---
+- name: "matugen | Arch | Install matugen from AUR"
+  kewlfft.aur.aur:
+    name: matugen-bin
+    state: present
+  become: true

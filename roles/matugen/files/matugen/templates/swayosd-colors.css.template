@@ -1,0 +1,5 @@
+/* Matugen-generated SwayOSD colors */
+@define-color bg {{colors.surface_container_lowest.default.hex}};
+@define-color fg {{colors.on_surface.default.hex}};
+@define-color accent {{colors.primary.default.hex}};
+@define-color progress_bg {{colors.surface_container_high.default.hex}};

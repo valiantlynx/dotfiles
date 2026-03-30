@@ -1,0 +1,6 @@
+---
+- name: Install cava
+  become: true
+  pacman:
+    name: cava
+    state: present

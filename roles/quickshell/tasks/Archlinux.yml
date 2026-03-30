@@ -1,0 +1,6 @@
+---
+- name: "quickshell | Arch | Install quickshell from AUR"
+  kewlfft.aur.aur:
+    name: quickshell-git
+    state: present
+  become: true

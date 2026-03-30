@@ -1,18 +1,18 @@
 [
   {
     "battery": {
-      "format": "<span foreground='#FABD2F'>{icon}</span> {capacity}%",
-      "format-charging": "<span foreground='#FABD2F'> </span>{capacity}%",
-      "format-full": "<span foreground='#FABD2F'> </span>{capacity}%",
+      "format": "{icon} {capacity}%",
+      "format-charging": " {capacity}%",
+      "format-full": " {capacity}%",
       "format-icons": [
-        " ",
-        " ",
-        " ",
-        " ",
-        " "
+        " ",
+        " ",
+        " ",
+        " ",
+        " "
       ],
       "format-time": "{H}h{M}m",
-      "format-warning": "<span foreground='#FABD2F'> </span>{capacity}%",
+      "format-warning": " {capacity}%",
       "interval": 5,
       "states": {
         "warning": 20
@@ -23,22 +23,22 @@
     "clock": {
       "calendar": {
         "format": {
-          "today": "<span color='#98971A'><b>{}</b></span>"
+          "today": "<b>{}</b>"
         }
       },
-      "format": "  {:%H:%M}",
-      "format-alt": "  {:%d/%m}",
+      "format": "  {:%H:%M}",
+      "format-alt": "  {:%d/%m}",
       "tooltip": "true",
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
     },
     "cpu": {
-      "format": "<span foreground='#98971A'> </span> {usage}%",
-      "format-alt": "<span foreground='#98971A'> </span> {avg_frequency} GHz",
+      "format": " {usage}%",
+      "format-alt": " {avg_frequency} GHz",
       "interval": 2,
       "on-click-right": "hyprctl dispatch exec '[float; center; size 850 550] ghostty  --title=float_btop -e btop'"
     },
     "custom/launcher": {
-      "format": "",
+      "format": "",
       "on-click-right": "random-wallpaper",
       "on-click": "hyprctl dispatch exec '[float; center;] rofi -show drun || pkill rofi'",
       "tooltip": "true",
@@ -50,14 +50,14 @@
       "exec-if": "which swaync-client",
       "format": "{icon} ",
       "format-icons": {
-        "dnd-inhibited-none": "  <span foreground='#CC241D'></span>",
-        "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>  <span foreground='#CC241D'></span>",
-        "dnd-none": "  <span foreground='#CC241D'></span>",
-        "dnd-notification": "<span foreground='red'><sup></sup></span>  <span foreground='#CC241D'></span>",
-        "inhibited-none": "  <span foreground='#CC241D'></span>",
-        "inhibited-notification": "<span foreground='red'><sup></sup></span>  <span foreground='#CC241D'></span>",
-        "none": "  <span foreground='#CC241D'></span>",
-        "notification": "<span foreground='red'><sup></sup></span>  <span foreground='#CC241D'></span>"
+        "dnd-inhibited-none": " ",
+        "dnd-inhibited-notification": "<sup></sup> ",
+        "dnd-none": " ",
+        "dnd-notification": "<sup></sup> ",
+        "inhibited-none": " ",
+        "inhibited-notification": "<sup></sup> ",
+        "none": " ",
+        "notification": "<sup></sup> "
       },
       "on-click": "swaync-client -t -sw",
       "on-click-right": "swaync-client -d -sw",
@@ -65,7 +65,7 @@
       "tooltip": false
     },
     "bluetooth": {
-      "format": "<span foreground='#458588'>{icon}</span>",
+      "format": "{icon}",
       "format-icons": {
         "enabled": "",
         "disabled": "",
@@ -77,7 +77,7 @@
       "on-click": "blueman-manager"
     },
     "disk": {
-      "format": "<span foreground='#D65D0E'>󰋊 </span>{percentage_used}%",
+      "format": "󰋊 {percentage_used}%",
       "interval": 60,
       "on-click-right": "hyprctl dispatch exec '[float; center; size 850 550] ghostty  --title=float_btop -e btop'"
     },
@@ -114,8 +114,8 @@
     "margin-right": 0,
     "margin-top": 0,
     "memory": {
-      "format": "<span foreground='#689D6A'>󰟜 </span>{}%",
-      "format-alt": "<span foreground='#689D6A'>󰟜 </span>{used} GiB",
+      "format": "󰟜 {}%",
+      "format-alt": "󰟜 {used} GiB",
       "interval": 2,
       "on-click-right": "hyprctl dispatch exec '[float; center; size 850 550] ghostty  --title=float_btop -e btop'"
     },
@@ -137,10 +137,10 @@
       "custom/notification"
     ],
     "network": {
-      "format-disconnected": "<span foreground='#B16286'>󰖪 </span>",
-      "format-ethernet": "<span foreground='#B16286'>󰀂 </span>",
+      "format-disconnected": "󰖪 ",
+      "format-ethernet": "󰀂 ",
       "format-linked": "{ifname} (No IP)",
-      "format-wifi": "<span foreground='#B16286'> </span> {signalStrength}%",
+      "format-wifi": " {signalStrength}%",
       "tooltip-format": "Connected to {essid} {ifname} via {gwaddr}"
     },
     "position": "bottom",
@@ -148,10 +148,10 @@
       "format": "{icon} {volume}%",
       "format-icons": {
         "default": [
-          "<span foreground='#458588'> </span>"
+          " "
         ]
       },
-      "format-muted": "<span foreground='#458588'> </span> {volume}%",
+      "format-muted": " {volume}%",
       "on-click": "pamixer -t",
       "scroll-step": 2
     },

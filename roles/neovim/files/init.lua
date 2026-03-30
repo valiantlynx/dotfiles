@@ -1009,4 +1009,103 @@ require('lazy').setup({
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
+
+-- =============================================================================
+-- Dynamic Material You colors from matugen
+-- =============================================================================
+-- matugen generates ~/.config/nvim/matugen_colors.lua with a Catppuccin-style
+-- color table. This function applies those colors as highlight groups.
+
+local function apply_matugen_colors()
+  local ok, colors = pcall(dofile, vim.fn.stdpath 'config' .. '/matugen_colors.lua')
+  if not ok or type(colors) ~= 'table' then
+    return false
+  end
+
+  -- Core UI highlights
+  vim.api.nvim_set_hl(0, 'Normal', { fg = colors.text, bg = colors.base })
+  vim.api.nvim_set_hl(0, 'NormalFloat', { fg = colors.text, bg = colors.mantle })
+  vim.api.nvim_set_hl(0, 'NormalNC', { fg = colors.text, bg = colors.crust })
+  vim.api.nvim_set_hl(0, 'CursorLine', { bg = colors.surface0 })
+  vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = colors.rosewater, bold = true })
+  vim.api.nvim_set_hl(0, 'LineNr', { fg = colors.overlay0 })
+  vim.api.nvim_set_hl(0, 'Visual', { bg = colors.surface1 })
+  vim.api.nvim_set_hl(0, 'VisualNOS', { bg = colors.surface1 })
+  vim.api.nvim_set_hl(0, 'Pmenu', { fg = colors.text, bg = colors.surface0 })
+  vim.api.nvim_set_hl(0, 'PmenuSel', { fg = colors.base, bg = colors.blue })
+  vim.api.nvim_set_hl(0, 'PmenuSbar', { bg = colors.surface1 })
+  vim.api.nvim_set_hl(0, 'PmenuThumb', { bg = colors.overlay1 })
+  vim.api.nvim_set_hl(0, 'StatusLine', { fg = colors.text, bg = colors.surface0 })
+  vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = colors.subtext0, bg = colors.mantle })
+  vim.api.nvim_set_hl(0, 'WinSeparator', { fg = colors.overlay0 })
+  vim.api.nvim_set_hl(0, 'FloatBorder', { fg = colors.overlay1, bg = colors.mantle })
+  vim.api.nvim_set_hl(0, 'Search', { fg = colors.base, bg = colors.yellow })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = colors.base, bg = colors.peach })
+  vim.api.nvim_set_hl(0, 'MatchParen', { fg = colors.peach, bold = true, underline = true })
+
+  -- Syntax highlights
+  vim.api.nvim_set_hl(0, 'Comment', { fg = colors.overlay1, italic = false })
+  vim.api.nvim_set_hl(0, 'Constant', { fg = colors.peach })
+  vim.api.nvim_set_hl(0, 'String', { fg = colors.green })
+  vim.api.nvim_set_hl(0, 'Character', { fg = colors.teal })
+  vim.api.nvim_set_hl(0, 'Number', { fg = colors.peach })
+  vim.api.nvim_set_hl(0, 'Boolean', { fg = colors.peach })
+  vim.api.nvim_set_hl(0, 'Float', { fg = colors.peach })
+  vim.api.nvim_set_hl(0, 'Identifier', { fg = colors.flamingo })
+  vim.api.nvim_set_hl(0, 'Function', { fg = colors.blue })
+  vim.api.nvim_set_hl(0, 'Statement', { fg = colors.mauve })
+  vim.api.nvim_set_hl(0, 'Keyword', { fg = colors.mauve })
+  vim.api.nvim_set_hl(0, 'Operator', { fg = colors.sky })
+  vim.api.nvim_set_hl(0, 'PreProc', { fg = colors.pink })
+  vim.api.nvim_set_hl(0, 'Type', { fg = colors.yellow })
+  vim.api.nvim_set_hl(0, 'Special', { fg = colors.rosewater })
+  vim.api.nvim_set_hl(0, 'Error', { fg = colors.red })
+  vim.api.nvim_set_hl(0, 'Todo', { fg = colors.base, bg = colors.yellow, bold = true })
+  vim.api.nvim_set_hl(0, 'Title', { fg = colors.blue, bold = true })
+
+  -- Diagnostics
+  vim.api.nvim_set_hl(0, 'DiagnosticError', { fg = colors.red })
+  vim.api.nvim_set_hl(0, 'DiagnosticWarn', { fg = colors.yellow })
+  vim.api.nvim_set_hl(0, 'DiagnosticInfo', { fg = colors.sky })
+  vim.api.nvim_set_hl(0, 'DiagnosticHint', { fg = colors.teal })
+
+  -- Git signs
+  vim.api.nvim_set_hl(0, 'GitSignsAdd', { fg = colors.green })
+  vim.api.nvim_set_hl(0, 'GitSignsChange', { fg = colors.yellow })
+  vim.api.nvim_set_hl(0, 'GitSignsDelete', { fg = colors.red })
+
+  -- Telescope
+  vim.api.nvim_set_hl(0, 'TelescopeBorder', { fg = colors.overlay1, bg = colors.mantle })
+  vim.api.nvim_set_hl(0, 'TelescopeNormal', { fg = colors.text, bg = colors.mantle })
+  vim.api.nvim_set_hl(0, 'TelescopeSelection', { fg = colors.text, bg = colors.surface0 })
+  vim.api.nvim_set_hl(0, 'TelescopeMatching', { fg = colors.blue, bold = true })
+
+  -- Treesitter overrides
+  vim.api.nvim_set_hl(0, '@variable', { fg = colors.text })
+  vim.api.nvim_set_hl(0, '@function', { fg = colors.blue })
+  vim.api.nvim_set_hl(0, '@function.builtin', { fg = colors.flamingo })
+  vim.api.nvim_set_hl(0, '@keyword', { fg = colors.mauve })
+  vim.api.nvim_set_hl(0, '@string', { fg = colors.green })
+  vim.api.nvim_set_hl(0, '@type', { fg = colors.yellow })
+  vim.api.nvim_set_hl(0, '@type.builtin', { fg = colors.yellow, italic = true })
+  vim.api.nvim_set_hl(0, '@property', { fg = colors.lavender })
+  vim.api.nvim_set_hl(0, '@punctuation.bracket', { fg = colors.overlay2 })
+  vim.api.nvim_set_hl(0, '@comment', { fg = colors.overlay1, italic = false })
+
+  return true
+end
+
+-- Register global reload function (called by matugen-reload.sh via --remote-send)
+_G.reload_matugen_colors = function()
+  -- Clear cached module so dofile re-reads the file
+  if apply_matugen_colors() then
+    vim.notify('matugen colors reloaded', vim.log.levels.INFO)
+  end
+end
+
+-- Apply on startup if colors file exists
+vim.defer_fn(function()
+  apply_matugen_colors()
+end, 100)
+
 -- vim: ts=2 sts=2 sw=2 et

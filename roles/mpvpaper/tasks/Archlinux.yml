@@ -1,0 +1,6 @@
+---
+- name: "mpvpaper | Install from AUR"
+  kewlfft.aur.aur:
+    name: mpvpaper
+    state: present
+  become: false

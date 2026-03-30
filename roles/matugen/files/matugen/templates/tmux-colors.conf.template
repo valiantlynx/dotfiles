@@ -1,0 +1,29 @@
+# Matugen-generated tmux colors — sourced by tmux.conf
+# Material You dynamic theme
+
+# Status bar
+set -g status-style "bg={{colors.surface_container_low.default.hex}},fg={{colors.on_surface.default.hex}}"
+
+# Pane borders
+set -g pane-active-border-style "fg={{colors.primary.default.hex}},bg=default"
+set -g pane-border-style "fg={{colors.outline_variant.default.hex}},bg=default"
+
+# Window styling
+setw -g window-status-format "#[bg={{colors.surface_container.default.hex}},fg={{colors.on_surface_variant.default.hex}}] #I #[bg={{colors.surface_container_low.default.hex}},fg={{colors.on_surface_variant.default.hex}}] #W #[bg=default,fg=default]"
+setw -g window-status-current-format "#[bg={{colors.primary.default.hex}},fg={{colors.on_primary.default.hex}}] #I #[bg={{colors.surface_container_high.default.hex}},fg={{colors.on_surface.default.hex}}] #W#{?window_zoomed_flag, 󰍉,} #[bg=default,fg=default]"
+setw -g window-status-separator " "
+
+# Status left (session name)
+set -g status-left "#[bg={{colors.secondary.default.hex}},fg={{colors.on_secondary.default.hex}}] 󱘎 #S #[bg=default,fg=default] "
+set -g status-left-length 150
+
+# Status right (path + time + date)
+set -g status-right "#[bg={{colors.surface_container_low.default.hex}},fg={{colors.on_surface.default.hex}}] 󱉭 #{pane_current_path} #[bg={{colors.surface_container.default.hex}},fg={{colors.on_surface_variant.default.hex}}] 󰃰 %H:%M #[bg={{colors.surface_container_high.default.hex}},fg={{colors.on_surface.default.hex}}] 󰃭 %d-%b-%Y "
+set -g status-right-length 150
+
+# Message/command mode
+set -g message-style "bg={{colors.primary_container.default.hex}},fg={{colors.on_primary_container.default.hex}}"
+set -g message-command-style "bg={{colors.secondary_container.default.hex}},fg={{colors.on_secondary_container.default.hex}}"
+
+# Copy mode highlight
+setw -g mode-style "bg={{colors.primary_container.default.hex}},fg={{colors.on_primary_container.default.hex}}"

@@ -1,0 +1,4 @@
+# Matugen-generated Hyprland colors
+$matugen_border = rgb({{colors.primary.default.hex_stripped}})
+$matugen_border_inactive = rgb({{colors.surface_container.default.hex_stripped}})
+$matugen_shadow = rgba({{colors.surface.default.hex_stripped}}ee)

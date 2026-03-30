@@ -1,0 +1,23 @@
+---
+- name: Include OS-specific tasks
+  include_tasks: "{{ ansible_distribution }}.yml"
+
+- name: Ensure cava config directory exists
+  file:
+    path: "{{ ansible_user_dir }}/.config/cava"
+    state: directory
+    mode: "0755"
+
+- name: Symlink cava base config
+  file:
+    src: "{{ dotfiles_dir }}/roles/cava/files/cava/config_base"
+    dest: "{{ ansible_user_dir }}/.config/cava/config_base"
+    state: link
+    force: true
+
+- name: Symlink cava-launch wrapper script
+  file:
+    src: "{{ dotfiles_dir }}/roles/cava/files/cava/cava-launch.sh"
+    dest: "{{ ansible_user_dir }}/.local/bin/cava-launch"
+    state: link
+    force: true

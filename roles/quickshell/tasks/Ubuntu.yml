@@ -1,0 +1,44 @@
+---
+- name: "quickshell | Check if quickshell is installed"
+  ansible.builtin.shell: which quickshell 2>/dev/null && quickshell --version 2>/dev/null || echo "not installed"
+  register: quickshell_version_check
+  changed_when: false
+  failed_when: false
+
+- name: "quickshell | Register installation state"
+  ansible.builtin.set_fact:
+    quickshell_is_installed: "{{ quickshell_version_check.stdout is not search('not installed') }}"
+
+- name: "quickshell | Debug quickshell_is_installed"
+  ansible.builtin.debug:
+    var: quickshell_is_installed
+
+- name: "quickshell | Install Quickshell from source"
+  when: not quickshell_is_installed
+  block:
+    - name: "quickshell | Create temp directory"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/quickshell_temp"
+        state: directory
+        mode: "0755"
+
+    - name: "quickshell | Copy build script"
+      ansible.builtin.copy:
+        src: "quickshell.sh"
+        dest: "{{ ansible_user_dir }}/quickshell_temp/quickshell.sh"
+        mode: "0755"
+
+    - name: "quickshell | Run build script (this takes several minutes)"
+      ansible.builtin.shell: "{{ ansible_user_dir }}/quickshell_temp/quickshell.sh"
+      register: build_output
+      environment:
+        PATH: "{{ ansible_user_dir }}/.cargo/bin:{{ ansible_env.PATH }}"
+
+    - name: "quickshell | Show build output"
+      ansible.builtin.debug:
+        var: build_output.stdout_lines
+
+    - name: "quickshell | Clean up temp directory"
+      ansible.builtin.file:
+        path: "{{ ansible_user_dir }}/quickshell_temp"
+        state: absent

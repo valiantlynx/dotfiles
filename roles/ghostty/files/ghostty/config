@@ -37,6 +37,9 @@ custom-shader = shaders/cursor_smear.glsl
 theme = Gruvbox Dark
 window-decoration = true
 confirm-close-surface=false
+
+# Dynamic Material You colors from matugen (overrides theme palette when active)
+config-file = /tmp/matugen-ghostty-colors.conf
 # # Empty values are used to reset config keys to default.
 # key =
 #

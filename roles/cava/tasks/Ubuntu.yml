@@ -1,0 +1,6 @@
+---
+- name: Install cava
+  become: true
+  apt:
+    name: cava
+    state: present
