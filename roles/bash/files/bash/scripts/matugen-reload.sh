@@ -23,11 +23,50 @@ if pgrep -x "Hyprland" > /dev/null; then
 fi
 
 # --- Ghostty ---
-# Ghostty auto-reloads config when the file changes, but only the main config.
-# We signal it to re-read:
+# Ghostty does NOT hot-reload palette/background colors from config changes.
+# Instead we use Ghostty's OSC 5577 escape sequence to push color changes
+# directly to all running terminal sessions, AND update the config file
+# (so new windows/restarts get the right colors).
 if pgrep -x "ghostty" > /dev/null; then
-    # Ghostty watches its config file — touching it triggers reload
-    touch ~/.config/ghostty/config 2>/dev/null
+    GHOSTTY_CONF="$HOME/.config/ghostty/config"
+    MATUGEN_COLORS="/tmp/matugen-ghostty-colors.conf"
+    if [ -f "$MATUGEN_COLORS" ]; then
+        # 1) Update config file for persistence (new windows, restarts)
+        if [ -f "$GHOSTTY_CONF" ] && grep -q "MATUGEN_START" "$GHOSTTY_CONF"; then
+            python3 -c "
+conf = '$GHOSTTY_CONF'
+colors = '$MATUGEN_COLORS'
+with open(conf, 'r') as f:
+    lines = f.readlines()
+with open(colors, 'r') as f:
+    color_lines = [l for l in f.readlines() if l.strip() and not l.startswith('#')]
+new = []
+skip = False
+for line in lines:
+    if '--- MATUGEN_START ---' in line:
+        new.append('# --- MATUGEN_START ---\n')
+        new.append('# Dynamic Material You colors (spliced by matugen-reload.sh)\n')
+        for cl in color_lines:
+            new.append(cl)
+        skip = True
+        continue
+    if '--- MATUGEN_END ---' in line:
+        new.append('# --- MATUGEN_END ---\n')
+        skip = False
+        continue
+    if not skip:
+        new.append(line)
+with open(conf, 'w') as f:
+    f.writelines(new)
+" 2>/dev/null
+        fi
+        # 2) Trigger Ghostty to reload config via DBus
+        gdbus call --session \
+            --dest com.mitchellh.ghostty \
+            --object-path /com/mitchellh/ghostty \
+            --method org.gtk.Actions.Activate \
+            "reload-config" "[]" "{}" 2>/dev/null
+    fi
 fi
 
 # --- Vivaldi ---
@@ -46,11 +85,12 @@ if pgrep -x "cava" > /dev/null; then
 fi
 
 # --- tmux ---
-# Source the new matugen colors into all running tmux sessions
+# Source the new matugen colors into all running tmux sessions.
+# Note: pgrep -x "tmux" won't match "tmux: server" — use tmux list-sessions instead.
 if [ -f /tmp/matugen-tmux-colors.conf ] && command -v tmux &>/dev/null; then
-    for session in $(tmux list-sessions -F '#S' 2>/dev/null); do
+    if tmux list-sessions &>/dev/null; then
         tmux source-file /tmp/matugen-tmux-colors.conf 2>/dev/null
-    done
+    fi
 fi
 
 # --- Neovim ---

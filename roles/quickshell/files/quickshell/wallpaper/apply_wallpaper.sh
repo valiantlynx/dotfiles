@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Debug wrapper for wallpaper apply - logs everything
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
+
 WALL_FILE="$1"
 THUMB_FILE="$2"
 RELOAD_SCRIPT="$3"

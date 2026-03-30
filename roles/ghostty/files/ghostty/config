@@ -34,16 +34,31 @@ custom-shader = shaders/cursor_smear.glsl
 # # a comment after a config option, since it would be interpreted as a
 # # part of the value. For example, this will have a value of "#123abc":
 # background = #123abc
-theme = Gruvbox Dark
 window-decoration = true
 confirm-close-surface=false
 
-# Dynamic Material You colors from matugen (overrides theme palette when active)
-config-file = /tmp/matugen-ghostty-colors.conf
-# # Empty values are used to reset config keys to default.
-# key =
-#
-# # Some config options have unique syntaxes for their value,
-# # which is explained in the docs for that config option.
-# # Just for example:
-# resize-overlay-duration = 4s 200ms
+# --- MATUGEN_START ---
+# Dynamic Material You colors (spliced by matugen-reload.sh)
+palette = 0=#121318
+palette = 1=#ffb4ab
+palette = 2=#c0c6dd
+palette = 3=#e1bbdc
+palette = 4=#b2c5ff
+palette = 5=#5a3d59
+palette = 6=#404659
+palette = 7=#e3e2e9
+palette = 8=#33343a
+palette = 9=#93000a
+palette = 10=#c0c6dd
+palette = 11=#e1bbdc
+palette = 12=#304578
+palette = 13=#5a3d59
+palette = 14=#404659
+palette = 15=#e3e2e9
+background = #0d0e13
+foreground = #e3e2e9
+cursor-color = #b2c5ff
+selection-background = #292a2f
+selection-foreground = #e3e2e9
+# --- MATUGEN_END ---
+

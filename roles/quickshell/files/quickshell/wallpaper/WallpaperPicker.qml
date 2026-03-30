@@ -890,6 +890,7 @@ Item {
 
                     if (alreadyExists) {
                         const applyScript = `
+                            export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
                             export DEST_FILE="${escapeBash(destFile)}"
                             export FINAL_THUMB="${escapeBash(finalThumb)}"
                             export RELOAD_SCRIPT="${escapeBash(reloadScript)}"
@@ -907,6 +908,7 @@ Item {
                         window.currentDownloadName = safeFileName;
 
                         const downloadScript = `
+                            export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
                             export SAFE_NAME="${escapeBash(safeFileName)}"
                             export DEST_FILE="${escapeBash(destFile)}"
                             export FINAL_THUMB="${escapeBash(finalThumb)}"
