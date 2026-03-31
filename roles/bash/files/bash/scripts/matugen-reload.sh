@@ -83,10 +83,11 @@ if [ -f /tmp/matugen-vivaldi-colors.json ]; then
 fi
 
 # --- Cava ---
-# Rebuild merged config and hot-reload
-if pgrep -x "cava" > /dev/null; then
-    if [ -f ~/.config/cava/config_base ] && [ -f ~/.config/cava/colors ]; then
-        cat ~/.config/cava/config_base ~/.config/cava/colors > ~/.config/cava/config 2>/dev/null
+# Always rebuild merged config so it's fresh when cava launches.
+# Send SIGUSR1 to hot-reload if cava is already running.
+if [ -f ~/.config/cava/config_base ] && [ -f ~/.config/cava/colors ]; then
+    cat ~/.config/cava/config_base ~/.config/cava/colors > ~/.config/cava/config 2>/dev/null
+    if pgrep -x "cava" > /dev/null; then
         killall -USR1 cava 2>/dev/null
     fi
 fi

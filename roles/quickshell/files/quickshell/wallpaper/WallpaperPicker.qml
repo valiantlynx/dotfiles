@@ -946,28 +946,18 @@ Item {
                 const originalFile = window.srcDir + "/" + cleanName
                 const thumbFile = Quickshell.env("HOME") + "/.cache/wallpaper_picker/thumbs/" + safeFileName 
                 
-                let wallpaperCmd = ""
-                let lockBgCmd = ""
-                
                 const escOriginal = escapeBash(originalFile);
                 const escThumb = escapeBash(thumbFile);
                 const escReload = escapeBash(reloadScript);
 
-                if (isVideo) {
-                    wallpaperCmd = `mpvpaper -o 'loop --no-audio --hwdec=auto --profile=high-quality --video-sync=display-resample --interpolation --tscale=oversample' '*' "$WALL_FILE"`
-                    lockBgCmd = `cp "$THUMB_FILE" /tmp/lock_bg.png`
-                } else {
-                    const randomTransition = window.transitions[Math.floor(Math.random() * window.transitions.length)]
-                    wallpaperCmd = `swww img "$WALL_FILE" --transition-type ${randomTransition} --transition-pos 0.5,0.5 --transition-fps 144 --transition-duration 1`
-                    lockBgCmd = `cp "$WALL_FILE" /tmp/lock_bg.png`
-                }
+                const randomTransition = window.transitions[Math.floor(Math.random() * window.transitions.length)]
 
                 let applyScript = Qt.resolvedUrl("apply_wallpaper.sh").toString()
                 if (applyScript.startsWith("file://")) {
                     applyScript = decodeURIComponent(applyScript.substring(7))
                 }
 
-                const fullScript = `bash "${escapeBash(applyScript)}" "${escOriginal}" "${escThumb}" "${escReload}" '${wallpaperCmd}' '${lockBgCmd}' & disown`
+                const fullScript = `bash "${escapeBash(applyScript)}" "${escOriginal}" "${escThumb}" "${escReload}" "${randomTransition}" & disown`
                 Quickshell.execDetached(["bash", "-c", fullScript])
                 Quickshell.execDetached(["bash", "-c", "echo 'close' > /tmp/qs_widget_state"])
             }
