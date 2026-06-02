@@ -16,7 +16,7 @@ output_path = "/tmp/matugen-waybar-colors.css"
 
 [templates.rofi]
 input_path = "~/.config/matugen/templates/rofi-colors.rasi.template"
-output_path = "/tmp/matugen-rofi-colors.rasi"
+output_path = "~/.config/rofi/matugen-colors.rasi"
 
 [templates.swaync]
 input_path = "~/.config/matugen/templates/swaync-colors.css.template"

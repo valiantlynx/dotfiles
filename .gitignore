@@ -14,3 +14,4 @@ roles/bash/files/wallpapers/wallpaper
 # API keys
 .env
 **/.env
+git/
