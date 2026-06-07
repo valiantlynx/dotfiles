@@ -1,12 +1,12 @@
-/* Fallback colors until matugen regenerates this file */
+/* Matugen-generated Rofi colors */
 * {
-  bg-col: #1D2021;
-  bg-col-light: #282828;
-  border-col: #A89984;
-  selected-col: #3C3836;
-  green: #98971A;
-  fg-col: #FBF1C7;
-  fg-col2: #EBDBB2;
-  grey: #BDAE93;
-  highlight: #98971A;
+  bg-col: #0a0f0c;
+  bg-col-light: #181d19;
+  border-col: #8a938b;
+  selected-col: #1c211d;
+  green: #b5ccba;
+  fg-col: #dfe4dd;
+  fg-col2: #c0c9c0;
+  grey: #8a938b;
+  highlight: #93d5a9;
 }

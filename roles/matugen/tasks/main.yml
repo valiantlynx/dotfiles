@@ -29,3 +29,20 @@
     src: "matugen/templates/"
     dest: "{{ ansible_user_dir }}/.config/matugen/templates/"
     mode: "0644"
+
+- name: "matugen | Regenerate theme from current wallpaper"
+  ansible.builtin.shell: |
+    set -e
+    wallpaper_path="{{ ansible_user_dir }}/.dotfiles/roles/bash/files/wallpapers/wallpaper"
+    current_wallpaper="$(readlink -f "$wallpaper_path")"
+    if [ -n "$current_wallpaper" ] && [ -f "$current_wallpaper" ]; then
+      matugen image "$current_wallpaper"
+      if command -v matugen-reload >/dev/null 2>&1; then
+        matugen-reload
+      fi
+    fi
+  args:
+    executable: /bin/bash
+  environment:
+    PATH: "{{ ansible_user_dir }}/.cargo/bin:{{ ansible_user_dir }}/.local/bin:/usr/local/bin:{{ ansible_env.PATH }}"
+  changed_when: false
