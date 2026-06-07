@@ -31,7 +31,6 @@ default_roles:
   #- unrealengine
   - uv
   - nvidia
-  - vscode
   - vivaldi
   - chromium
   #- ros2
