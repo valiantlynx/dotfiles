@@ -36,29 +36,29 @@ custom-shader = shaders/cursor_smear.glsl
 # background = #123abc
 window-decoration = true
 confirm-close-surface=false
+gtk-single-instance = false
 
 # --- MATUGEN_START ---
 # Dynamic Material You colors (spliced by matugen-reload.sh)
-palette = 0=#16130b
+palette = 0=#0f1511
 palette = 1=#ffb4ab
-palette = 2=#d6c5a0
-palette = 3=#aecfad
-palette = 4=#e4c36c
-palette = 5=#304d33
-palette = 6=#51462a
-palette = 7=#eae1d4
-palette = 8=#39342b
+palette = 2=#b5ccba
+palette = 3=#a3cddb
+palette = 4=#93d5aa
+palette = 5=#224c58
+palette = 6=#374b3e
+palette = 7=#dfe4dd
+palette = 8=#313632
 palette = 9=#93000a
-palette = 10=#d6c5a0
-palette = 11=#aecfad
-palette = 12=#594400
-palette = 13=#304d33
-palette = 14=#51462a
-palette = 15=#eae1d4
-background = #110e07
-foreground = #eae1d4
-cursor-color = #e4c36c
-selection-background = #2e2a21
-selection-foreground = #eae1d4
+palette = 10=#b5ccba
+palette = 11=#a3cddb
+palette = 12=#0a5131
+palette = 13=#224c58
+palette = 14=#374b3e
+palette = 15=#dfe4dd
+background = #0a0f0c
+foreground = #dfe4dd
+cursor-color = #93d5aa
+selection-background = #262b27
+selection-foreground = #dfe4dd
 # --- MATUGEN_END ---
-
