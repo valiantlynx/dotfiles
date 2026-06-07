@@ -1,0 +1,31 @@
+---
+- name: Run Ubuntu Tasks
+  ansible.builtin.include_tasks: Ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Navi | Ensure config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/navi"
+    state: directory
+    mode: "0755"
+
+- name: Navi | Copy app files
+  ansible.builtin.copy:
+    src: navi/
+    dest: "{{ ansible_user_dir }}/.config/navi/"
+    mode: preserve
+    directory_mode: "0755"
+
+- name: Navi | Install launcher script
+  ansible.builtin.copy:
+    src: navi.sh
+    dest: "{{ ansible_user_dir }}/.local/bin/navi"
+    mode: "0755"
+
+- name: Navi | Link launcher system-wide
+  ansible.builtin.file:
+    src: "{{ ansible_user_dir }}/.local/bin/navi"
+    dest: /usr/local/bin/navi
+    state: link
+    force: true
+  become: true
