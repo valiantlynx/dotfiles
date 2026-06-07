@@ -12,7 +12,7 @@
 @define-color green #98971A;
 
 /* Matugen dynamic colors — overrides the above when generated */
-@import url("/tmp/matugen-swaync-colors.css");
+@import url("file:///home/valiantlynx/.config/swaync/matugen-colors.css");
 
 * {
     font-family: "NotoSansMono Nerd Font";

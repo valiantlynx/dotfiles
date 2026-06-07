@@ -16,11 +16,11 @@ output_path = "~/.config/rofi/matugen-colors.rasi"
 
 [templates.swaync]
 input_path = "~/.config/matugen/templates/swaync-colors.css.template"
-output_path = "/tmp/matugen-swaync-colors.css"
+output_path = "~/.config/swaync/matugen-colors.css"
 
 [templates.swayosd]
 input_path = "~/.config/matugen/templates/swayosd-colors.css.template"
-output_path = "/tmp/matugen-swayosd-colors.css"
+output_path = "~/.config/swayosd/matugen-colors.css"
 
 [templates.hyprland]
 input_path = "~/.config/matugen/templates/hyprland-colors.conf.template"

@@ -5,7 +5,7 @@
 @define-color progress_bg alpha(#CCCCCC, 0.1);
 
 /* Matugen dynamic colors — overrides the above when generated */
-@import url("/tmp/matugen-swayosd-colors.css");
+@import url("file:///home/valiantlynx/.config/swayosd/matugen-colors.css");
 
 window {
     padding: 0px 10px;

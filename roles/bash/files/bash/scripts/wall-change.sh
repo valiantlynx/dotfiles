@@ -2,6 +2,17 @@
 
 WALLPAPER="$1"
 
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/wall-change"
+LOCK_FILE="$CACHE_DIR/lock"
+
+mkdir -p "$CACHE_DIR"
+exec 9>"$LOCK_FILE"
+
+# Ignore overlapping requests while a change is already in progress.
+if ! flock -n 9; then
+    exit 0
+fi
+
 if [[ -z "$WALLPAPER" || ! -f "$WALLPAPER" ]]; then
     echo "Usage: wall-change <path-to-image-or-video>"
     exit 1
@@ -42,7 +53,7 @@ else
         --transition-type="$random_animation" \
         --transition-pos 0.5,0.5 \
         --transition-fps 144 \
-        --transition-duration 1 &
+        --transition-duration 1
 
     MATUGEN_SOURCE="$WALLPAPER"
 
@@ -61,6 +72,10 @@ if command -v matugen &>/dev/null; then
             matugen-reload
         elif [[ -f "$HOME/.dotfiles/roles/bash/files/bash/scripts/matugen-reload.sh" ]]; then
             bash "$HOME/.dotfiles/roles/bash/files/bash/scripts/matugen-reload.sh"
+        fi
+
+        if command -v notify-send >/dev/null 2>&1; then
+            notify-send "Theme updated"
         fi
     ) >/dev/null 2>&1 &
 fi
