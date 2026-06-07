@@ -39,6 +39,7 @@ default_roles:
   #- kitty
   - hyprland
   - hypr-monitors
+  - machine-core
   - navi
   - matugen
   - cava

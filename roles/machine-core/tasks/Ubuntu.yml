@@ -1,0 +1,17 @@
+---
+- name: Machine Core | Check if machine-core is installed
+  ansible.builtin.shell: command -v machine-core || echo "not installed"
+  register: machine_core_check
+  changed_when: false
+
+- name: Machine Core | Install machine-core
+  when: machine_core_check.stdout == "not installed"
+  ansible.builtin.shell: curl -fsSL https://raw.githubusercontent.com/samletnorge/machine-core/main/scripts/install.sh | bash
+  args:
+    executable: /bin/bash
+  register: machine_core_install
+
+- name: Machine Core | Show installation output
+  ansible.builtin.debug:
+    var: machine_core_install.stdout_lines
+  when: machine_core_install is defined
