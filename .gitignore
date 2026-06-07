@@ -3,6 +3,8 @@
 .ansible/
 vault-password.txt
 /callback_plugins/__pycache__
+**/__pycache__/
+*.pyc
 
 roles/neovim/files/lazy-lock.json
 
