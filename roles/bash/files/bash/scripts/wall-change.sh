@@ -56,7 +56,7 @@ fi
 if $IS_VIDEO; then
     # --- Video wallpaper via mpvpaper ---
     if command -v mpvpaper &>/dev/null; then
-        mpvpaper -o 'loop --no-audio --hwdec=auto --profile=high-quality --video-sync=display-resample --interpolation --tscale=oversample' '*' "$WALLPAPER" &
+        mpvpaper -o 'loop --no-audio --hwdec=auto --profile=high-quality --video-sync=display-resample --interpolation --tscale=oversample --panscan=1.0' '*' "$WALLPAPER" &
     else
         echo "Error: mpvpaper not installed. Cannot set video wallpapers."
         exit 1

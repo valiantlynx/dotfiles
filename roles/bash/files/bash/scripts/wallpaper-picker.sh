@@ -37,7 +37,7 @@ wallpaper_name="$(
 )"
 
 if [[ -n "$wallpaper_name" && -f "$wallpapers_folder/$wallpaper_name" ]]; then
-    runbg wall-change "$wallpapers_folder/$wallpaper_name"
+    wall-change "$wallpapers_folder/$wallpaper_name" &
 else
     exit 1
 fi

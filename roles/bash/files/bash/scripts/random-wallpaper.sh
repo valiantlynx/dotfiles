@@ -18,4 +18,4 @@ while true; do
 done
 
 ln -sf "$wallpapers_folder/$wallpaper_name" "$wallpaper_path/wallpaper"
-runbg wall-change "$wallpaper_path/wallpaper"
+wall-change "$wallpaper_path/wallpaper" &
