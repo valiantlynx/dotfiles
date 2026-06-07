@@ -1,5 +1,5 @@
 /* Import matugen-generated colors (falls back gracefully if not yet generated) */
-@import url("/tmp/matugen-waybar-colors.css");
+@import url("file:///home/valiantlynx/.config/waybar/matugen-colors.css");
 
 * {
   border: none;

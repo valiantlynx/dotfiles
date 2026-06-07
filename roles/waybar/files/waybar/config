@@ -67,9 +67,9 @@
     "bluetooth": {
       "format": "{icon}",
       "format-icons": {
-        "enabled": "",
-        "disabled": "",
-        "connected": ""
+        "enabled": "",
+        "disabled": "󰂲",
+        "connected": "󰂱"
       },
       "tooltip-format": "{controller_alias}\t{controller_address}",
       "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
@@ -130,9 +130,9 @@
     "modules-right": [
       "cpu",
       "memory",
-      "bluetooth",
       "pulseaudio",
       "network",
+      "bluetooth",
       "battery",
       "custom/notification"
     ],
