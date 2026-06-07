@@ -22,13 +22,16 @@ wallpaper_name="$(
     -show-icons \
     -selected-row "$selected_index" \
     -markup-rows \
-    -theme-str 'window { width: 92%; height: 84%; border: 2px; border-radius: 18px; }' \
-    -theme-str 'mainbox { children: [inputbar, message, listview]; spacing: 14px; padding: 18px; }' \
-    -theme-str 'inputbar { padding: 10px 14px; border-radius: 14px; }' \
-    -theme-str 'listview { columns: 4; lines: 3; spacing: 14px; cycle: true; dynamic: false; }' \
-    -theme-str 'element { orientation: vertical; padding: 14px; border-radius: 16px; }' \
-    -theme-str 'element-icon { size: 220px; border-radius: 12px; }' \
-    -theme-str 'element-text { horizontal-align: 0.5; vertical-align: 0.5; margin: 10px 0px 0px 0px; }' \
+    -theme-str 'window { width: 92%; height: 84%; border: 2px; border-radius: 0px; }' \
+    -theme-str 'mainbox { children: [inputbar, message, listview]; spacing: 12px; padding: 14px; }' \
+    -theme-str 'inputbar { padding: 8px 10px; border-radius: 0px; }' \
+    -theme-str 'message { padding: 6px 10px; border-radius: 0px; }' \
+    -theme-str 'textbox { background-color: inherit; text-color: inherit; }' \
+    -theme-str 'listview { columns: 3; lines: 2; spacing: 10px; cycle: true; dynamic: false; scrollbar: false; }' \
+    -theme-str 'element { orientation: vertical; padding: 8px; border-radius: 0px; }' \
+    -theme-str 'element selected { border-radius: 0px; }' \
+    -theme-str 'element-icon { size: 260px; border-radius: 0px; }' \
+    -theme-str 'element-text { horizontal-align: 0.5; vertical-align: 0.5; margin: 6px 0px 0px 0px; }' \
     -theme-str 'textbox-prompt-colon { str: ""; }' \
     -mesg 'Select a wallpaper preview' || pkill rofi
 )"
