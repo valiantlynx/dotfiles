@@ -4,11 +4,11 @@
   when: ansible_os_family == 'Debian'
 
 - name: Run Arch Tasks
-  ansible.builtin.import_tasks: Archlinux.yml
+  ansible.builtin.include_tasks: Archlinux.yml
   when: ansible_os_family == 'Archlinux'
 
 - name: Run Darwin Tasks
-  ansible.builtin.import_tasks: Darwin.yml
+  ansible.builtin.include_tasks: Darwin.yml
   when: ansible_os_family == 'Darwin'
 
 - name: "System | Set hosts"
@@ -83,4 +83,3 @@
       loop:
         - /tmp/win32yank.zip
         - /tmp/win32yank.exe
-

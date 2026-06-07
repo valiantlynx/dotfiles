@@ -1,6 +1,12 @@
 ---
+- name: "SSH | Ensure .ssh directory exists"
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.ssh"
+    state: directory
+    mode: '0700'
+
 - name: "SSH | Copy SSH keys"
-  copy:
+  ansible.builtin.copy:
     dest: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.ssh/{{ ssh_key_item.key }}"
     content: "{{ ssh_key_item.value }}"
     mode: 0600
@@ -15,7 +21,7 @@
 #     src: "config.j2"
 
 - name: "SSH | Ensure SSH agent is running"
-  shell: |
+  ansible.builtin.shell: |
     if [ -z "$SSH_AUTH_SOCK" ] || ! kill -0 "$SSH_AGENT_PID" 2>/dev/null; then
         eval $(ssh-agent -s)
     fi
@@ -26,7 +32,7 @@
   changed_when: false
 
 - name: "SSH | Add SSH keys to agent"
-  shell: |
+  ansible.builtin.shell: |
     # Source the agent if it was just started
     if [ -n "{{ ssh_agent_result.stdout }}" ]; then
         eval "{{ ssh_agent_result.stdout }}"
@@ -46,7 +52,7 @@
   no_log: true
 
 - name: "SSH | Add SSH agent startup to shell configuration"
-  blockinfile:
+  ansible.builtin.blockinfile:
     path: "{{ ansible_user_dir | default(ansible_env.HOME) }}/.{{ item }}"
     block: |
       # SSH Agent Setup - Added by Ansible
@@ -77,23 +83,23 @@
   ignore_errors: true
 
 - name: "SSH | Test SSH connection to GitHub"
-  shell: ssh -T git@github.com
+  ansible.builtin.shell: ssh -T git@github.com
   register: github_ssh_test
   failed_when: github_ssh_test.rc not in [0, 1]  # Exit code 1 is normal for GitHub SSH test
   changed_when: false
 
 - name: "SSH | Display GitHub SSH test result"
-  debug:
+  ansible.builtin.debug:
     msg: "GitHub SSH connection test: {{ github_ssh_test.stderr }}"
   when: github_ssh_test.stderr is defined
 
 - name: Check if dotfiles directory exists
-  stat:
+  ansible.builtin.stat:
     path: "{{ ansible_user_dir }}/.dotfiles"
   register: dotfiles_dir
 
 - name: Change Git remote from HTTPS to SSH
-  command: git remote set-url origin git@github.com:valiantlynx/dotfiles.git
+  ansible.builtin.command: git remote set-url origin git@github.com:valiantlynx/dotfiles.git
   args:
     chdir: "{{ ansible_user_dir }}/.dotfiles"
   when: dotfiles_dir.stat.exists and dotfiles_dir.stat.isdir

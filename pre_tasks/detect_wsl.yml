@@ -25,12 +25,18 @@
     cmd: Test-Path C:\Windows\System32
     executable: powershell.exe
   register: windows_detection_result
+  when: ansible_system is defined and ansible_system == 'Win32NT'
   ignore_errors: true
   changed_when: false
 
 - name: Register Native Windows State fact
   ansible.builtin.set_fact:
-    ansible_host_environment_is_windows: "{{ windows_detection_result.rc == 0 and not ansible_host_environment_is_wsl }}"
+    ansible_host_environment_is_windows: "{{ (windows_detection_result.rc | default(1)) == 0 and not ansible_host_environment_is_wsl }}"
+
+- name: Default Native Windows State fact
+  ansible.builtin.set_fact:
+    ansible_host_environment_is_windows: false
+  when: windows_detection_result is not defined
 
 - name: Detect Ubuntu OS
   ansible.builtin.shell: |

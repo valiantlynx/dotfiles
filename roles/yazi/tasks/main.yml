@@ -1,15 +1,15 @@
 ---
 - name: Run Ubuntu Tasks
-  ansible.builtin.import_tasks: Ubuntu.yml
+  ansible.builtin.include_tasks: Ubuntu.yml
   when: ansible_os_family == 'Debian'
 
 - name: Run Arch Tasks
-  ansible.builtin.import_tasks: Archlinux.yml
+  ansible.builtin.include_tasks: Archlinux.yml
   when: ansible_os_family == 'Archlinux'
 
 
 - name: Run Darwin Tasks
-  ansible.builtin.import_tasks: Darwin.yml
+  ansible.builtin.include_tasks: Darwin.yml
   when: ansible_os_family == 'Darwin'
 
 - name: "yazi | Config folder"
