@@ -40,25 +40,25 @@ gtk-single-instance = false
 
 # --- MATUGEN_START ---
 # Dynamic Material You colors (spliced by matugen-reload.sh)
-palette = 0=#0f1511
+palette = 0=#14140c
 palette = 1=#ffb4ab
-palette = 2=#b5ccba
-palette = 3=#a3cddb
-palette = 4=#93d5aa
-palette = 5=#224c58
-palette = 6=#374b3e
-palette = 7=#dfe4dd
-palette = 8=#313632
+palette = 2=#ccc8a3
+palette = 3=#a5d0ba
+palette = 4=#d0c973
+palette = 5=#274e3d
+palette = 6=#4a482c
+palette = 7=#e7e2d5
+palette = 8=#36352c
 palette = 9=#93000a
-palette = 10=#b5ccba
-palette = 11=#a3cddb
-palette = 12=#0a5131
-palette = 13=#224c58
-palette = 14=#374b3e
-palette = 15=#dfe4dd
-background = #0a0f0c
-foreground = #dfe4dd
-cursor-color = #93d5aa
-selection-background = #262b27
-selection-foreground = #dfe4dd
+palette = 10=#ccc8a3
+palette = 11=#a5d0ba
+palette = 12=#4d4800
+palette = 13=#274e3d
+palette = 14=#4a482c
+palette = 15=#e7e2d5
+background = #0f0e07
+foreground = #e7e2d5
+cursor-color = #d0c973
+selection-background = #2b2a21
+selection-foreground = #e7e2d5
 # --- MATUGEN_END ---

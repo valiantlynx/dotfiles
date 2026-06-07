@@ -30,10 +30,8 @@ if pgrep -x "Hyprland" > /dev/null; then
 fi
 
 # --- Ghostty ---
-# Ghostty does NOT hot-reload palette/background colors from config changes.
-# Instead we use Ghostty's OSC 5577 escape sequence to push color changes
-# directly to all running terminal sessions, AND update the config file
-# (so new windows/restarts get the right colors).
+# Ghostty supports SIGUSR2 to reload configuration without closing the app.
+# Update the config file for persistence, then signal the running app.
 if pgrep -x "ghostty" > /dev/null; then
     GHOSTTY_CONF="$HOME/.config/ghostty/config"
     MATUGEN_COLORS="/tmp/matugen-ghostty-colors.conf"
@@ -67,12 +65,8 @@ with open(conf, 'w') as f:
     f.writelines(new)
 " 2>/dev/null
         fi
-        # 2) Trigger Ghostty to reload config via DBus
-        gdbus call --session \
-            --dest com.mitchellh.ghostty \
-            --object-path /com/mitchellh/ghostty \
-            --method org.gtk.Actions.Activate \
-            "reload-config" "[]" "{}" 2>/dev/null
+        # 2) Reload Ghostty in place.
+        killall -SIGUSR2 ghostty 2>/dev/null || true
     fi
 fi
 

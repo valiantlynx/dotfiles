@@ -1,12 +1,12 @@
 /* Matugen-generated Rofi colors */
 * {
-  bg-col: #110e07;
-  bg-col-light: #1f1b13;
-  border-col: #989080;
-  selected-col: #231f17;
-  green: #d6c5a0;
-  fg-col: #eae1d4;
-  fg-col2: #cfc5b4;
-  grey: #989080;
-  highlight: #e4c36c;
+  bg-col: #0a0f12;
+  bg-col-light: #171c1f;
+  border-col: #8a9297;
+  selected-col: #1b2023;
+  green: #b4cad6;
+  fg-col: #dfe3e7;
+  fg-col2: #c0c8cd;
+  grey: #8a9297;
+  highlight: #8ccff0;
 }

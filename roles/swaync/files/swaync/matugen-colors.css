@@ -1,12 +1,12 @@
 /* Matugen-generated SwayNC colors */
 @define-color shadow rgba(0, 0, 0, 0.25);
-@define-color base #231f17;
-@define-color mantle #1f1b13;
-@define-color crust #110e07;
-@define-color text #eae1d4;
-@define-color subtext0 #cfc5b4;
-@define-color subtext1 #989080;
-@define-color surface0 #231f17;
-@define-color surface1 #2e2a21;
-@define-color surface2 #39342b;
-@define-color green #d6c5a0;
+@define-color base #1b2023;
+@define-color mantle #171c1f;
+@define-color crust #0a0f12;
+@define-color text #dfe3e7;
+@define-color subtext0 #c0c8cd;
+@define-color subtext1 #8a9297;
+@define-color surface0 #1b2023;
+@define-color surface1 #262b2e;
+@define-color surface2 #303538;
+@define-color green #b4cad6;
