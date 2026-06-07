@@ -2,10 +2,6 @@
 reload_apps = false
 prefer = "darkness"
 
-[templates.quickshell]
-input_path = "~/.config/matugen/templates/quickshell-colors.json.template"
-output_path = "/tmp/qs_colors.json"
-
 [templates.ghostty]
 input_path = "~/.config/matugen/templates/ghostty-colors.conf.template"
 output_path = "/tmp/matugen-ghostty-colors.conf"

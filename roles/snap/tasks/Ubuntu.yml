@@ -19,6 +19,15 @@
     - ansible_service_mgr == 'systemd'
     - ansible_system == 'Linux'
 
+- name: Ensure /snap symlink exists
+  ansible.builtin.file:
+    src: /var/lib/snapd/snap
+    dest: /snap
+    state: link
+    force: true
+  become: true
+  when: ansible_system == 'Linux'
+
 - name: Wait for Snap to be ready
   ansible.builtin.command: snap wait system seed.loaded
   changed_when: false

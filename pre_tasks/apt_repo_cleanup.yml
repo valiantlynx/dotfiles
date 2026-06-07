@@ -1,0 +1,7 @@
+---
+- name: Remove legacy EduVPN apt list
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/eduvpn-v4.list
+    state: absent
+  become: true
+  when: ansible_os_family == 'Debian'

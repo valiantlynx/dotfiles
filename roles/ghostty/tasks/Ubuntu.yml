@@ -1,4 +1,7 @@
 ---
-- name: ghostty | install ghostty wtth the provided script 
-  ansible.builtin.shell: |
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mkasberg/ghostty-ubuntu/HEAD/install.sh)"
+- name: ghostty | Ubuntu | Install ghostty
+  ansible.builtin.apt:
+    name: ghostty
+    state: present
+    update_cache: true
+  become: true

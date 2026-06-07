@@ -39,7 +39,6 @@ default_roles:
   #- kitty
   - hyprland
   - matugen
-  - quickshell
   - cava
   - mpvpaper
   - rofi

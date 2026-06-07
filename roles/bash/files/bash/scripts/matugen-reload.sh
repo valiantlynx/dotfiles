@@ -2,10 +2,10 @@
 # matugen_reload.sh — Hot-reload all apps after matugen generates new colors
 # Called by wall-change.sh after matugen finishes
 
-# Ensure nvim and other tools are on PATH (quickshell/hyprland may not source .bashrc)
+# Ensure nvim and other tools are on PATH in non-interactive sessions.
 export PATH="$HOME/.cargo/bin:$HOME/.local/bin:/opt/nvim-linux-x86_64/bin:$PATH"
 
-# Ensure session bus is available (quickshell may not inherit these)
+# Ensure session bus is available for desktop reload helpers.
 export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=$XDG_RUNTIME_DIR/bus}"
 

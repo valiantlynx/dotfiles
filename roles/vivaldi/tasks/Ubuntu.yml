@@ -3,16 +3,21 @@
   ansible.builtin.set_fact:
     vivaldi_target_version: "7.5.3735.44"
 
+- name: "Vivaldi | Set target package version"
+  ansible.builtin.set_fact:
+    vivaldi_target_package_version: "{{ vivaldi_target_version }}-1"
+
 - name: "Vivaldi | Getting current version information"
   ansible.builtin.command:
     cmd: dpkg-query -W -f='${Version}' vivaldi-stable
   register: current_vivaldi_version
+  check_mode: false
   changed_when: false
   failed_when: false
 
 - name: "Vivaldi | Extract current version"
   ansible.builtin.set_fact:
-    current_vivaldi_version: "{{ current_vivaldi_version.stdout | default('0.0.0') }}"
+    current_vivaldi_version: "{{ current_vivaldi_version.stdout | default('') }}"
 
 - name: "Vivaldi | Show current version debug"
   ansible.builtin.debug:
@@ -22,8 +27,25 @@
   ansible.builtin.debug:
     var: vivaldi_target_version
 
+- name: "Vivaldi | Check whether target version is newer"
+  ansible.builtin.command:
+    cmd: dpkg --compare-versions {{ vivaldi_target_package_version }} gt {{ current_vivaldi_version }}
+  register: vivaldi_upgrade_check
+  check_mode: false
+  changed_when: false
+  failed_when: false
+  when: current_vivaldi_version != ''
+
+- name: "Vivaldi | Decide whether installation is needed"
+  ansible.builtin.set_fact:
+    vivaldi_install_needed: "{{ current_vivaldi_version == '' or (vivaldi_upgrade_check.rc | default(1)) == 0 }}"
+
+- name: "Vivaldi | Show install decision debug"
+  ansible.builtin.debug:
+    var: vivaldi_install_needed
+
 - name: "Vivaldi | Install"
-  when: vivaldi_target_version not in current_vivaldi_version|default('0.0.0')
+  when: vivaldi_install_needed
   block:
     - name: "Vivaldi | Define architecture"
       ansible.builtin.set_fact:

@@ -38,7 +38,7 @@
       "on-click-right": "hyprctl dispatch exec '[float; center; size 850 550] ghostty  --title=float_btop -e btop'"
     },
     "custom/launcher": {
-      "format": "",
+      "format": "",
       "on-click-right": "random-wallpaper",
       "on-click": "hyprctl dispatch exec '[float; center;] rofi -show drun || pkill rofi'",
       "tooltip": "true",
@@ -63,18 +63,6 @@
       "on-click-right": "swaync-client -d -sw",
       "return-type": "json",
       "tooltip": false
-    },
-    "bluetooth": {
-      "format": "{icon}",
-      "format-icons": {
-        "enabled": "",
-        "disabled": "󰂲",
-        "connected": "󰂱"
-      },
-      "tooltip-format": "{controller_alias}\t{controller_address}",
-      "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-      "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-      "on-click": "blueman-manager"
     },
     "disk": {
       "format": "󰋊 {percentage_used}%",
@@ -132,7 +120,6 @@
       "memory",
       "pulseaudio",
       "network",
-      "bluetooth",
       "battery",
       "custom/notification"
     ],

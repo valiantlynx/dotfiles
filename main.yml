@@ -27,6 +27,11 @@
       tags:
         - always
 
+    - name: Clean up known broken apt sources
+      ansible.builtin.import_tasks: pre_tasks/apt_repo_cleanup.yml
+      tags:
+        - always
+
   tasks:
     - name: Set roles 
       ansible.builtin.set_fact:
