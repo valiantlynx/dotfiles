@@ -1,7 +1,37 @@
 #!/usr/bin/env bash
 
-wallpapers_folder=$HOME/.dotfiles/shell-wallpapers
-wallpaper_name="$(ls "$wallpapers_folder" | rofi -dmenu -p "Wallpaper" || pkill rofi)"
+set -euo pipefail
+
+wallpapers_folder="$HOME/.dotfiles/shell-wallpapers"
+current_wallpaper_name="$(basename "$(readlink "$HOME/.dotfiles/roles/bash/files/wallpapers/wallpaper" 2>/dev/null || true)")"
+selected_index=0
+
+wallpaper_name="$(
+    i=0
+    for path in "$wallpapers_folder"/*; do
+        [ -f "$path" ] || continue
+        name="$(basename "$path")"
+        if [[ "$name" == "$current_wallpaper_name" ]]; then
+            selected_index=$i
+        fi
+        printf '%s\0icon\x1f%s\n' "$name" "$path"
+        i=$((i + 1))
+    done | rofi -dmenu \
+    -p "Wallpaper" \
+    -i \
+    -show-icons \
+    -selected-row "$selected_index" \
+    -markup-rows \
+    -theme-str 'window { width: 92%; height: 84%; border: 2px; border-radius: 18px; }' \
+    -theme-str 'mainbox { children: [inputbar, message, listview]; spacing: 14px; padding: 18px; }' \
+    -theme-str 'inputbar { padding: 10px 14px; border-radius: 14px; }' \
+    -theme-str 'listview { columns: 4; lines: 3; spacing: 14px; cycle: true; dynamic: false; }' \
+    -theme-str 'element { orientation: vertical; padding: 14px; border-radius: 16px; }' \
+    -theme-str 'element-icon { size: 220px; border-radius: 12px; }' \
+    -theme-str 'element-text { horizontal-align: 0.5; vertical-align: 0.5; margin: 10px 0px 0px 0px; }' \
+    -theme-str 'textbox-prompt-colon { str: ""; }' \
+    -mesg 'Select a wallpaper preview' || pkill rofi
+)"
 
 if [[ -n "$wallpaper_name" && -f "$wallpapers_folder/$wallpaper_name" ]]; then
     runbg wall-change "$wallpapers_folder/$wallpaper_name"
