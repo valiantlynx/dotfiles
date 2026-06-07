@@ -1,0 +1,31 @@
+---
+- name: Run Ubuntu Tasks
+  ansible.builtin.include_tasks: Ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Hypr Monitors | Ensure config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}/.config/hypr-monitors"
+    state: directory
+    mode: "0755"
+
+- name: Hypr Monitors | Copy app files
+  ansible.builtin.copy:
+    src: hypr-monitors/
+    dest: "{{ ansible_user_dir }}/.config/hypr-monitors/"
+    mode: preserve
+    directory_mode: "0755"
+
+- name: Hypr Monitors | Install launcher script
+  ansible.builtin.copy:
+    src: hypr-monitors.sh
+    dest: "{{ ansible_user_dir }}/.local/bin/hypr-monitors"
+    mode: "0755"
+
+- name: Hypr Monitors | Link launcher system-wide
+  ansible.builtin.file:
+    src: "{{ ansible_user_dir }}/.local/bin/hypr-monitors"
+    dest: /usr/local/bin/hypr-monitors
+    state: link
+    force: true
+  become: true
