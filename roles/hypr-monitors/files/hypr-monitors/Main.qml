@@ -25,6 +25,8 @@ ApplicationWindow {
     property color accentSoft: "#223a68"
     property color success: "#8fd19e"
     property color danger: "#ff9a9a"
+    property real snapGuideX: -1
+    property real snapGuideY: -1
 
     function cloneData(data) {
         return JSON.parse(JSON.stringify(data))
@@ -32,6 +34,7 @@ ApplicationWindow {
 
     function loadState() {
         monitorState = cloneData(backend.monitors)
+        applyTheme()
         statusText = ""
         for (let i = 0; i < monitorState.length; i++) {
             if (monitorState[i].focused) {
@@ -46,6 +49,20 @@ ApplicationWindow {
         if (monitorState.length === 0)
             return null
         return monitorState[Math.max(0, Math.min(selectedIndex, monitorState.length - 1))]
+    }
+
+    function applyTheme() {
+        let t = backend.theme
+        bg = t.background || bg
+        panel = t.backgroundPanel || panel
+        panelAlt = t.backgroundElement || panelAlt
+        border = t.border || border
+        textStrong = t.text || textStrong
+        textSoft = t.textMuted || textSoft
+        accent = t.primary || accent
+        accentSoft = t.accent || accentSoft
+        success = t.secondary || success
+        danger = t.error || danger
     }
 
     function bounds() {
@@ -74,6 +91,8 @@ ApplicationWindow {
         let bestDist = 1e12
         let bestX = active.layoutX
         let bestY = active.layoutY
+        snapGuideX = -1
+        snapGuideY = -1
         for (let i = 0; i < monitorState.length; i++) {
             if (i === index)
                 continue
@@ -99,6 +118,8 @@ ApplicationWindow {
                     bestDist = dist
                     bestX = Math.round(candidate.x)
                     bestY = Math.round(candidate.y)
+                    snapGuideX = bestX
+                    snapGuideY = bestY
                 }
             }
         }
@@ -113,6 +134,9 @@ ApplicationWindow {
         target: backend
         function onMonitorsChanged() {
             loadState()
+        }
+        function onThemeChanged() {
+            applyTheme()
         }
         function onApplyFinished(message, ok) {
             statusText = message
@@ -182,7 +206,7 @@ ApplicationWindow {
                 readonly property var layoutBounds: bounds()
                 readonly property real layoutWidth: Math.max(1, layoutBounds.maxX - layoutBounds.minX)
                 readonly property real layoutHeight: Math.max(1, layoutBounds.maxY - layoutBounds.minY)
-                readonly property real dynamicScale: Math.min((width - 90) / layoutWidth, (height - 90) / layoutHeight, 0.18)
+                readonly property real dynamicScale: Math.min((width - 110) / layoutWidth, (height - 110) / layoutHeight, 0.22)
                 readonly property real offsetX: (width - (layoutWidth * dynamicScale)) / 2 - layoutBounds.minX * dynamicScale
                 readonly property real offsetY: (height - (layoutHeight * dynamicScale)) / 2 - layoutBounds.minY * dynamicScale
 
@@ -221,6 +245,15 @@ ApplicationWindow {
                         border.color: index === selectedIndex ? accent : "#44546a"
                         z: index === selectedIndex ? 2 : 1
 
+                        Behavior on x {
+                            enabled: !dragArea.drag.active
+                            NumberAnimation { duration: 140; easing.type: Easing.OutCubic }
+                        }
+                        Behavior on y {
+                            enabled: !dragArea.drag.active
+                            NumberAnimation { duration: 140; easing.type: Easing.OutCubic }
+                        }
+
                         Rectangle {
                             anchors.fill: parent
                             anchors.margins: 10
@@ -245,16 +278,44 @@ ApplicationWindow {
                         }
 
                         MouseArea {
+                            id: dragArea
                             anchors.fill: parent
                             drag.target: parent
                             onPressed: selectedIndex = index
                             onPositionChanged: {
                                 monitorState[index].layoutX = Math.round((parent.x - preview.offsetX) / preview.dynamicScale)
                                 monitorState[index].layoutY = Math.round((parent.y - preview.offsetY) / preview.dynamicScale)
+                                snapMonitor(index)
                             }
-                            onReleased: snapMonitor(index)
+                            onReleased: {
+                                snapMonitor(index)
+                                snapGuideX = -1
+                                snapGuideY = -1
+                            }
                         }
                     }
+                }
+
+                Rectangle {
+                    visible: snapGuideX >= 0
+                    width: 2
+                    height: preview.height - 20
+                    x: snapGuideX * preview.dynamicScale + preview.offsetX
+                    y: 10
+                    radius: 1
+                    color: accent
+                    opacity: 0.45
+                }
+
+                Rectangle {
+                    visible: snapGuideY >= 0
+                    width: preview.width - 20
+                    height: 2
+                    x: 10
+                    y: snapGuideY * preview.dynamicScale + preview.offsetY
+                    radius: 1
+                    color: accent
+                    opacity: 0.45
                 }
             }
         }

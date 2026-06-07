@@ -215,6 +215,10 @@ if command -v code-insiders &> /dev/null; then
   alias code='code-insiders'
 fi
 
+if command -v hypr-monitors &> /dev/null; then
+  alias hm='hypr-monitors'
+fi
+
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/valiantlynx/.lmstudio/bin"
 
