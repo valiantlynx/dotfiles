@@ -9,6 +9,7 @@ export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=$XDG_RUNT
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/wall-change"
 LOCK_FILE="$CACHE_DIR/lock"
 PID_FILE="$CACHE_DIR/pid"
+RELOAD_SCRIPT="$HOME/.config/bash/scripts/matugen-reload.sh"
 
 mkdir -p "$CACHE_DIR"
 
@@ -92,10 +93,10 @@ if command -v matugen &>/dev/null; then
         matugen image "$MATUGEN_SOURCE" 2>/dev/null
 
         # Hot-reload all apps with new colors
-        if [[ -x "$(command -v matugen-reload)" ]]; then
+        if [[ -x "$RELOAD_SCRIPT" ]]; then
+            bash "$RELOAD_SCRIPT"
+        elif command -v matugen-reload >/dev/null 2>&1; then
             matugen-reload
-        elif [[ -f "$HOME/.dotfiles/roles/bash/files/bash/scripts/matugen-reload.sh" ]]; then
-            bash "$HOME/.dotfiles/roles/bash/files/bash/scripts/matugen-reload.sh"
         fi
 
         if command -v notify-send >/dev/null 2>&1; then

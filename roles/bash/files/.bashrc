@@ -186,6 +186,11 @@ if [ -f "$HOME/.cargo/env" ]; then
   . "$HOME/.cargo/env"
 fi
 
+# Ensure opencode is available without rerunning its installer.
+if [ -d "$HOME/.opencode/bin" ]; then
+  export PATH="$HOME/.opencode/bin:$PATH"
+fi
+
 # check if neovim is installed
 if [ -f "/opt/nvim-linux-x86_64/bin/nvim" ]; then
   export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
