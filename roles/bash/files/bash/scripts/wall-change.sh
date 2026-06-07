@@ -51,15 +51,16 @@ else
 fi
 
 # --- matugen: generate Material You colors from the wallpaper ---
+# Run asynchronously so the wallpaper transition shows immediately.
 if command -v matugen &>/dev/null; then
-    matugen image "$MATUGEN_SOURCE" 2>/dev/null
+    (
+        matugen image "$MATUGEN_SOURCE" 2>/dev/null
 
-    # Hot-reload all apps with new colors
-    if [[ -x "$(command -v matugen-reload)" ]]; then
-        matugen-reload &
-    elif [[ -f "$HOME/.dotfiles/roles/bash/files/bash/scripts/matugen-reload.sh" ]]; then
-        bash "$HOME/.dotfiles/roles/bash/files/bash/scripts/matugen-reload.sh" &
-    fi
+        # Hot-reload all apps with new colors
+        if [[ -x "$(command -v matugen-reload)" ]]; then
+            matugen-reload
+        elif [[ -f "$HOME/.dotfiles/roles/bash/files/bash/scripts/matugen-reload.sh" ]]; then
+            bash "$HOME/.dotfiles/roles/bash/files/bash/scripts/matugen-reload.sh"
+        fi
+    ) >/dev/null 2>&1 &
 fi
-
-wait
