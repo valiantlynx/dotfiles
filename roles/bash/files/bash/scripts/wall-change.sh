@@ -2,16 +2,40 @@
 
 WALLPAPER="$1"
 
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=$XDG_RUNTIME_DIR/bus}"
+
 CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/wall-change"
 LOCK_FILE="$CACHE_DIR/lock"
+PID_FILE="$CACHE_DIR/pid"
 
 mkdir -p "$CACHE_DIR"
+
+if [[ -f "$PID_FILE" ]]; then
+    old_pid="$(cat "$PID_FILE" 2>/dev/null || true)"
+    if [[ -n "$old_pid" ]] && ! kill -0 "$old_pid" 2>/dev/null; then
+        rm -f "$PID_FILE" "$LOCK_FILE"
+    fi
+fi
+
 exec 9>"$LOCK_FILE"
 
 # Ignore overlapping requests while a change is already in progress.
 if ! flock -n 9; then
     exit 0
 fi
+
+printf '%s\n' "$$" >"$PID_FILE"
+
+cleanup() {
+    rm -f "$PID_FILE"
+}
+
+trap cleanup EXIT
+
+# Do not let background children inherit the lock.
+exec 9<&-
 
 if [[ -z "$WALLPAPER" || ! -f "$WALLPAPER" ]]; then
     echo "Usage: wall-change <path-to-image-or-video>"
