@@ -6,3 +6,16 @@ sort_by = "natural"
 sort_dir_first = true
 sort_reverse = false
 sort_sensitive = false
+
+[preview]
+# Use a higher quality filter (options: nearest, triangle, catmull-rom, lanczos3)
+# Lanczos3 provides the best quality but is the slowest.
+image_filter = "lanczos3"
+
+# Increase the preview quality (range 50-90)
+image_quality = 90
+
+# Increase maximum dimensions for high-res displays
+max_width = 3000
+max_height = 3000
+
