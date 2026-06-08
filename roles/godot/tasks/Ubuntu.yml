@@ -1,0 +1,68 @@
+---
+- name: "Godot | Set target version"
+  ansible.builtin.set_fact:
+    godot_target_version: "4.6.3"
+
+- name: "Godot | Define install paths"
+  ansible.builtin.set_fact:
+    godot_install_dir: "/opt/godot"
+    godot_zip_path: "/tmp/godot-{{ godot_target_version }}-linux.x86_64.zip"
+    godot_binary_name: "Godot_v{{ godot_target_version }}-stable_linux.x86_64"
+
+- name: "Godot | Check installed binary"
+  ansible.builtin.stat:
+    path: "{{ godot_install_dir }}/{{ godot_binary_name }}"
+  register: godot_binary_stat
+
+- name: "Godot | Install"
+  when: not godot_binary_stat.stat.exists
+  block:
+    - name: "Godot | Install dependencies"
+      ansible.builtin.apt:
+        name:
+          - unzip
+        state: present
+      become: true
+
+    - name: "Godot | Create installation directory"
+      ansible.builtin.file:
+        path: "{{ godot_install_dir }}"
+        state: directory
+        mode: "0755"
+      become: true
+
+    - name: "Godot | Remove previous download"
+      ansible.builtin.file:
+        path: "{{ godot_zip_path }}"
+        state: absent
+      become: true
+
+    - name: "Godot | Download archive"
+      ansible.builtin.get_url:
+        url: "https://downloads.godotengine.org/?version={{ godot_target_version }}&flavor=stable&slug=linux.x86_64.zip&platform=linux.64"
+        dest: "{{ godot_zip_path }}"
+        mode: "0644"
+        force: true
+      become: true
+
+    - name: "Godot | Extract archive"
+      ansible.builtin.unarchive:
+        src: "{{ godot_zip_path }}"
+        dest: "{{ godot_install_dir }}"
+        remote_src: true
+        creates: "{{ godot_install_dir }}/{{ godot_binary_name }}"
+      become: true
+
+    - name: "Godot | Ensure binary is executable"
+      ansible.builtin.file:
+        path: "{{ godot_install_dir }}/{{ godot_binary_name }}"
+        mode: "0755"
+      become: true
+
+- name: "Godot | Link launcher into PATH"
+  ansible.builtin.file:
+    src: "{{ godot_install_dir }}/{{ godot_binary_name }}"
+    dest: "/usr/local/bin/godot"
+    state: link
+    force: true
+  become: true

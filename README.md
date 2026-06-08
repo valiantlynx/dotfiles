@@ -74,7 +74,7 @@ dotfiles
 
 ### Disabled Roles (uncomment in `group_vars/all.yml`)
 
-1password, alacritty, arduino, asciiquarium, go, helm, k8s, k9s,
+1password, alacritty, arduino, asciiquarium, godot, go, helm, k8s, k9s,
 kitty, npm, ruby, rust, spotify, terraform, tldr, tmate, unity,
 unrealengine, waypaper, zellij, ros2
 
