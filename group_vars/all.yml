@@ -10,16 +10,16 @@ default_roles:
   - bluetooth
   - btop
   - docker
-  - eduvpn 
-  - flatpak
+  # - eduvpn 
+  # - flatpak
   - fonts
   - nerdfont
   - fzf
   - ghostty
   - gimp
   - git
-  #- godot
-  #- go
+  - godot
+  - go
   - iio-hyprland
   #- helm
   #- k8s
@@ -33,7 +33,7 @@ default_roles:
   - uv
   - nvidia
   - vivaldi
-  - chromium
+  # - chromium
   #- ros2
   #- waypaper
   #- kitty
@@ -65,7 +65,7 @@ default_roles:
   - tmux
   - yazi
   #- zellij
-  - logseq
+  #- logseq
   #- spotify
   - zoxide
 
