@@ -8,6 +8,7 @@
     godot_install_dir: "/opt/godot"
     godot_zip_path: "/tmp/godot-{{ godot_target_version }}-linux.x86_64.zip"
     godot_binary_name: "Godot_v{{ godot_target_version }}-stable_linux.x86_64"
+    godot_icon_path: "/usr/share/pixmaps/godot.svg"
 
 - name: "Godot | Check installed binary"
   ansible.builtin.stat:
@@ -64,6 +65,14 @@
     src: "{{ godot_install_dir }}/{{ godot_binary_name }}"
     dest: "/usr/local/bin/godot"
     state: link
+    force: true
+  become: true
+
+- name: "Godot | Download launcher icon"
+  ansible.builtin.get_url:
+    url: "https://godotengine.org/assets/logo_dark.svg"
+    dest: "{{ godot_icon_path }}"
+    mode: "0644"
     force: true
   become: true
 
