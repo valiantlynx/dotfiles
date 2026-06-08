@@ -66,3 +66,10 @@
     state: link
     force: true
   become: true
+
+- name: "Godot | Create desktop entry"
+  ansible.builtin.template:
+    src: godot.desktop.j2
+    dest: "/usr/share/applications/godot.desktop"
+    mode: "0644"
+  become: true
