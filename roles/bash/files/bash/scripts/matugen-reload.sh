@@ -30,15 +30,13 @@ if pgrep -x "Hyprland" > /dev/null; then
 fi
 
 # --- Ghostty ---
-# Ghostty supports SIGUSR2 to reload configuration without closing the app.
-# Update the config file for persistence, then signal the running app.
-if pgrep -x "ghostty" > /dev/null; then
-    GHOSTTY_CONF="$HOME/.config/ghostty/config"
-    MATUGEN_COLORS="/tmp/matugen-ghostty-colors.conf"
-    if [ -f "$MATUGEN_COLORS" ]; then
-        # 1) Update config file for persistence (new windows, restarts)
-        if [ -f "$GHOSTTY_CONF" ] && grep -q "MATUGEN_START" "$GHOSTTY_CONF"; then
-            python3 -c "
+# Persist the generated colors into Ghostty's config so new windows and future
+# launches pick them up. Do not signal the running process here because that is
+# closing Ghostty in this setup.
+GHOSTTY_CONF="$HOME/.config/ghostty/config"
+MATUGEN_COLORS="/tmp/matugen-ghostty-colors.conf"
+if [ -f "$MATUGEN_COLORS" ] && [ -f "$GHOSTTY_CONF" ] && grep -q "MATUGEN_START" "$GHOSTTY_CONF"; then
+    python3 -c "
 conf = '$GHOSTTY_CONF'
 colors = '$MATUGEN_COLORS'
 with open(conf, 'r') as f:
@@ -64,10 +62,6 @@ for line in lines:
 with open(conf, 'w') as f:
     f.writelines(new)
 " 2>/dev/null
-        fi
-        # 2) Reload Ghostty in place.
-        killall -SIGUSR2 ghostty 2>/dev/null || true
-    fi
 fi
 
 # --- Vivaldi ---
