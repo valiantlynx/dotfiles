@@ -70,7 +70,7 @@
 
 - name: "Godot | Download launcher icon"
   ansible.builtin.get_url:
-    url: "https://godotengine.org/assets/logo_dark.svg"
+    url: "https://godotengine.org/assets/press/icon_color.png"
     dest: "{{ godot_icon_path }}"
     mode: "0644"
     force: true
