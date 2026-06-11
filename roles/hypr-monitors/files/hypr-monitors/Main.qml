@@ -18,13 +18,90 @@ ApplicationWindow {
     property color bg: "#0c1017"
     property color panel: "#141a23"
     property color panelAlt: "#1a2230"
-    property color border: "#2b3648"
-    property color textStrong: "#edf3ff"
-    property color textSoft: "#a7b7cc"
-    property color accent: "#79a8ff"
-    property color accentSoft: "#223a68"
-    property color success: "#8fd19e"
-    property color danger: "#ff9a9a"
+    property color border: "#41474d"
+    property color borderActive: "#8b9198"
+    property color textStrong: "#e0e3e8"
+    property color textSoft: "#c1c7ce"
+    property color accent: "#96cdf8"
+    property color accentSoft: "#1c2024"
+    property color success: "#b7c9d9"
+    property color danger: "#ffb4ab"
+
+    component ChromeButton: Button {
+        id: control
+        implicitHeight: 36
+        implicitWidth: 88
+        contentItem: Text {
+            text: control.text
+            color: textStrong
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            font.pixelSize: 12
+            font.bold: true
+            opacity: control.enabled ? 1.0 : 0.45
+        }
+        background: Rectangle {
+            color: control.down ? panelAlt : panel
+            border.color: control.activeFocus ? borderActive : border
+            border.width: 1
+        }
+    }
+
+    component ChromeCombo: ComboBox {
+        id: control
+        implicitHeight: 36
+        contentItem: Text {
+            leftPadding: 10
+            rightPadding: 28
+            text: control.displayText
+            color: textStrong
+            verticalAlignment: Text.AlignVCenter
+            elide: Text.ElideRight
+            font.pixelSize: 12
+        }
+        background: Rectangle {
+            color: panel
+            border.color: control.activeFocus ? borderActive : border
+            border.width: 1
+        }
+        indicator: Text {
+            text: "v"
+            color: textSoft
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            font.pixelSize: 10
+        }
+        popup: Popup {
+            y: control.height
+            width: control.width
+            padding: 0
+            contentItem: ListView {
+                clip: true
+                implicitHeight: contentHeight
+                model: control.delegateModel
+                currentIndex: control.highlightedIndex
+            }
+            background: Rectangle {
+                color: panelAlt
+                border.color: border
+                border.width: 1
+            }
+        }
+        delegate: ItemDelegate {
+            width: control.width
+            contentItem: Text {
+                text: modelData
+                color: textStrong
+                verticalAlignment: Text.AlignVCenter
+                elide: Text.ElideRight
+                font.pixelSize: 12
+            }
+            background: Rectangle {
+                color: highlighted ? accentSoft : panelAlt
+            }
+        }
+    }
 
     function cloneData(data) {
         return JSON.parse(JSON.stringify(data))
@@ -32,6 +109,7 @@ ApplicationWindow {
 
     function loadState() {
         monitorState = cloneData(backend.monitors)
+        applyTheme()
         statusText = ""
         for (let i = 0; i < monitorState.length; i++) {
             if (monitorState[i].focused) {
@@ -46,6 +124,21 @@ ApplicationWindow {
         if (monitorState.length === 0)
             return null
         return monitorState[Math.max(0, Math.min(selectedIndex, monitorState.length - 1))]
+    }
+
+    function applyTheme() {
+        let t = backend.theme
+        bg = t.background || bg
+        panel = t.backgroundPanel || panel
+        panelAlt = t.backgroundElement || panelAlt
+        border = t.border || border
+        borderActive = t.borderActive || borderActive
+        textStrong = t.text || textStrong
+        textSoft = t.textMuted || textSoft
+        accent = t.primary || accent
+        accentSoft = t.backgroundElement || accentSoft
+        success = t.secondary || success
+        danger = t.error || danger
     }
 
     function bounds() {
@@ -114,6 +207,9 @@ ApplicationWindow {
         function onMonitorsChanged() {
             loadState()
         }
+        function onThemeChanged() {
+            applyTheme()
+        }
         function onApplyFinished(message, ok) {
             statusText = message
             statusOk = ok
@@ -136,7 +232,7 @@ ApplicationWindow {
                 Label {
                     text: "Hypr Monitors"
                     color: textStrong
-                    font.pixelSize: 23
+                    font.pixelSize: 18
                     font.bold: true
                 }
                 Label {
@@ -148,12 +244,12 @@ ApplicationWindow {
 
             Item { Layout.fillWidth: true }
 
-            Button {
+            ChromeButton {
                 text: "Refresh"
                 onClicked: backend.refresh()
             }
 
-            Button {
+            ChromeButton {
                 text: "Apply"
                 enabled: monitorState.length > 0
                 onClicked: backend.apply(JSON.stringify(monitorState))
@@ -170,14 +266,13 @@ ApplicationWindow {
         Rectangle {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            radius: 24
             color: panel
             border.color: border
 
             Item {
                 id: preview
                 anchors.fill: parent
-                anchors.margins: 22
+                anchors.margins: 14
 
                 readonly property var layoutBounds: bounds()
                 readonly property real layoutWidth: Math.max(1, layoutBounds.maxX - layoutBounds.minX)
@@ -188,21 +283,7 @@ ApplicationWindow {
 
                 Rectangle {
                     anchors.fill: parent
-                    radius: 18
                     color: panelAlt
-                }
-
-                Repeater {
-                    model: 260
-                    delegate: Rectangle {
-                        width: 2
-                        height: 2
-                        radius: 1
-                        color: "#253246"
-                        x: 16 + (index % 20) * ((preview.width - 32) / 20)
-                        y: 16 + Math.floor(index / 20) * ((preview.height - 32) / 13)
-                        opacity: 0.35
-                    }
                 }
 
                 Repeater {
@@ -215,16 +296,14 @@ ApplicationWindow {
                         height: (modelData.height / modelData.scale) * preview.dynamicScale
                         x: modelData.layoutX * preview.dynamicScale + preview.offsetX
                         y: modelData.layoutY * preview.dynamicScale + preview.offsetY
-                        radius: 16
                         color: index === selectedIndex ? accentSoft : "#243041"
                         border.width: index === selectedIndex ? 2 : 1
-                        border.color: index === selectedIndex ? accent : "#44546a"
+                        border.color: index === selectedIndex ? accent : border
                         z: index === selectedIndex ? 2 : 1
 
                         Rectangle {
                             anchors.fill: parent
-                            anchors.margins: 10
-                            radius: 10
+                            anchors.margins: 6
                             color: "#0f1520"
                         }
 
@@ -262,7 +341,6 @@ ApplicationWindow {
         Rectangle {
             Layout.preferredWidth: 360
             Layout.fillHeight: true
-            radius: 24
             color: panel
             border.color: border
 
@@ -274,7 +352,6 @@ ApplicationWindow {
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.preferredHeight: 84
-                    radius: 16
                     color: panelAlt
                     border.color: border
 
@@ -302,7 +379,7 @@ ApplicationWindow {
                     color: textSoft
                 }
 
-                ComboBox {
+                ChromeCombo {
                     Layout.fillWidth: true
                     model: monitorState.map(m => m.name)
                     currentIndex: selectedIndex
@@ -314,7 +391,7 @@ ApplicationWindow {
                     color: textSoft
                 }
 
-                ComboBox {
+                ChromeCombo {
                     Layout.fillWidth: true
                     model: selectedMonitor() ? selectedMonitor().availableModes.map(m => m.label) : []
                     onActivated: {
@@ -357,7 +434,7 @@ ApplicationWindow {
                         text: "Transform"
                         color: textSoft
                     }
-                    ComboBox {
+                    ChromeCombo {
                         Layout.fillWidth: true
                         model: ["0", "1", "2", "3", "4", "5", "6", "7"]
                         currentIndex: selectedMonitor() ? selectedMonitor().transform : 0
@@ -374,7 +451,6 @@ ApplicationWindow {
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.preferredHeight: 90
-                    radius: 16
                     color: panelAlt
                     border.color: border
 
@@ -398,12 +474,12 @@ ApplicationWindow {
 
                 RowLayout {
                     Layout.fillWidth: true
-                    Button {
+                    ChromeButton {
                         text: "Reset"
                         Layout.fillWidth: true
                         onClicked: loadState()
                     }
-                    Button {
+                    ChromeButton {
                         text: "Snap"
                         Layout.fillWidth: true
                         enabled: monitorState.length > 1

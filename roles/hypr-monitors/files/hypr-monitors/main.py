@@ -11,6 +11,7 @@ from PySide6.QtQml import QQmlApplicationEngine
 
 
 APP_DIR = Path(__file__).resolve().parent
+MATUGEN_THEME_PATH = Path.home() / ".config" / "opencode" / "themes" / "matugen.json"
 
 
 def run_json(*args):
@@ -21,18 +22,54 @@ def run_json(*args):
 class Backend(QObject):
     monitorsChanged = Signal()
     applyFinished = Signal(str, bool)
+    themeChanged = Signal()
 
     def __init__(self):
         super().__init__()
         self._monitors = []
+        self._theme = self._load_theme()
         self.refresh()
 
     @Property("QVariantList", notify=monitorsChanged)
     def monitors(self):
         return self._monitors
 
+    @Property("QVariantMap", notify=themeChanged)
+    def theme(self):
+        return self._theme
+
+    def _load_theme(self):
+        fallback = {
+            "background": "#0c1017",
+            "backgroundPanel": "#141a23",
+            "backgroundElement": "#1a2230",
+            "border": "#41474d",
+            "borderActive": "#8b9198",
+            "text": "#e0e3e8",
+            "textMuted": "#c1c7ce",
+            "primary": "#96cdf8",
+            "secondary": "#b7c9d9",
+            "accent": "#cfc0e8",
+            "error": "#ffb4ab",
+        }
+        if not MATUGEN_THEME_PATH.exists():
+            return fallback
+        try:
+            data = json.loads(MATUGEN_THEME_PATH.read_text())
+            defs = data.get("defs", {})
+            theme = data.get("theme", {})
+            resolved = {}
+            for key, value in fallback.items():
+                theme_key = theme.get(key, key)
+                resolved[key] = defs.get(theme_key, theme.get(key, value))
+            return resolved
+        except Exception:
+            return fallback
+
     @Slot()
     def refresh(self):
+        self._theme = self._load_theme()
+        self.themeChanged.emit()
         try:
             data = run_json("hyprctl", "monitors", "-j")
         except Exception:
