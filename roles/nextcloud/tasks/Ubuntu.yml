@@ -1,0 +1,72 @@
+---
+- name: "Nextcloud | Set target version"
+  ansible.builtin.set_fact:
+    nextcloud_version: "33.0.5"
+    nextcloud_download_url: "https://github.com/nextcloud-releases/desktop/releases/download/v33.0.5/Nextcloud-33.0.5-x86_64.AppImage"
+    nextcloud_checksum: "sha256:a92558464f50e5c894072cb3054d755d0f063390749223c0f9bebada2be5af8a"
+
+- name: "Nextcloud | Define install paths"
+  ansible.builtin.set_fact:
+    nextcloud_install_dir: "/opt/nextcloud"
+    nextcloud_appimage_path: "/opt/nextcloud/Nextcloud.AppImage"
+    nextcloud_icon_path: "/usr/share/pixmaps/nextcloud.png"
+    nextcloud_fuse_package: "{{ 'libfuse2t64' if ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('24.04', '>=') else 'libfuse2' }}"
+
+- name: "Nextcloud | Install runtime dependency"
+  ansible.builtin.apt:
+    name: "{{ nextcloud_fuse_package }}"
+    state: present
+  become: true
+
+- name: "Nextcloud | Create installation directory"
+  ansible.builtin.file:
+    path: "{{ nextcloud_install_dir }}"
+    state: directory
+    mode: "0755"
+  become: true
+
+- name: "Nextcloud | Download AppImage"
+  ansible.builtin.get_url:
+    url: "{{ nextcloud_download_url }}"
+    dest: "{{ nextcloud_appimage_path }}"
+    checksum: "{{ nextcloud_checksum }}"
+    mode: "0755"
+  become: true
+
+- name: "Nextcloud | Create temporary extraction directory"
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: nextcloud-icon
+  register: nextcloud_extract_dir
+  changed_when: false
+
+- name: "Nextcloud | Extract launcher icon from AppImage"
+  ansible.builtin.command:
+    argv:
+      - "{{ nextcloud_appimage_path }}"
+      - --appimage-extract
+      - usr/share/icons/hicolor/512x512/apps/Nextcloud.png
+  args:
+    chdir: "{{ nextcloud_extract_dir.path }}"
+  changed_when: false
+
+- name: "Nextcloud | Install launcher icon"
+  ansible.builtin.copy:
+    src: "{{ nextcloud_extract_dir.path }}/squashfs-root/usr/share/icons/hicolor/512x512/apps/Nextcloud.png"
+    dest: "{{ nextcloud_icon_path }}"
+    remote_src: true
+    mode: "0644"
+  become: true
+
+- name: "Nextcloud | Remove temporary extraction directory"
+  ansible.builtin.file:
+    path: "{{ nextcloud_extract_dir.path }}"
+    state: absent
+  changed_when: false
+
+- name: "Nextcloud | Create desktop entry"
+  ansible.builtin.template:
+    src: nextcloud.desktop.j2
+    dest: "/usr/share/applications/nextcloud.desktop"
+    mode: "0644"
+  become: true

@@ -68,7 +68,7 @@ dotfiles
 | Desktop (Wayland) | hyprland, waybar, rofi, swaync, swayosd, swww, iio-hyprland |
 | GPU | nvidia |
 | Network | eduvpn, bluetooth |
-| Apps | blender, gimp, logseq |
+| Apps | blender, gimp, logseq, nextcloud |
 | Fonts | fonts, nerdfont |
 | System | system (jq, unzip, curl, etc.) |
 
