@@ -32,6 +32,7 @@
     checksum: "{{ nextcloud_checksum }}"
     mode: "0755"
   become: true
+  when: not ansible_check_mode
 
 - name: "Nextcloud | Create temporary extraction directory"
   ansible.builtin.tempfile:
@@ -39,6 +40,7 @@
     suffix: nextcloud-icon
   register: nextcloud_extract_dir
   changed_when: false
+  when: not ansible_check_mode
 
 - name: "Nextcloud | Extract launcher icon from AppImage"
   ansible.builtin.command:
@@ -49,6 +51,7 @@
   args:
     chdir: "{{ nextcloud_extract_dir.path }}"
   changed_when: false
+  when: not ansible_check_mode
 
 - name: "Nextcloud | Install launcher icon"
   ansible.builtin.copy:
@@ -57,12 +60,14 @@
     remote_src: true
     mode: "0644"
   become: true
+  when: not ansible_check_mode
 
 - name: "Nextcloud | Remove temporary extraction directory"
   ansible.builtin.file:
     path: "{{ nextcloud_extract_dir.path }}"
     state: absent
   changed_when: false
+  when: not ansible_check_mode
 
 - name: "Nextcloud | Create desktop entry"
   ansible.builtin.template:
