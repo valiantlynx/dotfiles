@@ -1,0 +1,34 @@
+---
+- name: "Bitwarden | Define package details"
+  ansible.builtin.set_fact:
+    bitwarden_deb_path: "/tmp/bitwarden-desktop-{{ ansible_machine | replace('x86_64', 'amd64') | replace('aarch64', 'arm64') }}.deb"
+
+- name: "Bitwarden | Remove previous download"
+  ansible.builtin.file:
+    path: "{{ bitwarden_deb_path }}"
+    state: absent
+  become: true
+
+- name: "Bitwarden | Download desktop package"
+  ansible.builtin.get_url:
+    url: "https://bitwarden.com/download/?app=desktop&platform=linux&variant=deb"
+    dest: "{{ bitwarden_deb_path }}"
+    mode: "0644"
+    force: true
+  become: true
+  when: not ansible_check_mode
+
+- name: "Bitwarden | Install desktop package"
+  ansible.builtin.apt:
+    deb: "{{ bitwarden_deb_path }}"
+    state: present
+    update_cache: true
+  become: true
+  when: not ansible_check_mode
+
+- name: "Bitwarden | Remove downloaded package"
+  ansible.builtin.file:
+    path: "{{ bitwarden_deb_path }}"
+    state: absent
+  become: true
+  when: not ansible_check_mode
